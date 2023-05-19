@@ -3,17 +3,15 @@ import { Pressable, Text, View, StyleSheet } from "react-native";
 import { Link, SplashScreen, Stack } from "expo-router";
 import { colors } from "../utils/colors";
 
-interface HomeProps {}
-
-const Home: FunctionComponent<HomeProps> = () => {
+const Home: FunctionComponent = () => {
   const [isReady, setReady] = useState(false);
 
   useEffect(() => {
-    // Perform some sort of async data or asset fetching.
     setTimeout(() => {
       setReady(true);
     }, 1000);
   }, []);
+
   return (
     <View style={styles.container}>
       {!isReady && <SplashScreen />}
