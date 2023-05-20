@@ -5,10 +5,12 @@ import {
   View,
   StyleSheet,
   ScrollView,
-  TextInput,
+  // TextInput,
 } from "react-native";
+import { Button, TextInput, useTheme } from "react-native-paper";
 import { spacing } from "../utils/spacing";
 import { colors } from "../utils/colors";
+import { Controller, useForm } from "react-hook-form";
 
 interface ShoppingListProps {}
 
@@ -25,34 +27,41 @@ const dummyItems: ShoppingListItemType[] = [
 
 const ShoppingList: FunctionComponent<ShoppingListProps> = () => {
   const [items, setItems] = useState(dummyItems);
-  const [name, setName] = useState<string>();
-  const [qty, setQty] = useState<string>();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+    },
+  });
+  const onSubmit = (data) => console.log(data);
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.addItemContainer}>
-        <TextInput
-          placeholder="item name"
-          style={styles.input}
-          onChangeText={setName}
-          value={name}
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput onBlur={onBlur} onChangeText={onChange} value={value} />
+          )}
+          name="firstName"
         />
-        <TextInput
-          placeholder="amount"
-          style={styles.input}
-          onChangeText={setQty}
-          value={qty}
-          keyboardType="numeric"
-        />
-        <Pressable>Add</Pressable>
+        {errors.firstName && <Text>This is required.</Text>}
+        <Button onPress={handleSubmit(onSubmit)}>Submit</Button>
       </View>
       <View style={styles.itemsContainer}>
         {items.map((item) => (
           <Pressable style={styles.listItem}>
             <Text>{item.name}</Text>
             <View style={styles.itemActionsContainer}>
-              <Pressable>Delete</Pressable>
+              {/* <Pressable>Delete</Pressable>
               <Pressable>Add to Fridge</Pressable>
-              <Pressable>Add to Diary</Pressable>
+              <Pressable>Add to Diary</Pressable> */}
             </View>
           </Pressable>
         ))}
@@ -83,14 +92,9 @@ const styles = StyleSheet.create({
     gap: spacing.spacing8,
   },
   addItemContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
+    // flexDirection: "row",
+    // flexWrap: "wrap",
     gap: spacing.spacing16,
     marginVertical: spacing.spacing16,
-  },
-  input: {
-    height: 40,
-    borderWidth: 1,
-    padding: 10,
   },
 });
