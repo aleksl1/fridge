@@ -1,39 +1,12 @@
-import { FunctionComponent, useState } from "react";
-import {
-  Pressable,
-  View,
-  StyleSheet,
-  ScrollView,
-  // TextInput,
-} from "react-native";
-import {
-  Button,
-  TextInput,
-  useTheme,
-  Text,
-  Divider,
-  List,
-} from "react-native-paper";
-import { spacing } from "../utils/spacing";
-import { colors } from "../utils/colors";
-import { Controller, useForm } from "react-hook-form";
+import { FunctionComponent, useContext } from "react";
+import { ScrollView, StyleSheet } from "react-native";
+import { Divider, List, Text } from "react-native-paper";
 import AddItemForm from "../src/AddItemForm";
+import { ShoppingListCtx } from "../store/shoppingListCtx";
+import { spacing } from "../utils/spacing";
 
-interface ShoppingListProps {}
-
-type ShoppingListItemType = {
-  name: string;
-  qty: number;
-};
-
-const dummyItems: ShoppingListItemType[] = [
-  { name: "chickem", qty: 1 },
-  { name: "banana", qty: 5 },
-  { name: "coke zero", qty: 3 },
-];
-
-const ShoppingList: FunctionComponent<ShoppingListProps> = () => {
-  const [items, setItems] = useState(dummyItems);
+const ShoppingList: FunctionComponent = () => {
+  const { items } = useContext(ShoppingListCtx);
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text variant="titleMedium">Add new item to list:</Text>
@@ -42,6 +15,7 @@ const ShoppingList: FunctionComponent<ShoppingListProps> = () => {
       <Text variant="titleMedium">Pick from your items:</Text>
       {items.map((item) => (
         <List.Item
+          key={item.name}
           title={item.name}
           left={(props) => <List.Icon {...props} icon="circle" />}
         />
@@ -50,8 +24,9 @@ const ShoppingList: FunctionComponent<ShoppingListProps> = () => {
       <Text variant="titleMedium">Your shopping list:</Text>
       {items.map((item) => (
         <List.Item
+          key={item.name}
           title={item.name}
-          description={`amount: ${item.qty}`}
+          description={`amount: ${item.quantity}`}
           left={(props) => <List.Icon {...props} icon="circle" />}
         />
       ))}

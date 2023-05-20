@@ -1,24 +1,32 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useContext } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Button, TextInput, Text, HelperText } from "react-native-paper";
 import { View, StyleSheet } from "react-native";
 import { spacing } from "../utils/spacing";
+import { ShoppingListCtx } from "../store/shoppingListCtx";
 
-interface AddItemFormProps {}
+type AddItemForm = {
+  name: string;
+  quantity: string;
+};
 
-const AddItemForm: FunctionComponent<AddItemFormProps> = () => {
+const AddItemForm: FunctionComponent = () => {
+  const { addItem } = useContext(ShoppingListCtx);
   const {
     control,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm({
+  } = useForm<AddItemForm>({
     defaultValues: {
       name: "",
       quantity: "",
     },
   });
-  const onSubmit = (data) => reset();
+  const onSubmit = (data: AddItemForm) => {
+    addItem({ name: data.name, quantity: Number(data.quantity) });
+    reset();
+  };
   return (
     <View style={styles.container}>
       <Controller
@@ -65,8 +73,6 @@ export default AddItemForm;
 
 const styles = StyleSheet.create({
   container: {
-    // flexDirection: "row",
-    // flexWrap: "wrap",
     gap: spacing.spacing16,
     marginVertical: spacing.spacing16,
   },
