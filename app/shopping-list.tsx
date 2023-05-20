@@ -5,8 +5,9 @@ import {
   View,
   StyleSheet,
   ScrollView,
-  TextInput,
+  // TextInput,
 } from "react-native";
+import { TextInput, useTheme } from "react-native-paper";
 import { spacing } from "../utils/spacing";
 import { colors } from "../utils/colors";
 
@@ -27,32 +28,37 @@ const ShoppingList: FunctionComponent<ShoppingListProps> = () => {
   const [items, setItems] = useState(dummyItems);
   const [name, setName] = useState<string>();
   const [qty, setQty] = useState<string>();
+  const {
+    colors: { primary },
+  } = useTheme();
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.addItemContainer}>
         <TextInput
           placeholder="item name"
-          style={styles.input}
           onChangeText={setName}
           value={name}
+          mode="outlined"
         />
         <TextInput
           placeholder="amount"
-          style={styles.input}
           onChangeText={setQty}
           value={qty}
           keyboardType="numeric"
+          mode="outlined"
         />
-        <Pressable>Add</Pressable>
+        <Pressable style={{ backgroundColor: primary }}>
+          <Text>add</Text>
+        </Pressable>
       </View>
       <View style={styles.itemsContainer}>
         {items.map((item) => (
           <Pressable style={styles.listItem}>
             <Text>{item.name}</Text>
             <View style={styles.itemActionsContainer}>
-              <Pressable>Delete</Pressable>
+              {/* <Pressable>Delete</Pressable>
               <Pressable>Add to Fridge</Pressable>
-              <Pressable>Add to Diary</Pressable>
+              <Pressable>Add to Diary</Pressable> */}
             </View>
           </Pressable>
         ))}
@@ -87,10 +93,5 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     gap: spacing.spacing16,
     marginVertical: spacing.spacing16,
-  },
-  input: {
-    height: 40,
-    borderWidth: 1,
-    padding: 10,
   },
 });
