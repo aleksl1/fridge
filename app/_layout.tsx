@@ -1,16 +1,23 @@
 import { FunctionComponent } from "react";
 import { Stack } from "expo-router";
 import { View, Platform, StyleSheet } from "react-native";
+import AppWrapper from "../src/AppWrapper";
 interface LayoutProps {}
 
 const Layout: FunctionComponent<LayoutProps> = () => {
   if (Platform.OS === "web")
     return (
-      <View style={styles.webContainer}>
-        <Stack />
-      </View>
+      <AppWrapper>
+        <View style={styles.webContainer}>
+          <Stack />
+        </View>
+      </AppWrapper>
     );
-  return <Stack />;
+  return (
+    <AppWrapper>
+      <Stack />
+    </AppWrapper>
+  );
 };
 
 export default Layout;
