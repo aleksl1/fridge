@@ -7,9 +7,10 @@ import {
   ScrollView,
   // TextInput,
 } from "react-native";
-import { TextInput, useTheme } from "react-native-paper";
+import { Button, TextInput, useTheme } from "react-native-paper";
 import { spacing } from "../utils/spacing";
 import { colors } from "../utils/colors";
+import { Controller, useForm } from "react-hook-form";
 
 interface ShoppingListProps {}
 
@@ -26,30 +27,32 @@ const dummyItems: ShoppingListItemType[] = [
 
 const ShoppingList: FunctionComponent<ShoppingListProps> = () => {
   const [items, setItems] = useState(dummyItems);
-  const [name, setName] = useState<string>();
-  const [qty, setQty] = useState<string>();
   const {
-    colors: { primary },
-  } = useTheme();
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+    },
+  });
+  const onSubmit = (data) => console.log(data);
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.addItemContainer}>
-        <TextInput
-          placeholder="item name"
-          onChangeText={setName}
-          value={name}
-          mode="outlined"
+        <Controller
+          control={control}
+          rules={{
+            required: true,
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <TextInput onBlur={onBlur} onChangeText={onChange} value={value} />
+          )}
+          name="firstName"
         />
-        <TextInput
-          placeholder="amount"
-          onChangeText={setQty}
-          value={qty}
-          keyboardType="numeric"
-          mode="outlined"
-        />
-        <Pressable style={{ backgroundColor: primary }}>
-          <Text>add</Text>
-        </Pressable>
+        {errors.firstName && <Text>This is required.</Text>}
+        <Button onPress={handleSubmit(onSubmit)}>Submit</Button>
       </View>
       <View style={styles.itemsContainer}>
         {items.map((item) => (
@@ -89,8 +92,8 @@ const styles = StyleSheet.create({
     gap: spacing.spacing8,
   },
   addItemContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
+    // flexDirection: "row",
+    // flexWrap: "wrap",
     gap: spacing.spacing16,
     marginVertical: spacing.spacing16,
   },
