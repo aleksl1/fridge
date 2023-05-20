@@ -4,9 +4,9 @@ import {
   PaperProvider,
 } from "react-native-paper";
 import ShoppingListProvider from "../store/shoppingListCtx";
-interface AppWrapperProps {
+type AppWrapperProps = {
   children: ReactElement;
-}
+};
 
 const theme = {
   ...DefaultTheme,

@@ -1,7 +1,6 @@
 import { FunctionComponent } from "react";
 import { Stack } from "expo-router";
 import { View, Platform, StyleSheet } from "react-native";
-import ShoppingListProvider from "../store/shoppingListCtx";
 import AppWrapper from "../src/AppWrapper";
 interface LayoutProps {}
 
