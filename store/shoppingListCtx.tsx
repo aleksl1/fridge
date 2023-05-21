@@ -1,19 +1,28 @@
-import {
-  FunctionComponent,
-  ReactNode,
-  createContext,
-  useEffect,
-  useState,
-} from "react";
+import { FunctionComponent, createContext, useState } from "react";
+import { defaultItems } from "../utils/dummyData";
 
-type ItemAction = (item: ShoppingListItemType) => void;
+export type ItemStatus =
+  | "shoppingList"
+  | "fridge"
+  | "foodDiary"
+  | "itemLibrary";
+
+export type ListItemType = {
+  name: string;
+  quantity: number;
+  status: ItemStatus;
+};
+
+type ItemAction = (item: ListItemType) => void;
+
+type ItemAmountAction = (item: ListItemType, value?: number) => void;
 
 type ShoppingListCtxType = {
-  items: ShoppingListItemType[] | [];
+  items: ListItemType[] | [];
   addItem: ItemAction;
   removeItem: ItemAction;
-  increment: ItemAction;
-  decrement: ItemAction;
+  increment: ItemAmountAction;
+  decrement: ItemAmountAction;
   total: number;
 };
 
@@ -21,26 +30,8 @@ type ShoppingListProviderProps = {
   children: JSX.Element;
 };
 
-export type ShoppingListItemType = {
-  name: string;
-  quantity: number;
-};
-
 const defaultValue: ShoppingListCtxType = {
-  items: [
-    {
-      name: "banana",
-      quantity: 4,
-    },
-    {
-      name: "apple",
-      quantity: 1,
-    },
-    {
-      name: "pineapple",
-      quantity: 11,
-    },
-  ],
+  items: defaultItems,
   addItem: (item) => {},
   removeItem: (item) => {},
   increment: (item) => {},
@@ -53,35 +44,40 @@ export const ShoppingListCtx = createContext<ShoppingListCtxType>(defaultValue);
 const ShoppingListProvider: FunctionComponent<ShoppingListProviderProps> = ({
   children,
 }) => {
-  const [items, setItems] = useState<ShoppingListItemType[]>(
-    defaultValue.items
-  );
+  const [items, setItems] = useState<ListItemType[]>(defaultValue.items);
   const [total, setTotal] = useState<number>(0);
   const addItem: ItemAction = (item) => {
     setItems((prevState) => [...prevState, item]);
     calculateTotal();
   };
+
+  const filterByName = (item: ListItemType): ListItemType[] =>
+    items.filter((i) =>
+      i.status === item.status ? i.name !== item.name : item
+    );
+  const findIndexByName = (item: ListItemType): number =>
+    items.findIndex((i) => i.status === item.status && i.name === item.name);
+
   const removeItem: ItemAction = (item) => {
-    const newItems = items.filter((i) => i.name !== item.name);
+    const newItems = filterByName(item);
     setItems(newItems);
     calculateTotal();
   };
-  const increment: ItemAction = (item) => {
+  const increment: ItemAmountAction = (item, value = 1) => {
+    const itemIndex = findIndexByName(item);
     const newItems = items;
-    const itemIndex = newItems.findIndex((i) => i.name === item.name);
-    newItems[itemIndex].quantity = newItems[itemIndex].quantity + 1;
-    console.log("incr", newItems, itemIndex);
+    newItems[itemIndex].quantity = newItems[itemIndex].quantity + value;
     setItems(newItems);
     calculateTotal();
   };
-  const decrement: ItemAction = (item) => {
+  const decrement: ItemAmountAction = (item, value = 1) => {
+    const itemIndex = findIndexByName(item);
     let newItems = items;
-    const itemIndex = newItems.findIndex((i) => i.name === item.name);
-    if (newItems[itemIndex].quantity === 1) {
-      newItems = items.filter((i) => i.name !== item.name);
+    if (newItems[itemIndex].quantity <= value) {
+      removeItem(item);
+      return;
     } else {
-      newItems[itemIndex].quantity = newItems[itemIndex].quantity - 1;
-      console.log("dec", newItems, itemIndex);
+      newItems[itemIndex].quantity = newItems[itemIndex].quantity - value;
     }
     setItems(newItems);
     calculateTotal();

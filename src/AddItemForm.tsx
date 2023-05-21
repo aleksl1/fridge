@@ -24,7 +24,11 @@ const AddItemForm: FunctionComponent = () => {
     },
   });
   const onSubmit = (data: AddItemForm) => {
-    addItem({ name: data.name, quantity: Number(data.quantity) });
+    addItem({
+      name: data.name,
+      quantity: Number(data.quantity),
+      status: "shoppingList",
+    });
     reset();
   };
   return (

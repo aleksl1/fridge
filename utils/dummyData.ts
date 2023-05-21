@@ -1,3 +1,5 @@
+import { ListItemType } from "../store/shoppingListCtx"
+
 export const productsLibrary = [
   {
     "name": "Chleb pełnoziarnisty",
@@ -71,3 +73,51 @@ export const productsLibrary = [
     "name": "Jabłka",
     "makro": {"b": 0, "t": 0, "w": 14}
   }]
+
+export const defaultItems: ListItemType[] = [
+  {
+    name: "banana",
+    quantity: 4,
+    status: "fridge",
+  },
+  {
+    name: "apple",
+    quantity: 1,
+    status: "shoppingList",
+  },
+  {
+    name: "pineapple",
+    quantity: 11,
+    status: "fridge",
+  },
+  {
+    name: "milk",
+    quantity: 4,
+    status: "shoppingList",
+  },
+  {
+    name: "juice",
+    quantity: 1,
+    status: "fridge",
+  },
+  {
+    name: "water",
+    quantity: 11,
+    status: "shoppingList",
+  },
+  {
+    name: "water",
+    quantity: 2,
+    status: "foodDiary",
+  },
+  {
+    name: "chicken",
+    quantity: 1,
+    status: "foodDiary",
+  },
+  {
+    name: "lemon",
+    quantity: 11,
+    status: "foodDiary",
+  },
+]
