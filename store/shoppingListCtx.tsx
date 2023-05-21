@@ -1,10 +1,4 @@
-import {
-  FunctionComponent,
-  ReactNode,
-  createContext,
-  useEffect,
-  useState,
-} from "react";
+import { FunctionComponent, createContext, useState } from "react";
 
 type ItemAction = (item: ShoppingListItemType) => void;
 
