@@ -25,12 +25,13 @@ export type ItemAction = (item: ListItemType) => void;
 export type ItemAmountAction = (item: ListItemType, value?: number) => void;
 
 export type ItemListCtxType = {
-  items: ListItemType[] | [];
+  items: ListItemType[];
   addItem: ItemAction;
   removeItem: ItemAction;
   increment: ItemAmountAction;
   decrement: ItemAmountAction;
   total: number;
+  itemExists: (item: ListItemType) => boolean
 };
 
 export type ItemListProviderProps = {

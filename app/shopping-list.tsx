@@ -1,18 +1,34 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useState } from "react";
 import ItemList from "../src/ItemsList";
 import globalStyles from "../utils/globalStyles";
 import { ScrollView } from "react-native";
-import { Divider, Text } from "react-native-paper";
+import { Button, Divider, Text } from "react-native-paper";
 import AddItemForm from "../src/AddItemForm";
+import ItemsLibrary from "../src/ItemsLibrary";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const ShoppingList: FunctionComponent = () => {
+  const [visible, setVisible] = useState(false);
+
+  const showModal = () => setVisible(true);
+  const hideModal = () => setVisible(false);
   return (
     <ScrollView contentContainerStyle={globalStyles.listContainer}>
-      {/* <Text variant="titleMedium">Add new item to list:</Text>
-      <AddItemForm />
-      <Divider bold horizontalInset /> */}
+      <Button
+        onPress={showModal}
+        mode="contained-tonal"
+        icon={() => <Icon name="magnify-plus-outline" size={41} />}
+        contentStyle={{
+          padding: 4,
+          gap: 32,
+          alignSelf: "flex-start",
+        }}
+      >
+        <Text variant="titleLarge">Add new item</Text>
+      </Button>
       <Text variant="titleMedium">Your shopping list:</Text>
       <ItemList type="shoppingList" />
+      <ItemsLibrary visible={visible} hideModal={hideModal} />
     </ScrollView>
   );
 };
