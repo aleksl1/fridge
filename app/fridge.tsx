@@ -1,24 +1,18 @@
 import { FunctionComponent } from "react";
-import { ScrollView, StyleSheet } from "react-native";
+import ItemList from "../src/ItemsList";
+import { ScrollView } from "react-native";
+import globalStyles from "../utils/globalStyles";
 import { Text } from "react-native-paper";
-import { spacing } from "../utils/spacing";
 
 interface FridgeProps {}
 
 const Fridge: FunctionComponent<FridgeProps> = () => {
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView contentContainerStyle={globalStyles.listContainer}>
       <Text variant="titleMedium">Your fridge:</Text>
+      <ItemList type="fridge" />
     </ScrollView>
   );
 };
 
 export default Fridge;
-
-const styles = StyleSheet.create({
-  container: {
-    margin: spacing.spacing16,
-    gap: spacing.spacing16,
-    paddingBottom: spacing.spacing16,
-  },
-});
