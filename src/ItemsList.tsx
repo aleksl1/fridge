@@ -9,11 +9,8 @@ import {
   Portal,
   useTheme,
 } from "react-native-paper";
-import {
-  ItemStatus,
-  ListItemType,
-  ShoppingListCtx,
-} from "../store/shoppingListCtx";
+import { ItemStatus, ListItemType } from "../store/ItemList.types";
+import { ItemListCtx } from "../store/ItemListCtx";
 
 type PressedItemType = ListItemType & { max: number };
 
@@ -23,7 +20,7 @@ type ItemListProps = {
 
 const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
   const { items, increment, decrement, removeItem, total, addItem } =
-    useContext(ShoppingListCtx);
+    useContext(ItemListCtx);
   const [visible, setVisible] = useState(false);
   const [pressedItem, setPressedItem] = useState<PressedItemType>({
     name: "",

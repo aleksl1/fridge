@@ -8,9 +8,9 @@ import AddItemForm from "../src/AddItemForm";
 const ShoppingList: FunctionComponent = () => {
   return (
     <ScrollView contentContainerStyle={globalStyles.listContainer}>
-      <Text variant="titleMedium">Add new item to list:</Text>
+      {/* <Text variant="titleMedium">Add new item to list:</Text>
       <AddItemForm />
-      <Divider bold horizontalInset />
+      <Divider bold horizontalInset /> */}
       <Text variant="titleMedium">Your shopping list:</Text>
       <ItemList type="shoppingList" />
     </ScrollView>

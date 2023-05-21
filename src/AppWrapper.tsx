@@ -3,7 +3,8 @@ import {
   MD3LightTheme as DefaultTheme,
   PaperProvider,
 } from "react-native-paper";
-import ShoppingListProvider from "../store/shoppingListCtx";
+import ItemListProvider from "../store/ItemListCtx";
+
 type AppWrapperProps = {
   children: ReactElement;
 };
@@ -56,9 +57,9 @@ export const theme = {
 
 const AppWrapper: FunctionComponent<AppWrapperProps> = ({ children }) => {
   return (
-    <ShoppingListProvider>
+    <ItemListProvider>
       <PaperProvider theme={theme}>{children}</PaperProvider>
-    </ShoppingListProvider>
+    </ItemListProvider>
   );
 };
 
