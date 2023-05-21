@@ -1,5 +1,4 @@
 import { FunctionComponent, createContext, useState } from "react";
-import { defaultItems } from "../utils/dummyData";
 import {
   ItemAction,
   ItemAmountAction,
@@ -9,12 +8,13 @@ import {
 } from "./ItemList.types";
 
 const defaultValue: ItemListCtxType = {
-  items: defaultItems,
+  items: [],
   addItem: (item) => {},
   removeItem: (item) => {},
   increment: (item) => {},
   decrement: (item) => {},
   total: 0,
+  itemExists: (item) => false,
 };
 
 export const ItemListCtx = createContext<ItemListCtxType>(defaultValue);
@@ -25,10 +25,23 @@ const ItemListProvider: FunctionComponent<ItemListProviderProps> = ({
   const [items, setItems] = useState<ListItemType[]>(defaultValue.items);
   const [total, setTotal] = useState<number>(0);
   const addItem: ItemAction = (item) => {
-    setItems((prevState) => [...prevState, item]);
+    if (itemExists(item)) {
+      const itemIndex = findIndexByName(item);
+      const newItems = [...items];
+      newItems[itemIndex].quantity = newItems[itemIndex].quantity + 1;
+    } else {
+      setItems((prevState) => [...prevState, item]);
+    }
     calculateTotal();
   };
-
+  const itemExists = (item: ListItemType): boolean => {
+    const itemExists = items.find((existingItem) => {
+      return (
+        existingItem.name === item.name && existingItem.status === item.status
+      );
+    });
+    return Boolean(itemExists);
+  };
   const filterByName = (item: ListItemType): ListItemType[] =>
     items.filter((i) =>
       i.status === item.status ? i.name !== item.name : item
@@ -76,6 +89,7 @@ const ItemListProvider: FunctionComponent<ItemListProviderProps> = ({
         increment,
         decrement,
         total,
+        itemExists,
       }}
     >
       {children}
