@@ -1,30 +1,60 @@
+import { Tabs } from "expo-router";
 import { FunctionComponent } from "react";
-import { Stack } from "expo-router";
-import { View, Platform, StyleSheet } from "react-native";
-import AppWrapper from "../src/AppWrapper";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import AppWrapper, { theme } from "../src/AppWrapper";
 interface LayoutProps {}
 
+const iconSize = 41;
+
 const Layout: FunctionComponent<LayoutProps> = () => {
-  if (Platform.OS === "web")
-    return (
-      <AppWrapper>
-        <View style={styles.webContainer}>
-          <Stack />
-        </View>
-      </AppWrapper>
-    );
   return (
     <AppWrapper>
-      <Stack />
+      <Tabs
+        screenOptions={{
+          tabBarShowLabel: false,
+          tabBarStyle: {
+            height: 80,
+          },
+          tabBarActiveTintColor: theme.colors.primary,
+          tabBarInactiveTintColor: theme.colors.onSurface,
+        }}
+      >
+        <Tabs.Screen
+          name="index"
+          options={{
+            // This tab will no longer show up in the tab bar.
+            href: null,
+          }}
+        />
+        <Tabs.Screen
+          name="shopping-list"
+          options={{
+            tabBarIcon: ({ color }) => {
+              return (
+                <Icon name="clipboard-list" size={iconSize} color={color} />
+              );
+            },
+          }}
+        />
+        <Tabs.Screen
+          name="fridge"
+          options={{
+            tabBarIcon: ({ color }) => {
+              return <Icon name="fridge" size={iconSize} color={color} />;
+            },
+          }}
+        />
+        <Tabs.Screen
+          name="food-diary"
+          options={{
+            tabBarIcon: ({ color }) => {
+              return <Icon name="food" size={iconSize} color={color} />;
+            },
+          }}
+        />
+      </Tabs>
     </AppWrapper>
   );
 };
 
 export default Layout;
-const styles = StyleSheet.create({
-  webContainer: {
-    width: 400,
-    margin: "auto",
-    height: 750,
-  },
-});

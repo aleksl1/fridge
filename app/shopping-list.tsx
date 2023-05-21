@@ -9,6 +9,7 @@ import {
   List,
   Portal,
   Text,
+  useTheme,
 } from "react-native-paper";
 import AddItemForm from "../src/AddItemForm";
 import {
@@ -16,6 +17,7 @@ import {
   ShoppingListItemType,
 } from "../store/shoppingListCtx";
 import { spacing } from "../utils/spacing";
+import { Stack } from "expo-router";
 
 type PressedItemType = ShoppingListItemType & { max: number };
 
@@ -28,7 +30,9 @@ const ShoppingList: FunctionComponent = () => {
     quantity: 0,
     max: 0,
   });
-
+  const {
+    colors: { primary, error, secondary },
+  } = useTheme();
   const showDialog = (item: PressedItemType) => {
     setPressedItem(item);
     setVisible(true);
@@ -73,14 +77,14 @@ const ShoppingList: FunctionComponent = () => {
                 <IconButton icon="plus" onPress={() => increment(item)} />
                 <IconButton
                   icon="delete"
-                  iconColor="red"
+                  iconColor={error}
                   onPress={() => {
                     removeItem(item);
                   }}
                 />
                 <IconButton
                   icon="fridge"
-                  iconColor="blue"
+                  iconColor={primary}
                   onPress={() => showDialog({ ...item, max: item.quantity })}
                 />
               </View>
@@ -129,7 +133,9 @@ const ShoppingList: FunctionComponent = () => {
                   onPress={() => decrementPressed(pressedItem)}
                   style={{ paddingTop: 8 }}
                 />
-                <Badge size={40}>{pressedItem.quantity}</Badge>
+                <Badge size={40} style={{ backgroundColor: secondary }}>
+                  {pressedItem.quantity}
+                </Badge>
                 <IconButton
                   icon="plus"
                   onPress={() => incrementPressed(pressedItem)}
