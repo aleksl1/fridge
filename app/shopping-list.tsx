@@ -52,6 +52,11 @@ const ShoppingList: FunctionComponent = () => {
     });
   };
 
+  const addItemToFrige = () => {
+    decrement(pressedItem, pressedItem.quantity);
+    hideDialog();
+  };
+
   const shoppingList = useMemo(
     () =>
       items.map((item, index) => {
@@ -138,7 +143,7 @@ const ShoppingList: FunctionComponent = () => {
               }}
             >
               <Button
-                onPress={hideDialog}
+                onPress={addItemToFrige}
                 mode="contained"
                 style={{ paddingHorizontal: 16 }}
               >

@@ -8,12 +8,14 @@ import {
 
 type ItemAction = (item: ShoppingListItemType) => void;
 
+type ItemAmountAction = (item: ShoppingListItemType, value?: number) => void;
+
 type ShoppingListCtxType = {
   items: ShoppingListItemType[] | [];
   addItem: ItemAction;
   removeItem: ItemAction;
-  increment: ItemAction;
-  decrement: ItemAction;
+  increment: ItemAmountAction;
+  decrement: ItemAmountAction;
   total: number;
 };
 
@@ -66,22 +68,21 @@ const ShoppingListProvider: FunctionComponent<ShoppingListProviderProps> = ({
     setItems(newItems);
     calculateTotal();
   };
-  const increment: ItemAction = (item) => {
+  const increment: ItemAmountAction = (item, value = 1) => {
     const newItems = items;
     const itemIndex = newItems.findIndex((i) => i.name === item.name);
-    newItems[itemIndex].quantity = newItems[itemIndex].quantity + 1;
-    console.log("incr", newItems, itemIndex);
+    newItems[itemIndex].quantity = newItems[itemIndex].quantity + value;
     setItems(newItems);
     calculateTotal();
   };
-  const decrement: ItemAction = (item) => {
+  const decrement: ItemAmountAction = (item, value = 1) => {
     let newItems = items;
     const itemIndex = newItems.findIndex((i) => i.name === item.name);
-    if (newItems[itemIndex].quantity === 1) {
-      newItems = items.filter((i) => i.name !== item.name);
+    if (newItems[itemIndex].quantity <= value) {
+      removeItem(item);
+      return;
     } else {
-      newItems[itemIndex].quantity = newItems[itemIndex].quantity - 1;
-      console.log("dec", newItems, itemIndex);
+      newItems[itemIndex].quantity = newItems[itemIndex].quantity - value;
     }
     setItems(newItems);
     calculateTotal();
