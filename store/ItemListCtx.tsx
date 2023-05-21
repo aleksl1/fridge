@@ -1,36 +1,14 @@
 import { FunctionComponent, createContext, useState } from "react";
 import { defaultItems } from "../utils/dummyData";
+import {
+  ItemAction,
+  ItemAmountAction,
+  ItemListCtxType,
+  ItemListProviderProps,
+  ListItemType,
+} from "./ItemList.types";
 
-export type ItemStatus =
-  | "shoppingList"
-  | "fridge"
-  | "foodDiary"
-  | "itemLibrary";
-
-export type ListItemType = {
-  name: string;
-  quantity: number;
-  status: ItemStatus;
-};
-
-type ItemAction = (item: ListItemType) => void;
-
-type ItemAmountAction = (item: ListItemType, value?: number) => void;
-
-type ShoppingListCtxType = {
-  items: ListItemType[] | [];
-  addItem: ItemAction;
-  removeItem: ItemAction;
-  increment: ItemAmountAction;
-  decrement: ItemAmountAction;
-  total: number;
-};
-
-type ShoppingListProviderProps = {
-  children: JSX.Element;
-};
-
-const defaultValue: ShoppingListCtxType = {
+const defaultValue: ItemListCtxType = {
   items: defaultItems,
   addItem: (item) => {},
   removeItem: (item) => {},
@@ -39,9 +17,9 @@ const defaultValue: ShoppingListCtxType = {
   total: 0,
 };
 
-export const ShoppingListCtx = createContext<ShoppingListCtxType>(defaultValue);
+export const ItemListCtx = createContext<ItemListCtxType>(defaultValue);
 
-const ShoppingListProvider: FunctionComponent<ShoppingListProviderProps> = ({
+const ItemListProvider: FunctionComponent<ItemListProviderProps> = ({
   children,
 }) => {
   const [items, setItems] = useState<ListItemType[]>(defaultValue.items);
@@ -90,7 +68,7 @@ const ShoppingListProvider: FunctionComponent<ShoppingListProviderProps> = ({
     setTotal(totalQuantity);
   };
   return (
-    <ShoppingListCtx.Provider
+    <ItemListCtx.Provider
       value={{
         items,
         addItem,
@@ -101,8 +79,8 @@ const ShoppingListProvider: FunctionComponent<ShoppingListProviderProps> = ({
       }}
     >
       {children}
-    </ShoppingListCtx.Provider>
+    </ItemListCtx.Provider>
   );
 };
 
-export default ShoppingListProvider;
+export default ItemListProvider;

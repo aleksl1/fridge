@@ -3,7 +3,7 @@ import { Controller, useForm } from "react-hook-form";
 import { Button, TextInput, Text, HelperText } from "react-native-paper";
 import { View, StyleSheet } from "react-native";
 import { spacing } from "../utils/spacing";
-import { ShoppingListCtx } from "../store/shoppingListCtx";
+import { ItemListCtx } from "../store/ItemListCtx";
 
 type AddItemForm = {
   name: string;
@@ -11,7 +11,7 @@ type AddItemForm = {
 };
 
 const AddItemForm: FunctionComponent = () => {
-  const { addItem } = useContext(ShoppingListCtx);
+  const { addItem } = useContext(ItemListCtx);
   const {
     control,
     handleSubmit,

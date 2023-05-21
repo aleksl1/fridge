@@ -1,4 +1,5 @@
-import { ListItemType } from "../store/shoppingListCtx"
+import { ListItemType } from "../store/ItemList.types";
+
 
 export const productsLibrary = [
   {
@@ -74,50 +75,69 @@ export const productsLibrary = [
     "makro": {"b": 0, "t": 0, "w": 14}
   }]
 
-export const defaultItems: ListItemType[] = [
-  {
-    name: "banana",
-    quantity: 4,
-    status: "fridge",
-  },
-  {
-    name: "apple",
-    quantity: 1,
-    status: "shoppingList",
-  },
-  {
-    name: "pineapple",
-    quantity: 11,
-    status: "fridge",
-  },
-  {
-    name: "milk",
-    quantity: 4,
-    status: "shoppingList",
-  },
-  {
-    name: "juice",
-    quantity: 1,
-    status: "fridge",
-  },
-  {
-    name: "water",
-    quantity: 11,
-    status: "shoppingList",
-  },
-  {
-    name: "water",
-    quantity: 2,
-    status: "foodDiary",
-  },
-  {
-    name: "chicken",
-    quantity: 1,
-    status: "foodDiary",
-  },
-  {
-    name: "lemon",
-    quantity: 11,
-    status: "foodDiary",
-  },
-]
+  export const defaultItems: ListItemType[] = [
+    {
+      name: "banana",
+      quantity: 4,
+      status: "fridge",
+      costPerItem: 0.5,
+      macrosPer100g: { proteins: 1, carbs: 20, fats: 0.5 },
+      caloriesPer100g: 96,
+    },
+    {
+      name: "apple",
+      quantity: 1,
+      status: "shoppingList",
+      costPerItem: 0.8,
+      macrosPer100g: { proteins: 0.5, carbs: 14, fats: 0.3 },
+      caloriesPer100g: 52,
+    },
+    {
+      name: "pineapple",
+      quantity: 11,
+      status: "fridge",
+      costPerItem: 3.2,
+      macrosPer100g: { proteins: 0.5, carbs: 13, fats: 0.1 },
+      caloriesPer100g: 50,
+    },
+    {
+      name: "milk",
+      quantity: 4,
+      status: "shoppingList",
+      costPerItem: 2.5,
+      macrosPer100g: { proteins: 3, carbs: 5, fats: 2 },
+      caloriesPer100g: 60,
+    },
+    {
+      name: "juice",
+      quantity: 1,
+      status: "fridge",
+      costPerItem: 4.6,
+      macrosPer100g: { proteins: 0.5, carbs: 15, fats: 0.2 },
+      caloriesPer100g: 45,
+    },
+    {
+      name: "water",
+      quantity: 11,
+      status: "shoppingList",
+      costPerItem: 0.2,
+      macrosPer100g: { proteins: 0, carbs: 0, fats: 0 },
+      caloriesPer100g: 0,
+    },
+    {
+      name: "chicken",
+      quantity: 1,
+      status: "foodDiary",
+      costPerItem: 8.5,
+      macrosPer100g: { proteins: 20, carbs: 0, fats: 2 },
+      caloriesPer100g: 239,
+    },
+    {
+      name: "lemon",
+      quantity: 11,
+      status: "foodDiary",
+      costPerItem: 1.2,
+      macrosPer100g: { proteins: 1, carbs: 9, fats: 0 },
+      caloriesPer100g: 29,
+    },
+  ];
