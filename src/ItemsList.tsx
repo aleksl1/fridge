@@ -22,7 +22,7 @@ type ItemListProps = {
 };
 
 const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
-  const { items, increment, decrement, removeItem, total } =
+  const { items, increment, decrement, removeItem, total, addItem } =
     useContext(ShoppingListCtx);
   const [visible, setVisible] = useState(false);
   const [pressedItem, setPressedItem] = useState<PressedItemType>({
@@ -49,7 +49,7 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
     });
   };
 
-  const decrementPressed = (item: PressedItemType) => {
+  const decrementPressed = () => {
     if (pressedItem?.quantity === 1) return;
     setPressedItem((prevState) => {
       const newState = { ...prevState, quantity: prevState?.quantity - 1 };
@@ -57,9 +57,34 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
     });
   };
 
-  const addItemToFrige = () => {
+  const addItemToNextList = () => {
     decrement(pressedItem, pressedItem.quantity);
+    const setNewStatus = () => {
+      switch (type) {
+        case "shoppingList":
+          return "fridge";
+        case "fridge":
+          return "foodDiary";
+        case "itemLibrary":
+          return "shoppingList";
+      }
+      return type;
+    };
+    addItem({ ...pressedItem, status: setNewStatus() });
     hideDialog();
+  };
+
+  const dialogText = () => {
+    switch (type) {
+      case "shoppingList":
+        return "fridge";
+      case "fridge":
+        return "food diary";
+      case "itemLibrary":
+        return "shopping list";
+      default:
+        "";
+    }
   };
 
   const itemList = useMemo(
@@ -84,11 +109,20 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
                     removeItem(item);
                   }}
                 />
-                <IconButton
-                  icon="fridge"
-                  iconColor={primary}
-                  onPress={() => showDialog({ ...item, max: item.quantity })}
-                />
+                {item.status === "shoppingList" && (
+                  <IconButton
+                    icon="fridge"
+                    iconColor={primary}
+                    onPress={() => showDialog({ ...item, max: item.quantity })}
+                  />
+                )}
+                {item.status === "fridge" && (
+                  <IconButton
+                    icon="food"
+                    iconColor={primary}
+                    onPress={() => showDialog({ ...item, max: item.quantity })}
+                  />
+                )}
               </View>
             )}
           />
@@ -117,7 +151,7 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
               >
                 <IconButton
                   icon="minus"
-                  onPress={() => decrementPressed(pressedItem)}
+                  onPress={decrementPressed}
                   style={{ paddingTop: 8 }}
                 />
                 <Badge size={40} style={{ backgroundColor: secondary }}>
@@ -136,11 +170,13 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
               }}
             >
               <Button
-                onPress={addItemToFrige}
+                onPress={addItemToNextList}
                 mode="contained"
                 style={{ paddingHorizontal: 16 }}
               >
-                {`Put ${pressedItem.quantity} of ${pressedItem.name} in Your fridge!`}
+                {`Put ${pressedItem.quantity} of ${
+                  pressedItem.name
+                } in Your ${dialogText()}!`}
               </Button>
             </Dialog.Actions>
           </Dialog>
