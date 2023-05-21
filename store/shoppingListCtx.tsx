@@ -27,7 +27,20 @@ export type ShoppingListItemType = {
 };
 
 const defaultValue: ShoppingListCtxType = {
-  items: [],
+  items: [
+    {
+      name: "banana",
+      quantity: 4,
+    },
+    {
+      name: "apple",
+      quantity: 1,
+    },
+    {
+      name: "pineapple",
+      quantity: 11,
+    },
+  ],
   addItem: (item) => {},
   removeItem: (item) => {},
   increment: (item) => {},
@@ -40,7 +53,9 @@ export const ShoppingListCtx = createContext<ShoppingListCtxType>(defaultValue);
 const ShoppingListProvider: FunctionComponent<ShoppingListProviderProps> = ({
   children,
 }) => {
-  const [items, setItems] = useState<ShoppingListItemType[]>([]);
+  const [items, setItems] = useState<ShoppingListItemType[]>(
+    defaultValue.items
+  );
   const [total, setTotal] = useState<number>(0);
   const addItem: ItemAction = (item) => {
     setItems((prevState) => [...prevState, item]);

@@ -1,5 +1,5 @@
 import { FunctionComponent, useContext, useMemo, useState } from "react";
-import { ScrollView, StyleSheet, View, Alert } from "react-native";
+import { ScrollView, StyleSheet, View, Alert, Platform } from "react-native";
 import {
   Badge,
   Button,
@@ -54,10 +54,10 @@ const ShoppingList: FunctionComponent = () => {
 
   const shoppingList = useMemo(
     () =>
-      items.map((item) => {
+      items.map((item, index) => {
         return (
           <List.Item
-            key={item.name}
+            key={`${item.name}-${index}`}
             title={item.name}
             onPress={() => {}}
             description={`amount: ${item.quantity}`}
@@ -89,7 +89,7 @@ const ShoppingList: FunctionComponent = () => {
     <ScrollView contentContainerStyle={styles.container}>
       <Text variant="titleMedium">Add new item to list:</Text>
       <AddItemForm />
-      <Divider bold horizontalInset />
+      {/* <Divider bold horizontalInset />
       <Text variant="titleMedium">Pick from your items:</Text>
       {items.map((item) => (
         <List.Item
@@ -97,7 +97,7 @@ const ShoppingList: FunctionComponent = () => {
           title={item.name}
           left={(props) => <List.Icon {...props} icon="circle" />}
         />
-      ))}
+      ))} */}
       <Divider bold horizontalInset />
       <Text variant="titleMedium">Your shopping list:</Text>
       {shoppingList}
@@ -108,12 +108,17 @@ const ShoppingList: FunctionComponent = () => {
             onDismiss={hideDialog}
             style={{
               maxWidth: 400,
-              marginHorizontal: "auto",
-              paddingHorizontal: 50,
+              marginHorizontal: Platform.OS === "web" ? "auto" : 16,
+              // paddingHorizontal: 50,
             }}
           >
             <Dialog.Content>
-              <View style={{ flexDirection: "row" }}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "center",
+                }}
+              >
                 <IconButton
                   icon="minus"
                   onPress={() => decrementPressed(pressedItem)}
@@ -127,7 +132,11 @@ const ShoppingList: FunctionComponent = () => {
                 />
               </View>
             </Dialog.Content>
-            <Dialog.Actions>
+            <Dialog.Actions
+              style={{
+                justifyContent: "center",
+              }}
+            >
               <Button
                 onPress={hideDialog}
                 mode="contained"
@@ -149,5 +158,6 @@ const styles = StyleSheet.create({
   container: {
     margin: spacing.spacing16,
     gap: spacing.spacing16,
+    paddingBottom: spacing.spacing16,
   },
 });
