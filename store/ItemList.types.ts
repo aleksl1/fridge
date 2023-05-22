@@ -4,7 +4,7 @@ export type ItemStatus =
   | "foodDiary"
   | "itemLibrary";
 
-type ItemMacro = {
+export type ItemMacro = {
   proteins: number;
   carbs: number;
   fats: number;
