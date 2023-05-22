@@ -2,6 +2,7 @@
 
 Project stack: 
 - expo  
+- expo-router  
 - react-native-paper  
 - react context  
 - typescript  
