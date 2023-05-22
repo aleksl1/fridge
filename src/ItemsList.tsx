@@ -4,6 +4,7 @@ import { IconButton, List, Portal, useTheme } from "react-native-paper";
 import { ItemStatus, ListItemType } from "../store/ItemList.types";
 import { ItemListCtx } from "../store/ItemListCtx";
 import AddToNextListDialog from "./AddToNextListDialog";
+import ItemPreviewDialog from "./ItemPreviewDialog";
 
 export type PressedItemType = ListItemType & { max: number };
 
@@ -15,6 +16,8 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
   const { items, increment, decrement, removeItem, total, addItem } =
     useContext(ItemListCtx);
   const [visible, setVisible] = useState(false);
+  const [pressedPreview, setPressedPreview] = useState<ListItemType>();
+  const [previewVisible, setPreviewVisible] = useState(false);
   const [pressedItem, setPressedItem] = useState<PressedItemType>({
     name: "",
     quantity: 0,
@@ -25,11 +28,17 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
     colors: { primary, error },
   } = useTheme();
   const showDialog = (item: PressedItemType) => {
-    setPressedItem(item);
     setVisible(true);
   };
 
+  const showPreview = (item: ListItemType) => {
+    setPressedPreview(item);
+    setPreviewVisible(true);
+  };
+
   const hideDialog = () => setVisible(false);
+
+  const hidePreview = () => setPreviewVisible(false);
 
   const incrementPressed = (item: PressedItemType) => {
     if (item.max === pressedItem?.quantity) return;
@@ -55,7 +64,7 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
           <List.Item
             key={`${item.name}-${index}`}
             title={item.name}
-            onPress={() => {}}
+            onPress={() => showPreview(item)}
             description={`amount: ${item.quantity}`}
             style={{ paddingEnd: 0 }}
             right={() => (
@@ -102,6 +111,13 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
             decrementPressed={decrementPressed}
             type={type}
             pressedItem={pressedItem}
+          />
+        )}
+        {pressedPreview && (
+          <ItemPreviewDialog
+            visible={previewVisible}
+            hideDialog={hidePreview}
+            pressedItem={pressedPreview}
           />
         )}
       </Portal>
