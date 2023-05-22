@@ -64,7 +64,7 @@ const AddItemForm: FunctionComponent = () => {
     const hasAllMacros = data.carbs && data.fats && data.proteins;
     if (data.status === "foodDiary" && !hasAllMacros) {
       return alert(
-        "Input all macros if you want to add this item directly to Your diary!"
+        "Input all macros if you want to add this item directly to Your food diary!"
       );
     }
     addItem({
