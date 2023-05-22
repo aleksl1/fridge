@@ -1,39 +1,15 @@
+import { Redirect } from "expo-router";
 import { FunctionComponent } from "react";
-import { Pressable, Text, View, StyleSheet } from "react-native";
-import { Link, Stack } from "expo-router";
-import { colors } from "../utils/colors";
+import { StyleSheet, View } from "react-native";
 import AppWrapper from "../src/AppWrapper";
+import { colors } from "../utils/colors";
 import { spacing } from "../utils/spacing";
 
 const Home: FunctionComponent = () => {
   return (
     <AppWrapper>
-      <View style={styles.container}>
-        <Stack.Screen
-          options={{
-            title: "Your food app",
-            headerStyle: { backgroundColor: colors.header },
-            headerTitleStyle: { color: colors.headerFont },
-            headerTitleAlign: "center",
-          }}
-        />
-        <View style={styles.links}>
-          <Link href="/shopping-list" asChild>
-            <Pressable style={styles.pressable}>
-              {() => <Text style={styles.text}>Shopping list</Text>}
-            </Pressable>
-          </Link>
-          <Link href="/fridge" asChild>
-            <Pressable style={styles.pressable}>
-              {() => <Text style={styles.text}>Open the Fridge</Text>}
-            </Pressable>
-          </Link>
-          <Link href="/food-diary" asChild>
-            <Pressable style={styles.pressable}>
-              {() => <Text style={styles.text}>Food diary</Text>}
-            </Pressable>
-          </Link>
-        </View>
+      <View>
+        <Redirect href="/shopping-list" />
       </View>
     </AppWrapper>
   );
