@@ -7,6 +7,13 @@ Project stack:
 - react context  
 - typescript  
 
+Start locally:  
+- clone repo
+- npm install
+- npm start
+- follow console instructions
+- you can run app on ios, android or web - thanks to Expo :)
+
 Web build:
 
 npx expo export --platform web  
