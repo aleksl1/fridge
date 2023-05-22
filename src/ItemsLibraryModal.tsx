@@ -5,15 +5,18 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { ItemListCtx } from "../store/ItemListCtx";
 import { libraryItems } from "../utils/dummyData";
 import { theme } from "./AppWrapper";
+import { ItemStatus } from "../store/ItemList.types";
 
 type ItemsLibraryModalProps = {
   visible: boolean;
   hideModal: () => void;
+  type: ItemStatus;
 };
 
 const ItemsLibraryModal: FunctionComponent<ItemsLibraryModalProps> = ({
   visible,
   hideModal,
+  type,
 }) => {
   const { addItem } = useContext(ItemListCtx);
   return (
@@ -32,7 +35,7 @@ const ItemsLibraryModal: FunctionComponent<ItemsLibraryModalProps> = ({
                 onPress={() =>
                   addItem({
                     ...item,
-                    status: "shoppingList",
+                    status: type,
                     quantity: 1,
                   })
                 }
