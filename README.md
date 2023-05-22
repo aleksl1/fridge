@@ -1,5 +1,11 @@
 # fridge
 
+Project stack: 
+- expo  
+- react-native-paper  
+- react context  
+- typescript  
+
 Web build:
 
 npx expo export --platform web  
