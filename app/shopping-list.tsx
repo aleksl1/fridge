@@ -14,6 +14,7 @@ const ShoppingList: FunctionComponent = () => {
   const hideModal = () => setVisible(false);
   return (
     <ScrollView contentContainerStyle={globalStyles.listContainer}>
+      <AddItemForm />
       <Button
         onPress={showModal}
         mode="contained-tonal"

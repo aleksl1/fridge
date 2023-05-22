@@ -4,7 +4,7 @@ export type ItemStatus =
   | "foodDiary"
   | "itemLibrary";
 
-type ItemMacro = {
+export type ItemMacro = {
   proteins: number;
   carbs: number;
   fats: number;
@@ -17,7 +17,7 @@ export type ListItemType = {
   costPerItem?: number;
   macrosPer100g?: ItemMacro;
   caloriesPer100g?: number;
-  diaryDate?: string
+  diaryDate?: Date | null
 };
 
 export type ItemAction = (item: ListItemType) => void;
