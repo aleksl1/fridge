@@ -1,17 +1,17 @@
-import { FunctionComponent, useContext, useState } from "react";
+import { FunctionComponent, useContext } from "react";
 import { ScrollView, StyleSheet } from "react-native";
-import { IconButton, List, Modal, Portal, Text } from "react-native-paper";
-import { theme } from "./AppWrapper";
-import { libraryItems } from "../utils/dummyData";
+import { List, Modal, Portal, Text } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { ItemListCtx } from "../store/ItemListCtx";
+import { libraryItems } from "../utils/dummyData";
+import { theme } from "./AppWrapper";
 
-type ItemsLibraryProps = {
+type ItemsLibraryModalProps = {
   visible: boolean;
   hideModal: () => void;
 };
 
-const ItemsLibrary: FunctionComponent<ItemsLibraryProps> = ({
+const ItemsLibraryModal: FunctionComponent<ItemsLibraryModalProps> = ({
   visible,
   hideModal,
 }) => {
@@ -55,7 +55,7 @@ const ItemsLibrary: FunctionComponent<ItemsLibraryProps> = ({
   );
 };
 
-export default ItemsLibrary;
+export default ItemsLibraryModal;
 
 const styles = StyleSheet.create({
   modal: {

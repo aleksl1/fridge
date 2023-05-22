@@ -2,9 +2,9 @@ import { FunctionComponent, useState } from "react";
 import ItemList from "../src/ItemsList";
 import globalStyles from "../utils/globalStyles";
 import { ScrollView } from "react-native";
-import { Button, Divider, Text } from "react-native-paper";
+import { Button, Text } from "react-native-paper";
 import AddItemForm from "../src/AddItemForm";
-import ItemsLibrary from "../src/ItemsLibrary";
+import ItemsLibraryModal from "../src/ItemsLibraryModal";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const ShoppingList: FunctionComponent = () => {
@@ -29,7 +29,7 @@ const ShoppingList: FunctionComponent = () => {
       </Button>
       <Text variant="titleMedium">Your shopping list:</Text>
       <ItemList type="shoppingList" />
-      <ItemsLibrary visible={visible} hideModal={hideModal} />
+      <ItemsLibraryModal visible={visible} hideModal={hideModal} />
     </ScrollView>
   );
 };
