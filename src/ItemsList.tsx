@@ -1,18 +1,12 @@
 import { FunctionComponent, useContext, useMemo, useState } from "react";
 import { View } from "react-native";
-import {
-  Badge,
-  Button,
-  Dialog,
-  IconButton,
-  List,
-  Portal,
-  useTheme,
-} from "react-native-paper";
+import { IconButton, List, Portal, useTheme } from "react-native-paper";
 import { ItemStatus, ListItemType } from "../store/ItemList.types";
 import { ItemListCtx } from "../store/ItemListCtx";
+import AddToNextListDialog from "./AddToNextListDialog";
+import ItemPreviewDialog from "./ItemPreviewDialog";
 
-type PressedItemType = ListItemType & { max: number };
+export type PressedItemType = ListItemType & { max: number };
 
 type ItemListProps = {
   type: ItemStatus;
@@ -22,6 +16,8 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
   const { items, increment, decrement, removeItem, total, addItem } =
     useContext(ItemListCtx);
   const [visible, setVisible] = useState(false);
+  const [pressedPreview, setPressedPreview] = useState<ListItemType>();
+  const [previewVisible, setPreviewVisible] = useState(false);
   const [pressedItem, setPressedItem] = useState<PressedItemType>({
     name: "",
     quantity: 0,
@@ -29,14 +25,20 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
     max: 0,
   });
   const {
-    colors: { primary, error, secondary },
+    colors: { primary, error },
   } = useTheme();
   const showDialog = (item: PressedItemType) => {
-    setPressedItem(item);
     setVisible(true);
   };
 
+  const showPreview = (item: ListItemType) => {
+    setPressedPreview(item);
+    setPreviewVisible(true);
+  };
+
   const hideDialog = () => setVisible(false);
+
+  const hidePreview = () => setPreviewVisible(false);
 
   const incrementPressed = (item: PressedItemType) => {
     if (item.max === pressedItem?.quantity) return;
@@ -54,36 +56,6 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
     });
   };
 
-  const addItemToNextList = () => {
-    decrement(pressedItem, pressedItem.quantity);
-    const setNewStatus = () => {
-      switch (type) {
-        case "shoppingList":
-          return "fridge";
-        case "fridge":
-          return "foodDiary";
-        case "itemLibrary":
-          return "shoppingList";
-      }
-      return type;
-    };
-    addItem({ ...pressedItem, status: setNewStatus() });
-    hideDialog();
-  };
-
-  const dialogText = () => {
-    switch (type) {
-      case "shoppingList":
-        return "fridge";
-      case "fridge":
-        return "food diary";
-      case "itemLibrary":
-        return "shopping list";
-      default:
-        "";
-    }
-  };
-
   const itemList = useMemo(
     () =>
       items.map((item, index) => {
@@ -92,7 +64,7 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
           <List.Item
             key={`${item.name}-${index}`}
             title={item.name}
-            onPress={() => {}}
+            onPress={() => showPreview(item)}
             description={`amount: ${item.quantity}`}
             style={{ paddingEnd: 0 }}
             right={() => (
@@ -132,51 +104,21 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
       {itemList}
       <Portal>
         {pressedItem && (
-          <Dialog
+          <AddToNextListDialog
+            hideDialog={hideDialog}
             visible={visible}
-            onDismiss={hideDialog}
-            style={{
-              marginHorizontal: 16,
-            }}
-          >
-            <Dialog.Content>
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "center",
-                }}
-              >
-                <IconButton
-                  icon="minus"
-                  onPress={decrementPressed}
-                  style={{ paddingTop: 8 }}
-                />
-                <Badge size={40} style={{ backgroundColor: secondary }}>
-                  {pressedItem.quantity}
-                </Badge>
-                <IconButton
-                  icon="plus"
-                  onPress={() => incrementPressed(pressedItem)}
-                  style={{ paddingTop: 8 }}
-                />
-              </View>
-            </Dialog.Content>
-            <Dialog.Actions
-              style={{
-                justifyContent: "center",
-              }}
-            >
-              <Button
-                onPress={addItemToNextList}
-                mode="contained"
-                style={{ paddingHorizontal: 16 }}
-              >
-                {`Put ${pressedItem.quantity} of ${
-                  pressedItem.name
-                } in Your ${dialogText()}!`}
-              </Button>
-            </Dialog.Actions>
-          </Dialog>
+            incrementPressed={incrementPressed}
+            decrementPressed={decrementPressed}
+            type={type}
+            pressedItem={pressedItem}
+          />
+        )}
+        {pressedPreview && (
+          <ItemPreviewDialog
+            visible={previewVisible}
+            hideDialog={hidePreview}
+            pressedItem={pressedPreview}
+          />
         )}
       </Portal>
     </View>

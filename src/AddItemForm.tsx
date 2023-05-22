@@ -13,6 +13,7 @@ import { spacing } from "../utils/spacing";
 import { ItemListCtx } from "../store/ItemListCtx";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { ItemMacro, ItemStatus } from "../store/ItemList.types";
+import { setTitleText } from "../utils/helpers";
 
 type ItemMacroForm = {
   proteins: string;
@@ -28,19 +29,6 @@ type AddItemForm = {
   status: ItemStatus;
   cost: string;
 } & ItemMacroForm;
-
-const setTitleText = (value: ItemStatus) => {
-  switch (value) {
-    case "foodDiary":
-      return "food diary";
-    case "fridge":
-      return "fridge";
-    case "itemLibrary":
-      return "item library";
-    case "shoppingList":
-      return "shopping list";
-  }
-};
 
 const AddItemForm: FunctionComponent = () => {
   const { addItem } = useContext(ItemListCtx);
