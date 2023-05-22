@@ -4,7 +4,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import AppWrapper, { theme } from "../src/AppWrapper";
 import ActionsPanel from "../src/ActionsPanel";
 import { Divider, Text } from "react-native-paper";
-import { View } from "react-native";
+import { SafeAreaView, View } from "react-native";
 import { ItemStatus } from "../store/ItemList.types";
 interface LayoutProps {}
 
@@ -16,7 +16,7 @@ type HeaderProps = {
 };
 
 const Header: FC<HeaderProps> = ({ title, type }) => (
-  <View style={{ margin: 16 }}>
+  <SafeAreaView style={{ margin: 16 }}>
     <Text
       variant="titleLarge"
       style={{ textAlign: "center", fontWeight: "bold" }}
@@ -25,7 +25,7 @@ const Header: FC<HeaderProps> = ({ title, type }) => (
     </Text>
     <ActionsPanel type={type} />
     <Divider bold />
-  </View>
+  </SafeAreaView>
 );
 
 const Layout: FunctionComponent<LayoutProps> = () => {
