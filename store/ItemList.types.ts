@@ -17,7 +17,7 @@ export type ListItemType = {
   costPerItem?: number;
   macrosPer100g?: ItemMacro;
   caloriesPer100g?: number;
-  diaryDate?: string
+  diaryDate?: Date | null
 };
 
 export type ItemAction = (item: ListItemType) => void;
