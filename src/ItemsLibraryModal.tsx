@@ -3,7 +3,6 @@ import { ScrollView, StyleSheet } from "react-native";
 import { List, Modal, Portal, Text } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { ItemListCtx } from "../store/ItemListCtx";
-import { libraryItems } from "../utils/dummyData";
 import { theme } from "./AppWrapper";
 import { ItemStatus } from "../store/ItemList.types";
 
@@ -18,7 +17,7 @@ const ItemsLibraryModal: FunctionComponent<ItemsLibraryModalProps> = ({
   hideModal,
   type,
 }) => {
-  const { addItem } = useContext(ItemListCtx);
+  const { addItem, items } = useContext(ItemListCtx);
   return (
     <Portal>
       <Modal
@@ -27,31 +26,39 @@ const ItemsLibraryModal: FunctionComponent<ItemsLibraryModalProps> = ({
         contentContainerStyle={styles.modal}
       >
         <ScrollView contentContainerStyle={styles.listContainer}>
-          {libraryItems.map((item, index) => {
-            return (
-              <List.Item
-                key={`${item.name}-${index}`}
-                title={<Text variant="bodyLarge">{item.name}</Text>}
-                onPress={() =>
-                  addItem({
-                    ...item,
-                    status: type,
-                    quantity: 1,
-                  })
-                }
-                left={() => <Text variant="bodyLarge">{`${index + 1}. `}</Text>}
-                right={() => (
-                  <Icon name={"plus"} size={21} color={theme.colors.primary} />
-                )}
-                style={{
-                  paddingStart: 8,
-                  borderWidth: 1,
-                  borderRadius: 15,
-                  borderColor: theme.colors.primary,
-                }}
-              />
-            );
-          })}
+          {items
+            .filter((item) => item.status === "itemLibrary")
+            .map((item, index) => {
+              return (
+                <List.Item
+                  key={`${item.name}-${index}`}
+                  title={<Text variant="bodyLarge">{item.name}</Text>}
+                  onPress={() =>
+                    addItem({
+                      ...item,
+                      status: type,
+                      quantity: 1,
+                    })
+                  }
+                  left={() => (
+                    <Text variant="bodyLarge">{`${index + 1}. `}</Text>
+                  )}
+                  right={() => (
+                    <Icon
+                      name={"plus"}
+                      size={21}
+                      color={theme.colors.primary}
+                    />
+                  )}
+                  style={{
+                    paddingStart: 8,
+                    borderWidth: 1,
+                    borderRadius: 15,
+                    borderColor: theme.colors.primary,
+                  }}
+                />
+              );
+            })}
         </ScrollView>
       </Modal>
     </Portal>
