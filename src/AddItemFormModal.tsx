@@ -64,7 +64,6 @@ const AddItemFormModal: FunctionComponent<AddItemModalProps> = ({
     },
   });
   const onSubmit = (data: AddItemForm) => {
-    console.log(data);
     const hasAllMacros = data.carbs && data.fats && data.proteins;
     if (
       (data.status === "foodDiary" || data.status === "itemLibrary") &&

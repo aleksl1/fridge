@@ -92,9 +92,13 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
                   <IconButton
                     icon="food"
                     iconColor={primary}
-                    onPress={() =>
-                      showAddToNextListDialog({ ...item, max: item.quantity })
-                    }
+                    onPress={() => {
+                      if (item.caloriesPer100g === undefined)
+                        return alert(
+                          "Can't add this item to diary, You need to add macros!"
+                        );
+                      showAddToNextListDialog({ ...item, max: item.quantity });
+                    }}
                   />
                 )}
               </View>
