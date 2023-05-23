@@ -90,7 +90,7 @@ const AddItemFormModal: FunctionComponent<AddItemModalProps> = ({
         carbs,
         fats,
       },
-      diaryDate: data.status === "foodDiary" ? new Date() : null,
+      diaryDate: data.status === "foodDiary" ? new Date() : undefined,
       caloriesPer100g: calculateCaloriesPer100g({ proteins, carbs, fats }),
     });
     reset();
