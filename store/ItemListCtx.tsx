@@ -6,9 +6,10 @@ import {
   ItemListProviderProps,
   ListItemType,
 } from "./ItemList.types";
+import { libraryItems } from "../utils/dummyData";
 
 const defaultValue: ItemListCtxType = {
-  items: [],
+  items: [...libraryItems],
   addItem: (item) => {},
   removeItem: (item) => {},
   increment: (item) => {},
