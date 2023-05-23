@@ -15,7 +15,7 @@ type ItemListProps = {
 const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
   const { items, increment, decrement, removeItem, total, addItem } =
     useContext(ItemListCtx);
-  const [visible, setVisible] = useState(false);
+  const [addToNextListVisible, setAddToNextListVisible] = useState(false);
   const [pressedPreview, setPressedPreview] = useState<ListItemType>();
   const [previewVisible, setPreviewVisible] = useState(false);
   const [pressedItem, setPressedItem] = useState<PressedItemType>({
@@ -27,8 +27,9 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
   const {
     colors: { primary, error },
   } = useTheme();
-  const showDialog = (item: PressedItemType) => {
-    setVisible(true);
+  const showAddToNextListDialog = (item: PressedItemType) => {
+    setPressedItem(item);
+    setAddToNextListVisible(true);
   };
 
   const showPreview = (item: ListItemType) => {
@@ -36,7 +37,7 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
     setPreviewVisible(true);
   };
 
-  const hideDialog = () => setVisible(false);
+  const hideAddToNextListDialog = () => setAddToNextListVisible(false);
 
   const hidePreview = () => setPreviewVisible(false);
 
@@ -82,14 +83,18 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
                   <IconButton
                     icon="fridge"
                     iconColor={primary}
-                    onPress={() => showDialog({ ...item, max: item.quantity })}
+                    onPress={() =>
+                      showAddToNextListDialog({ ...item, max: item.quantity })
+                    }
                   />
                 )}
                 {item.status === "fridge" && (
                   <IconButton
                     icon="food"
                     iconColor={primary}
-                    onPress={() => showDialog({ ...item, max: item.quantity })}
+                    onPress={() =>
+                      showAddToNextListDialog({ ...item, max: item.quantity })
+                    }
                   />
                 )}
               </View>
@@ -105,8 +110,8 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
       <Portal>
         {pressedItem && (
           <AddToNextListDialog
-            hideDialog={hideDialog}
-            visible={visible}
+            hideDialog={hideAddToNextListDialog}
+            visible={addToNextListVisible}
             incrementPressed={incrementPressed}
             decrementPressed={decrementPressed}
             type={type}
