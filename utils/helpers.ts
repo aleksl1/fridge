@@ -1,3 +1,4 @@
+import { Href } from "expo-router/build/link/href";
 import { ItemMacro, ItemStatus } from "../store/ItemList.types";
 
 export const setTitleText = (value: ItemStatus) => {
@@ -20,4 +21,13 @@ export const calculateCaloriesPer100g = (macrosPer100g: ItemMacro) => {
   }
   const calories = proteins * 4 + fats * 9 + carbs * 4
     return calories;
+}
+
+export const getRouteFromStatus = (status: ItemStatus):Href => {
+  switch(status) {
+    case "fridge": return "/fridge"
+    case "foodDiary": return "/food-diary"
+    case "shoppingList": return "/shopping-list"
+  }
+  return ""
 }

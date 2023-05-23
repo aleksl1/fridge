@@ -15,9 +15,14 @@ import { spacing } from "../utils/spacing";
 import { ItemListCtx } from "../store/ItemListCtx";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { ItemMacro, ItemStatus } from "../store/ItemList.types";
-import { calculateCaloriesPer100g, setTitleText } from "../utils/helpers";
+import {
+  calculateCaloriesPer100g,
+  getRouteFromStatus,
+  setTitleText,
+} from "../utils/helpers";
 import { theme } from "./AppWrapper";
 import globalStyles from "../utils/globalStyles";
+import { useRouter } from "expo-router";
 
 type ItemMacroForm = {
   proteins: string;
@@ -46,7 +51,7 @@ const AddItemFormModal: FunctionComponent<AddItemModalProps> = ({
   initialType,
 }) => {
   const { addItem } = useContext(ItemListCtx);
-
+  const router = useRouter();
   const {
     control,
     handleSubmit,
@@ -96,6 +101,8 @@ const AddItemFormModal: FunctionComponent<AddItemModalProps> = ({
     });
     reset();
     alert(`Item was added to Your ${setTitleText(data.status)}`);
+    if (data.status !== "itemLibrary")
+      router.replace(getRouteFromStatus(data.status));
     hideModal();
   };
   return (

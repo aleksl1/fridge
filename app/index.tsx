@@ -16,24 +16,3 @@ const Home: FunctionComponent = () => {
 };
 
 export default Home;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    margin: spacing.spacing16,
-  },
-  pressable: {
-    borderRadius: 32,
-    backgroundColor: colors.link,
-    padding: spacing.spacing16,
-    textAlign: "center",
-  },
-  text: {
-    fontSize: 25,
-    color: colors.font,
-  },
-  links: {
-    gap: spacing.spacing8,
-  },
-});
