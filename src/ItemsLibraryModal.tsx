@@ -38,6 +38,7 @@ const ItemsLibraryModal: FunctionComponent<ItemsLibraryModalProps> = ({
                       ...item,
                       status: type,
                       quantity: 1,
+                      diaryDate: type === "foodDiary" ? new Date() : undefined,
                     })
                   }
                   left={() => (
