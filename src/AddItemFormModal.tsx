@@ -118,16 +118,13 @@ const AddItemFormModal: FunctionComponent<AddItemModalProps> = ({
                     onBlur={onBlur}
                     onChangeText={onChange}
                     value={value}
-                    placeholder="name"
                     label="name"
                     mode="outlined"
                   />
                 )}
                 name="name"
               />
-              {errors.name && (
-                <HelperText type="error">This is required.</HelperText>
-              )}
+              {errors.name && <HelperText type="error">required.</HelperText>}
             </View>
             <View>
               <Controller
@@ -141,17 +138,15 @@ const AddItemFormModal: FunctionComponent<AddItemModalProps> = ({
                     onBlur={onBlur}
                     onChangeText={onChange}
                     value={value}
-                    placeholder="amount"
                     label="amount"
                     mode="outlined"
+                    keyboardType="numeric"
                   />
                 )}
                 name="quantity"
               />
               {errors.quantity && (
-                <HelperText type="error">
-                  This is required. Must be a number
-                </HelperText>
+                <HelperText type="error">required. must be a number</HelperText>
               )}
             </View>
             <Controller
@@ -164,9 +159,9 @@ const AddItemFormModal: FunctionComponent<AddItemModalProps> = ({
                   onBlur={onBlur}
                   onChangeText={onChange}
                   value={value}
-                  placeholder="total price"
                   label="total price"
                   mode="outlined"
+                  keyboardType="numeric"
                 />
               )}
               name="cost"
@@ -190,10 +185,10 @@ const AddItemFormModal: FunctionComponent<AddItemModalProps> = ({
                           onBlur={onBlur}
                           onChangeText={onChange}
                           value={value}
-                          placeholder={input[0]}
                           mode="outlined"
                           label={input}
                           style={{ flex: 1 }}
+                          keyboardType="numeric"
                         />
                       )}
                       name={input}
