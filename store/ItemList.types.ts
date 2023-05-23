@@ -16,7 +16,7 @@ export type ListItemType = {
   status: ItemStatus;
   costPerItem?: number;
   macrosPer100g?: ItemMacro;
-  caloriesPer100g?: number;
+  caloriesPer100g?: number | "0";
   diaryDate?: Date | null
 };
 
