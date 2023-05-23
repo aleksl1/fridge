@@ -15,7 +15,7 @@ import { spacing } from "../utils/spacing";
 import { ItemListCtx } from "../store/ItemListCtx";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { ItemMacro, ItemStatus } from "../store/ItemList.types";
-import { setTitleText } from "../utils/helpers";
+import { calculateCaloriesPer100g, setTitleText } from "../utils/helpers";
 import { theme } from "./AppWrapper";
 
 type ItemMacroForm = {
@@ -64,12 +64,21 @@ const AddItemFormModal: FunctionComponent<AddItemModalProps> = ({
     },
   });
   const onSubmit = (data: AddItemForm) => {
+    console.log(data);
     const hasAllMacros = data.carbs && data.fats && data.proteins;
-    if (data.status === "foodDiary" && !hasAllMacros) {
+    if (
+      (data.status === "foodDiary" || data.status === "itemLibrary") &&
+      !hasAllMacros
+    ) {
       return alert(
-        "Input all macros if you want to add this item directly to Your food diary!"
+        `Input all macros if you want to add this item directly to Your ${setTitleText(
+          data.status
+        )}!`
       );
     }
+    const proteins = Number(data.proteins);
+    const carbs = Number(data.carbs);
+    const fats = Number(data.fats);
     addItem({
       name: data.name,
       quantity: Number(data.quantity),
@@ -78,11 +87,12 @@ const AddItemFormModal: FunctionComponent<AddItemModalProps> = ({
         (Number(data.cost) / Number(data.quantity)).toFixed(2)
       ),
       macrosPer100g: {
-        proteins: Number(data.proteins),
-        carbs: Number(data.carbs),
-        fats: Number(data.fats),
+        proteins,
+        carbs,
+        fats,
       },
       diaryDate: data.status === "foodDiary" ? new Date() : null,
+      caloriesPer100g: calculateCaloriesPer100g({ proteins, carbs, fats }),
     });
     reset();
     alert(`Item was added to Your ${setTitleText(data.status)}`);

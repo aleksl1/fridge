@@ -41,6 +41,35 @@ const ItemPreviewDialog: FunctionComponent<ItemPreviewDialogProps> = ({
     <List.Icon {...props} icon="chevron-right" />
   );
 
+  const caloriesInfo = () =>
+    caloriesPer100g === "0" ? (
+      <List.Item
+        title={`calories in 100g: ${caloriesPer100g}`}
+        left={listLeftIcon}
+      />
+    ) : (
+      <>
+        <List.Item
+          title={`calories in 100g: ${caloriesPer100g}`}
+          left={listLeftIcon}
+        />
+        <View style={{ marginStart: spacing.spacing16 }}>
+          <List.Item
+            title={`proteins: ${macrosPer100g?.proteins}`}
+            left={listLeftIcon}
+          />
+          <List.Item
+            title={`fats: ${macrosPer100g?.fats}`}
+            left={listLeftIcon}
+          />
+          <List.Item
+            title={`carbs: ${macrosPer100g?.carbs}`}
+            left={listLeftIcon}
+          />
+        </View>
+      </>
+    );
+
   return (
     <Dialog
       visible={visible}
@@ -71,24 +100,7 @@ const ItemPreviewDialog: FunctionComponent<ItemPreviewDialogProps> = ({
               title={`cost per item: ${costPerItem} PLN`}
               left={listLeftIcon}
             />
-            <List.Item
-              title={`calories in 100g: ${caloriesPer100g}`}
-              left={listLeftIcon}
-            />
-            <View style={{ marginStart: spacing.spacing16 }}>
-              <List.Item
-                title={`proteins: ${macrosPer100g?.proteins}`}
-                left={listLeftIcon}
-              />
-              <List.Item
-                title={`fats: ${macrosPer100g?.fats}`}
-                left={listLeftIcon}
-              />
-              <List.Item
-                title={`carbs: ${macrosPer100g?.carbs}`}
-                left={listLeftIcon}
-              />
-            </View>
+            {caloriesPer100g !== undefined && caloriesInfo()}
             {diaryDate && (
               <List.Item
                 title={`Added on: ${diaryDate.toLocaleDateString()}`}
