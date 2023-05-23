@@ -96,6 +96,7 @@ const AddItemFormModal: FunctionComponent<AddItemModalProps> = ({
     });
     reset();
     alert(`Item was added to Your ${setTitleText(data.status)}`);
+    hideModal();
   };
   return (
     <Portal>
