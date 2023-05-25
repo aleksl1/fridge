@@ -8,7 +8,8 @@ Project stack:
 - typescript  
 
 Start locally:  
-- clone repo
+- git clone https://github.com/aleksl1/fridge
+- cd fridge
 - npm install
 - npm start
 - follow console instructions
