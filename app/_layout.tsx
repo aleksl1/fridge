@@ -77,6 +77,17 @@ const Layout: FunctionComponent<LayoutProps> = () => {
             },
           }}
         />
+        <Tabs.Screen
+          name="expenses"
+          options={{
+            header: () => <Header title="Expenses" type="expenses" />,
+            tabBarIcon: ({ color }) => {
+              return (
+                <Icon name="cash-multiple" size={iconSize} color={color} />
+              );
+            },
+          }}
+        />
       </Tabs>
     </AppWrapper>
   );

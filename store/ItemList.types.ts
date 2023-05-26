@@ -2,7 +2,8 @@ export type ItemStatus =
   | "shoppingList"
   | "fridge"
   | "foodDiary"
-  | "itemLibrary";
+  | "itemLibrary"
+  | "expenses"
 
 export type ItemMacro = {
   proteins: number;
