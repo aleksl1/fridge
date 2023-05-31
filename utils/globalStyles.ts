@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { spacing } from './spacing';
-import { theme } from '../src/AppWrapper';
+import { theme } from './theme';
 
 export default StyleSheet.create({
   listContainer: {

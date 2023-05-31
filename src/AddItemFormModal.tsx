@@ -20,7 +20,6 @@ import {
   getRouteFromStatus,
   setTitleText,
 } from "../utils/helpers";
-import { theme } from "./AppWrapper";
 import globalStyles from "../utils/globalStyles";
 import { useRouter } from "expo-router";
 

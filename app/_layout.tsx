@@ -1,11 +1,12 @@
 import { Tabs } from "expo-router";
 import { FC, FunctionComponent } from "react";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import AppWrapper, { theme } from "../src/AppWrapper";
+import AppWrapper from "../src/AppWrapper";
 import ActionsPanel from "../src/ActionsPanel";
 import { Divider, Text } from "react-native-paper";
 import { SafeAreaView, View } from "react-native";
 import { ItemStatus } from "../store/ItemList.types";
+import { theme } from "../utils/theme";
 interface LayoutProps {}
 
 const iconSize = 41;

@@ -3,10 +3,10 @@ import { ScrollView, StyleSheet, View } from "react-native";
 import { List, Modal, Portal, Text } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { ItemListCtx } from "../store/ItemListCtx";
-import { theme } from "./AppWrapper";
 import { ItemStatus } from "../store/ItemList.types";
 import { spacing } from "../utils/spacing";
 import globalStyles from "../utils/globalStyles";
+import { theme } from "../utils/theme";
 
 type ItemsLibraryModalProps = {
   visible: boolean;
