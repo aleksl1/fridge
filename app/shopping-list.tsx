@@ -5,9 +5,10 @@ import { ScrollView } from "react-native";
 import useFruits from "../queries/useFruits";
 
 const ShoppingList: FunctionComponent = () => {
-  const fruits = useFruits();
-
-  console.log(fruits);
+  const fruits = useFruits({
+    onError: () => console.log("err"),
+    onSuccess: (data) => console.log("sukces", data),
+  });
 
   return (
     <ScrollView contentContainerStyle={globalStyles.listContainer}>
