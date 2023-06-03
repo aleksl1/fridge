@@ -13,9 +13,9 @@ type ItemListProps = {
 };
 
 const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
-  const { items, increment, decrement, removeItem, total, addItem } =
-    useContext(ItemListCtx);
-  const [addToNextListVisible, setAddToNextListVisible] = useState(false);
+  const {items, increment, decrement, removeItem, total} =
+      useContext(ItemListCtx);
+    const [addToNextListVisible, setAddToNextListVisible] = useState(false);
   const [pressedPreview, setPressedPreview] = useState<ListItemType>();
   const [previewVisible, setPreviewVisible] = useState(false);
   const [pressedItem, setPressedItem] = useState<PressedItemType>({
@@ -45,16 +45,14 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
     const incrementPressed = (item: PressedItemType) => {
     if (item.max === pressedItem?.quantity) return;
     setPressedItem((prevState) => {
-      const newState = { ...prevState, quantity: prevState?.quantity + 1 };
-      return newState;
+        return {...prevState, quantity: prevState?.quantity + 1};
     });
   };
 
   const decrementPressed = () => {
     if (pressedItem?.quantity === 1) return;
     setPressedItem((prevState) => {
-      const newState = { ...prevState, quantity: prevState?.quantity - 1 };
-      return newState;
+        return {...prevState, quantity: prevState?.quantity - 1};
     });
   };
 
