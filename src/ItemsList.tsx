@@ -1,9 +1,10 @@
 import { FunctionComponent, useContext, useMemo, useState } from "react";
 import { View } from "react-native";
-import { IconButton, List, Portal, useTheme } from "react-native-paper";
+import { Portal, useTheme } from "react-native-paper";
 import { ItemStatus, ListItemType } from "../store/ItemList.types";
 import { ItemListCtx } from "../store/ItemListCtx";
 import AddToNextListDialog from "./AddToNextListDialog";
+import CustomListItem from "./CustomListItem";
 import ItemPreviewDialog from "./ItemPreviewDialog";
 
 export type PressedItemType = ListItemType & { max: number };
@@ -24,9 +25,6 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
     status: type,
     max: 0,
   });
-  const {
-    colors: { primary, error },
-  } = useTheme();
   const showAddToNextListDialog = (item: PressedItemType) => {
     setPressedItem(item);
     setAddToNextListVisible(true);
@@ -59,50 +57,21 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
 
   const itemList = useMemo(
     () =>
-      items.map((item, index) => {
+      items.map((item) => {
         if (item.status !== type) return;
         return (
-          <List.Item
-            key={`${item.name}-${index}`}
-            title={item.name}
-            onPress={() => showPreview(item)}
-            description={`amount: ${item.quantity}`}
-            style={{ paddingEnd: 0 }}
-            right={() => (
-              <View style={{ flexDirection: "row" }}>
-                <IconButton icon="minus" onPress={() => decrement(item)} />
-                <IconButton icon="plus" onPress={() => increment(item)} />
-                <IconButton
-                  icon="delete"
-                  iconColor={error}
-                  onPress={() => {
-                    removeItem(item);
-                  }}
-                />
-                {item.status === "shoppingList" && (
-                  <IconButton
-                    icon="fridge"
-                    iconColor={primary}
-                    onPress={() =>
-                      showAddToNextListDialog({ ...item, max: item.quantity })
-                    }
-                  />
-                )}
-                {item.status === "fridge" && (
-                  <IconButton
-                    icon="food"
-                    iconColor={primary}
-                    onPress={() => {
-                      if (item.caloriesPer100g === undefined)
-                        return alert(
-                          "Can't add this item to diary, You need to add macros!"
-                        );
-                      showAddToNextListDialog({ ...item, max: item.quantity });
-                    }}
-                  />
-                )}
-              </View>
-            )}
+          <CustomListItem
+            key={`${item.name}-${item.status}`}
+            item={item}
+            onItemPress={() => showPreview(item)}
+            // onMinusPress={() => decrement(item)}
+            // onPlusPress={() => increment(item)}
+            onDeletePress={() => {
+              removeItem(item);
+            }}
+            onAddToNextListPress={() =>
+              showAddToNextListDialog({ ...item, max: item.quantity })
+            }
           />
         );
       }),
