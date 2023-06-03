@@ -1,8 +1,8 @@
-import { FunctionComponent, useContext, useMemo, useState } from "react";
-import { View } from "react-native";
-import { IconButton, List, Portal, useTheme } from "react-native-paper";
-import { ItemStatus, ListItemType } from "../store/ItemList.types";
-import { ItemListCtx } from "../store/ItemListCtx";
+import {FunctionComponent, useContext, useMemo, useState} from "react";
+import {View} from "react-native";
+import {IconButton, List, Portal, useTheme} from "react-native-paper";
+import {ItemStatus, ListItemType} from "../store/ItemList.types";
+import {ItemListCtx} from "../store/ItemListCtx";
 import AddToNextListDialog from "./AddToNextListDialog";
 import ItemPreviewDialog from "./ItemPreviewDialog";
 
@@ -41,7 +41,8 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
 
   const hidePreview = () => setPreviewVisible(false);
 
-  const incrementPressed = (item: PressedItemType) => {
+
+    const incrementPressed = (item: PressedItemType) => {
     if (item.max === pressedItem?.quantity) return;
     setPressedItem((prevState) => {
       const newState = { ...prevState, quantity: prevState?.quantity + 1 };

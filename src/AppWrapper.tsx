@@ -1,9 +1,8 @@
-import { FunctionComponent, ReactElement, useEffect } from "react";
-import { PaperProvider } from "react-native-paper";
+import {FunctionComponent, ReactElement} from "react";
+import {PaperProvider} from "react-native-paper";
 import ItemListProvider from "../store/ItemListCtx";
-import { theme } from "../utils/theme";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { getFruitsData } from "../queries/api";
+import {theme} from "../utils/theme";
+import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
 

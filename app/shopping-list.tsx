@@ -2,19 +2,23 @@ import {FunctionComponent} from "react";
 import ItemList from "../src/ItemsList";
 import globalStyles from "../utils/globalStyles";
 import {ScrollView} from "react-native";
-import useFruits from "../queries/useFruits";
+import {useQuery} from "@tanstack/react-query";
 
 const ShoppingList: FunctionComponent = () => {
-  const fruits = useFruits({
-      onError: () => console.log("err"),
-      onSuccess: (data) => console.log("sukces", data),
-  });
+    const {data, isLoading, isError} = useQuery(['products'], async () => {
+        const response = await fetch('http://localhost:3000/products');
+        const data = await response.json();
+        console.log("data", data);
+        return data;
+    });
 
-  return (
-    <ScrollView contentContainerStyle={globalStyles.listContainer}>
-      <ItemList type="shoppingList" />
-    </ScrollView>
-  );
+    console.log("data,isLoading,isErrorr", data, isLoading, isError);
+
+    return (
+        <ScrollView contentContainerStyle={globalStyles.listContainer}>
+            <ItemList type="shoppingList"/>
+        </ScrollView>
+    );
 };
 
 export default ShoppingList;

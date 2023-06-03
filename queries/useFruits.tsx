@@ -3,12 +3,12 @@ import {
   QueryObserverResult,
   RefetchOptions,
   RefetchQueryFilters,
+  useQuery,
   UseQueryOptions,
   UseQueryResult,
-  useQuery,
 } from "@tanstack/react-query";
-import { keys } from "./queryKeys";
-import { getFruitsData } from "./api";
+import {keys} from "./queryKeys";
+import {getFruitsData} from "../api/api";
 
 export type FruitData = {
   name: string;
