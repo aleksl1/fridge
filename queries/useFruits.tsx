@@ -46,3 +46,4 @@ const useFruits = (props: UseQueryOptions<FruitData[]>): FruitsHookResult => {
 };
 
 export default useFruits;
+

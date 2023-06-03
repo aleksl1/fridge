@@ -1,3 +1,4 @@
 export const keys = {
-  fruits: "fruits"
+  fruits: "fruits",
+  dummyProducts: "dummyProducts"
 }
