@@ -26,6 +26,10 @@ const ItemListProvider: FunctionComponent<ItemListProviderProps> = ({
   const [items, setItems] = useState<ListItemType[]>(defaultValue.items);
   const [total, setTotal] = useState<number>(0);
   const addItem: ItemAction = (item) => {
+    if (!item.costPerItem && item.status === "expenses") {
+      return alert("You can't add this to expense list without a price!");
+    }
+
     if (itemExists(item)) {
       const itemIndex = findIndexByName(item);
       const newItems = [...items];

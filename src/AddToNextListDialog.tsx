@@ -46,14 +46,6 @@ const AddToNextListDialog: FunctionComponent<AddToNextListDialogProps> = ({
       return type;
     };
     const newStatus = setNewStatus();
-    if (
-      newStatus === "foodDiary" &&
-      pressedItem.caloriesPer100g === ("0" || undefined)
-    ) {
-      alert(
-        "Item has no macros added. You can add macros from your food diary"
-      );
-    }
     addItem({ ...pressedItem, status: newStatus });
     hideDialog();
   };
