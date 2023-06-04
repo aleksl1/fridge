@@ -9,6 +9,8 @@ import ItemPreviewDialog from "./ItemPreviewDialog";
 import FoodDiaryListItem from "./FoodDiaryListItem";
 import {spacing} from "../utils/spacing";
 import {calculateCaloriesFromMacros} from "../utils/helpers";
+import ExpensesListItem from "./ExpensesListItem";
+import {CURRENCY} from "../utils/variables";
 
 export type PressedItemType = ListItemType & { max: number };
 
@@ -26,6 +28,7 @@ const ItemList: FunctionComponent<ItemListProps> = ({type}) => {
     const [previewVisible, setPreviewVisible] = useState(false);
     const [pressedItem, setPressedItem] = useState<PressedItemType>({} as PressedItemType)
     const [totalCalories, setTotalCalories] = useState(initialTotalCalories)
+    const [totalExpenses, setTotalExpenses] = useState(0)
     const {calories, fats, proteins, carbs} = totalCalories;
     const showAddToNextListDialog = (item: PressedItemType) => {
         setPressedItem(item);
@@ -56,9 +59,10 @@ const ItemList: FunctionComponent<ItemListProps> = ({type}) => {
     const itemList = useMemo(
         () =>
             items.map((item, index) => {
-                const {status} = item;
-                if (status !== type) return;
-                if (status === "foodDiary") {
+                const {status, costPerItem, name, quantity} = item;
+                const isExpense = Boolean(costPerItem) && type === "expenses" && status !== "itemLibrary" && status !== "shoppingList";
+                if (!isExpense && status !== type) return;
+                if (!isExpense && status === "foodDiary") {
                     const date = item.diaryDate?.toLocaleDateString()
                     const prevItemDate = items[index - 1].diaryDate?.toLocaleDateString();
                     const showDate = date !== prevItemDate || index === 0;
@@ -72,25 +76,28 @@ const ItemList: FunctionComponent<ItemListProps> = ({type}) => {
                                 onItemPress={() => showPreview(item)}
                                 onMinusPress={() => decrement(item)}
                                 onPlusPress={() => increment(item)}
-                                onDeletePress={() => {
-                                    removeItem(item);
-                                }}
+                                onDeletePress={() => removeItem(item)}
                                 onAddToNextListPress={() =>
                                     showAddToNextListDialog({...item, max: item.quantity})
                                 }
                             /></View>
                     )
                 }
+                if (isExpense)
+                    return <ExpensesListItem key={`${name}-${status}`} item={item}
+                                             onItemPress={() => {
+                                             }} onAddToNextListPress={() => {
+                    }}/>
                 return (
                     <CustomListItem
-                        key={`${item.name}-${item.status}`}
+                        key={`${name}-${status}`}
                         item={item}
                         onItemPress={() => showPreview(item)}
                         onMinusPress={() => decrement(item)}
                         onPlusPress={() => increment(item)}
                         onDeletePress={() => removeItem(item)}
                         onAddToNextListPress={() =>
-                            showAddToNextListDialog({...item, max: item.quantity})
+                            showAddToNextListDialog({...item, max: quantity})
                         }
                     />
                 );
@@ -99,38 +106,56 @@ const ItemList: FunctionComponent<ItemListProps> = ({type}) => {
     );
 
     useEffect(() => {
-        if (type !== "foodDiary") return;
-        const diaryItems = items.filter(item => item.status === "foodDiary")
-        let p = 0
-        let c = 0;
-        let f = 0
-        diaryItems.forEach(({macrosPerPiece: {proteins, fats, carbs}, quantity}) => {
-            p = p + proteins * quantity
-            c = c + carbs * quantity
-            f = f + fats * quantity
-        })
-        setTotalCalories({
-            calories: calculateCaloriesFromMacros({proteins: p, fats: f, carbs: c}),
-            proteins: p,
-            fats: f,
-            carbs: c
-        })
+        if (type === "foodDiary") {
+            const diaryItems = items.filter(item => item.status === "foodDiary")
+            let p = 0
+            let c = 0;
+            let f = 0
+            diaryItems.forEach(({macrosPerPiece: {proteins, fats, carbs}, quantity}) => {
+                p = p + proteins * quantity
+                c = c + carbs * quantity
+                f = f + fats * quantity
+            })
+            setTotalCalories({
+                calories: calculateCaloriesFromMacros({proteins: p, fats: f, carbs: c}),
+                proteins: p,
+                fats: f,
+                carbs: c
+            })
+        }
+        if (type === "expenses") {
+            let totalExpenses = 0;
+            items.forEach(({status, quantity, costPerItem}) => {
+                if (status !== "shoppingList" && status !== "itemLibrary" && costPerItem) {
+                    totalExpenses = totalExpenses + costPerItem * quantity
+                }
+            })
+            setTotalExpenses(totalExpenses)
+        }
     }, [items, total])
 
-    const cellTextStyle: StyleProp<TextStyle> = {fontWeight: "bold"}
+    const caloriesSummary = useMemo(() => {
+        const cellTextStyle: StyleProp<TextStyle> = {fontWeight: "bold"}
+        return (<DataTable.Row>
+            <DataTable.Cell textStyle={cellTextStyle} style={{flex: 2}}>Total
+                calories:</DataTable.Cell>
+            <DataTable.Cell textStyle={cellTextStyle} numeric>{calories}</DataTable.Cell>
+            <DataTable.Cell textStyle={cellTextStyle} numeric>{fats}</DataTable.Cell>
+            <DataTable.Cell textStyle={cellTextStyle} numeric>{proteins}</DataTable.Cell>
+            <DataTable.Cell textStyle={cellTextStyle} numeric>{carbs}</DataTable.Cell>
+        </DataTable.Row>)
+    }, [totalCalories])
+
+    const expenseSummary = useMemo(() => {
+        return <Text variant="titleLarge" style={{fontWeight: "bold"}}>Your total
+            expenses: {totalExpenses} {CURRENCY}</Text>
+    }, [totalExpenses])
 
     return (
         <View style={{gap: spacing.spacing8}}>
+            {type === "expenses" && expenseSummary}
             {itemList}
-            {type === "foodDiary" && <>
-                <DataTable.Row>
-                    <DataTable.Cell textStyle={cellTextStyle} style={{flex: 2}}>Total
-                        calories:</DataTable.Cell>
-                    <DataTable.Cell textStyle={cellTextStyle} numeric>{calories}</DataTable.Cell>
-                    <DataTable.Cell textStyle={cellTextStyle} numeric>{fats}</DataTable.Cell>
-                    <DataTable.Cell textStyle={cellTextStyle} numeric>{proteins}</DataTable.Cell>
-                    <DataTable.Cell textStyle={cellTextStyle} numeric>{carbs}</DataTable.Cell>
-                </DataTable.Row></>}
+            {type === "foodDiary" && caloriesSummary}
             <Portal>
                 {pressedItem && (
                     <AddToNextListDialog
