@@ -8,15 +8,15 @@ import {ListItemActionsMenu} from "./ListItemActionsMenu";
 type FoodDiaryListItemProps = CustomListItemProps
 
 const FoodDiaryListItem: FunctionComponent<FoodDiaryListItemProps> = (itemProps) => {
-    const {caloriesPer100g, macrosPer100g, quantity, name} = itemProps.item
+    const {caloriesPerPiece, macrosPerPiece, quantity, name} = itemProps.item
     return <View>
         <DataTable.Row onPress={() => {
         }}>
             <DataTable.Cell style={{flex: 2}}>{quantity} of {name}</DataTable.Cell>
-            <DataTable.Cell numeric>{caloriesPer100g}</DataTable.Cell>
-            <DataTable.Cell numeric>{macrosPer100g?.fats}</DataTable.Cell>
-            <DataTable.Cell numeric>{macrosPer100g?.proteins}</DataTable.Cell>
-            <DataTable.Cell numeric>{macrosPer100g?.carbs}</DataTable.Cell>
+            <DataTable.Cell numeric>{caloriesPerPiece}</DataTable.Cell>
+            <DataTable.Cell numeric>{macrosPerPiece.fats}</DataTable.Cell>
+            <DataTable.Cell numeric>{macrosPerPiece.proteins}</DataTable.Cell>
+            <DataTable.Cell numeric>{macrosPerPiece.carbs}</DataTable.Cell>
         </DataTable.Row>
         <View style={{
             position: "absolute",

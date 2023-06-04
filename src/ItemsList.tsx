@@ -23,12 +23,7 @@ const ItemList: FunctionComponent<ItemListProps> = ({type}) => {
     const [addToNextListVisible, setAddToNextListVisible] = useState(false);
     const [pressedPreview, setPressedPreview] = useState<ListItemType>();
     const [previewVisible, setPreviewVisible] = useState(false);
-    const [pressedItem, setPressedItem] = useState<PressedItemType>({
-        name: "",
-        quantity: 0,
-        status: type,
-        max: 0,
-    })
+    const [pressedItem, setPressedItem] = useState<PressedItemType>({} as PressedItemType)
     const [totalCalories, setTotalCalories] = useState(initialTotalCalories)
     const {calories, fats, proteins, carbs} = totalCalories;
     const showAddToNextListDialog = (item: PressedItemType) => {
@@ -47,17 +42,16 @@ const ItemList: FunctionComponent<ItemListProps> = ({type}) => {
 
     const incrementPressed = (item: PressedItemType) => {
         if (item.max === pressedItem?.quantity) return;
-        setPressedItem((prevState) => {
-            return {...prevState, quantity: prevState?.quantity + 1};
-        });
-    };
+        setPressedItem((prevState) => ({...prevState, quantity: prevState?.quantity + 1}))
+    }
+
 
     const decrementPressed = () => {
         if (pressedItem?.quantity === 1) return;
-        setPressedItem((prevState) => {
-            return {...prevState, quantity: prevState?.quantity - 1};
-        });
+        setPressedItem((prevState) => (
+            {...prevState, quantity: prevState?.quantity - 1}))
     };
+
     const itemList = useMemo(
         () =>
             items.map((item, index) => {
