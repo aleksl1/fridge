@@ -14,8 +14,10 @@ export const setTitleText = (value: ItemStatus) => {
     }
 };
 
-export const calculateCaloriesPerPiece = ({proteins, fats, carbs}: ItemMacro) => proteins * 4 + fats * 9 + carbs * 4;
-
+export const calculateCaloriesFromMacros = ({proteins, fats, carbs}: ItemMacro) => {
+    const calories = proteins * 4 + fats * 9 + carbs * 4;
+    return calories.toFixed(0)
+};
 
 export const getRouteFromStatus = (status: ItemStatus): Href => {
     switch (status) {

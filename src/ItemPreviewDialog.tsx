@@ -4,7 +4,7 @@ import {Dialog, List, Text, useTheme,} from "react-native-paper";
 import {ListItemType} from "../store/ItemList.types";
 import {Style} from "react-native-paper/lib/typescript/src/components/List/utils";
 import {spacing} from "../utils/spacing";
-import {setTitleText} from "../utils/helpers";
+import {calculateCaloriesFromMacros, setTitleText} from "../utils/helpers";
 
 type ItemPreviewDialogProps = {
     visible: boolean;
@@ -25,9 +25,8 @@ const ItemPreviewDialog: FunctionComponent<ItemPreviewDialogProps> = ({
         quantity,
         status,
         costPerItem,
-        macrosPerPiece,
+        macrosPerPiece: {fats, carbs, proteins},
         diaryDate,
-        caloriesPerPiece,
     } = pressedItem;
     const listLeftIcon = (props: { color: string; style: Style }) => (
         <List.Icon {...props} icon="chevron-right"/>
@@ -36,20 +35,20 @@ const ItemPreviewDialog: FunctionComponent<ItemPreviewDialogProps> = ({
     const caloriesInfo = () => (
         <>
             <List.Item
-                title={`calories in one piece: ${caloriesPerPiece}`}
+                title={`calories in one piece: ${calculateCaloriesFromMacros({fats, carbs, proteins})}`}
                 left={listLeftIcon}
             />
             <View style={{marginStart: spacing.spacing16}}>
                 <List.Item
-                    title={`proteins: ${macrosPerPiece.proteins}`}
+                    title={`proteins: ${proteins}`}
                     left={listLeftIcon}
                 />
                 <List.Item
-                    title={`fats: ${macrosPerPiece.fats}`}
+                    title={`fats: ${fats}`}
                     left={listLeftIcon}
                 />
                 <List.Item
-                    title={`carbs: ${macrosPerPiece.carbs}`}
+                    title={`carbs: ${carbs}`}
                     left={listLeftIcon}
                 />
             </View>
@@ -86,7 +85,7 @@ const ItemPreviewDialog: FunctionComponent<ItemPreviewDialogProps> = ({
                             title={`cost per item: ${costPerItem} PLN`}
                             left={listLeftIcon}
                         />
-                        {caloriesPerPiece !== undefined && caloriesInfo()}
+                        {caloriesInfo()}
                         {diaryDate && (
                             <List.Item
                                 title={`Added on: ${diaryDate.toLocaleDateString()}`}

@@ -6,7 +6,7 @@ import {spacing} from "../utils/spacing";
 import {ItemListCtx} from "../store/ItemListCtx";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {ItemStatus} from "../store/ItemList.types";
-import {calculateCaloriesPerPiece, getRouteFromStatus, setTitleText,} from "../utils/helpers";
+import {getRouteFromStatus, setTitleText,} from "../utils/helpers";
 import globalStyles from "../utils/globalStyles";
 import {useRouter} from "expo-router";
 
@@ -83,7 +83,6 @@ const AddItemFormModal: FunctionComponent<AddItemModalProps> = ({
                 fats,
             },
             diaryDate: data.status === "foodDiary" ? new Date() : undefined,
-            caloriesPerPiece: calculateCaloriesPerPiece({proteins, carbs, fats}),
         });
         reset();
         alert(`Item was added to Your ${setTitleText(data.status)}`);

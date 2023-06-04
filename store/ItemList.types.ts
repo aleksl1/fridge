@@ -17,7 +17,6 @@ export type ListItemType = {
     status: ItemStatus;
     costPerItem?: number;
     macrosPerPiece: ItemMacro;
-    caloriesPerPiece: number;
     diaryDate?: Date
 };
 
