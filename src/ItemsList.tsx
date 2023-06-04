@@ -1,4 +1,4 @@
-import {FunctionComponent, useCallback, useContext, useEffect, useMemo, useState} from "react";
+import {FunctionComponent, useContext, useMemo, useState} from "react";
 import {View} from "react-native";
 import {DataTable, Divider, Portal, Text} from "react-native-paper";
 import {ItemStatus, ListItemType} from "../store/ItemList.types";
@@ -58,29 +58,6 @@ const ItemList: FunctionComponent<ItemListProps> = ({type}) => {
             return {...prevState, quantity: prevState?.quantity - 1};
         });
     };
-    const calculateTotalCalories = useCallback(() => {
-        setTotalCalories(initialTotalCalories)
-        console.log("calc");
-        const foodDiaryItems = items.filter(item => item.status === "foodDiary")
-        foodDiaryItems.forEach(({caloriesPer100g, macrosPer100g, quantity}) => {
-            setTotalCalories(prevState => {
-                if (!caloriesPer100g || !macrosPer100g?.fats || !macrosPer100g?.carbs || !macrosPer100g?.proteins) {
-                    return prevState
-                } else
-                    return ({
-                        calories: prevState.calories + (Number(caloriesPer100g) * quantity),
-                        fats: prevState.fats + (macrosPer100g?.fats * quantity),
-                        carbs: prevState.carbs + (macrosPer100g?.carbs * quantity),
-                        proteins: prevState.proteins + (macrosPer100g?.proteins * quantity)
-                    })
-            })
-        })
-    }, [items, total])
-
-    useEffect(() => {
-        items.length && calculateTotalCalories()
-    }, [items, total])
-
     const itemList = useMemo(
         () =>
             items.map((item, index) => {
