@@ -1,17 +1,21 @@
 import {FunctionComponent, useContext, useMemo, useState} from "react";
 import {View} from "react-native";
-import {Portal} from "react-native-paper";
+import {DataTable, Divider, Portal, Text} from "react-native-paper";
 import {ItemStatus, ListItemType} from "../store/ItemList.types";
 import {ItemListCtx} from "../store/ItemListCtx";
 import AddToNextListDialog from "./AddToNextListDialog";
 import CustomListItem from "./CustomListItem";
 import ItemPreviewDialog from "./ItemPreviewDialog";
+import FoodDiaryListItem from "./FoodDiaryListItem";
+import {spacing} from "../utils/spacing";
 
 export type PressedItemType = ListItemType & { max: number };
 
 type ItemListProps = {
     type: ItemStatus;
 };
+
+const initialTotalCalories = {calories: 0, fats: 0, proteins: 0, carbs: 0}
 
 const ItemList: FunctionComponent<ItemListProps> = ({type}) => {
     const {items, increment, decrement, removeItem, total} =
@@ -24,7 +28,9 @@ const ItemList: FunctionComponent<ItemListProps> = ({type}) => {
         quantity: 0,
         status: type,
         max: 0,
-    });
+    })
+    const [totalCalories, setTotalCalories] = useState(initialTotalCalories)
+    const {calories, fats, proteins, carbs} = totalCalories;
     const showAddToNextListDialog = (item: PressedItemType) => {
         setPressedItem(item);
         setAddToNextListVisible(true);
@@ -52,11 +58,34 @@ const ItemList: FunctionComponent<ItemListProps> = ({type}) => {
             return {...prevState, quantity: prevState?.quantity - 1};
         });
     };
-
     const itemList = useMemo(
         () =>
-            items.map((item) => {
-                if (item.status !== type) return;
+            items.map((item, index) => {
+                const {status} = item;
+                if (status !== type) return;
+                if (status === "foodDiary") {
+                    const date = item.diaryDate?.toLocaleDateString()
+                    const prevItemDate = items[index - 1].diaryDate?.toLocaleDateString();
+                    const showDate = date !== prevItemDate || index === 0;
+                    return (
+                        <View key={`${item.name}-${item.status}`}
+                              style={{gap: spacing.spacing8, marginTop: spacing.spacing16}}>
+                            {showDate && <Text variant="titleSmall"
+                                               style={{fontWeight: "bold"}}>Your diary on {date}</Text>}
+                            <FoodDiaryListItem
+                                item={item}
+                                onItemPress={() => showPreview(item)}
+                                onMinusPress={() => decrement(item)}
+                                onPlusPress={() => increment(item)}
+                                onDeletePress={() => {
+                                    removeItem(item);
+                                }}
+                                onAddToNextListPress={() =>
+                                    showAddToNextListDialog({...item, max: item.quantity})
+                                }
+                            /></View>
+                    )
+                }
                 return (
                     <CustomListItem
                         key={`${item.name}-${item.status}`}
@@ -64,9 +93,7 @@ const ItemList: FunctionComponent<ItemListProps> = ({type}) => {
                         onItemPress={() => showPreview(item)}
                         onMinusPress={() => decrement(item)}
                         onPlusPress={() => increment(item)}
-                        onDeletePress={() => {
-                            removeItem(item);
-                        }}
+                        onDeletePress={() => removeItem(item)}
                         onAddToNextListPress={() =>
                             showAddToNextListDialog({...item, max: item.quantity})
                         }
@@ -76,8 +103,17 @@ const ItemList: FunctionComponent<ItemListProps> = ({type}) => {
         [items, increment, decrement, removeItem, total]
     );
     return (
-        <View>
+        <View style={{gap: spacing.spacing8}}>
             {itemList}
+            {type === "foodDiary" && <>
+                <Divider/>
+                <DataTable.Row>
+                    <DataTable.Cell style={{flex: 2}}>Total calories:</DataTable.Cell>
+                    <DataTable.Cell numeric>{calories}</DataTable.Cell>
+                    <DataTable.Cell numeric>{fats}</DataTable.Cell>
+                    <DataTable.Cell numeric>{proteins}</DataTable.Cell>
+                    <DataTable.Cell numeric>{carbs}</DataTable.Cell>
+                </DataTable.Row></>}
             <Portal>
                 {pressedItem && (
                     <AddToNextListDialog
