@@ -1,5 +1,6 @@
 import {Href} from "expo-router/build/link/href";
-import {ItemMacro, ItemStatus} from "../store/ItemList.types";
+import {ItemCategory, ItemMacro, ItemStatus} from "../store/ItemList.types";
+import {theme} from "../src/AppWrapper";
 
 export const setTitleText = (value: ItemStatus) => {
     switch (value) {
@@ -29,4 +30,25 @@ export const getRouteFromStatus = (status: ItemStatus): Href => {
             return "/shopping-list"
     }
     return ""
+}
+
+const categoryColors = {
+    drink: "#0099ff",
+    fruit: "#ffcc00",
+    vegetable: "#66cc33",
+    meat: "#cc0000"
+}
+export const getBorderColor = (category: ItemCategory | undefined) => {
+    switch (category) {
+        case "drink":
+            return categoryColors["drink"]
+        case "vegetable":
+            return categoryColors["vegetable"]
+        case "fruit":
+            return categoryColors["fruit"]
+        case "meat":
+            return categoryColors["meat"]
+        default:
+            return theme.colors.primary
+    }
 }
