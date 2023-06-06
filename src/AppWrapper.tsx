@@ -1,5 +1,6 @@
-import {FunctionComponent, ReactElement} from "react";
-import {MD3LightTheme as DefaultTheme, PaperProvider,} from "react-native-paper";
+//@ts-ignore
+import {FunctionComponent, ReactElement, useEffect, useRef, useState} from "react";
+import {MD3LightTheme as DefaultTheme, PaperProvider} from "react-native-paper";
 import ItemListProvider from "../store/ItemListCtx";
 
 type AppWrapperProps = {
@@ -53,9 +54,14 @@ export const theme = {
 };
 
 const AppWrapper: FunctionComponent<AppWrapperProps> = ({children}) => {
+
     return (
         <ItemListProvider>
-            <PaperProvider theme={theme}>{children}</PaperProvider>
+            <PaperProvider theme={theme}>
+
+
+                {children}
+            </PaperProvider>
         </ItemListProvider>
     );
 };
