@@ -43,6 +43,7 @@ const Layout: FunctionComponent<LayoutProps> = () => {
                     tabBarShowLabel: false,
                     tabBarStyle: {
                         height: 80,
+                        backgroundColor: theme.colors.secondaryContainer
                     },
                     tabBarActiveTintColor: theme.colors.primary,
                     tabBarInactiveTintColor: theme.colors.onSurface,

@@ -11,7 +11,7 @@ type ActionsPanelProps = {
     type: ItemStatus;
 };
 
-const buttonIconSize = 50;
+const buttonIconSize = 45;
 
 const ActionsPanel: FunctionComponent<ActionsPanelProps> = ({type}) => {
     const [libraryVisible, setLibraryVisible] = useState(false);
@@ -33,7 +33,7 @@ const ActionsPanel: FunctionComponent<ActionsPanelProps> = ({type}) => {
                 <IconButton onPress={showLibraryModal}
                             icon={() => <Icon name="magnify-plus-outline" size={buttonIconSize} color={primary}/>}/>
                 <IconButton // onPress={showAddItemModal} todo: uncomment when its ready
-                    icon={() => <Icon name="plus" size={buttonIconSize} color={primary} style={{marginTop: -3}}/>}/>
+                    icon={() => <Icon name="plus" size={buttonIconSize} color={primary} style={{marginTop: -4}}/>}/>
             </View>
             <ItemsLibraryModal
                 visible={libraryVisible}

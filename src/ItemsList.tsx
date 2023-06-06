@@ -152,7 +152,7 @@ const ItemList: FunctionComponent<ItemListProps> = ({type}) => {
     }, [totalExpenses])
 
     return (
-        <View style={{gap: spacing.spacing8}}>
+        <View style={{gap: spacing.spacing8, marginBottom: spacing.spacing16}}>
             {type === "expenses" && expenseSummary}
             {itemList}
             {type === "foodDiary" && caloriesSummary}
