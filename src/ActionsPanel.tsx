@@ -1,51 +1,39 @@
 import {FunctionComponent, useState} from "react";
 import {View} from "react-native";
-import {Button, Text} from "react-native-paper";
+import {IconButton, useTheme} from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import ItemsLibraryModal from "./ItemsLibraryModal";
 import {ItemStatus} from "../store/ItemList.types";
 import AddItemFormModal from "./AddItemFormModal";
+import {spacing} from "../utils/spacing";
 
 type ActionsPanelProps = {
     type: ItemStatus;
 };
 
-const buttonIconSize = 30;
+const buttonIconSize = 45;
 
 const ActionsPanel: FunctionComponent<ActionsPanelProps> = ({type}) => {
     const [libraryVisible, setLibraryVisible] = useState(false);
     const [addItemVisible, setAddItemVisible] = useState(false);
+    const {colors: {primary}} = useTheme()
 
     const showLibraryModal = () => setLibraryVisible(true);
     const hideLibraryModal = () => setLibraryVisible(false);
     const showAddItemModal = () => setAddItemVisible(true);
     const hideAddItemModal = () => setAddItemVisible(false);
     return (
-        <View style={{margin: 16}}>
+        <View style={{margin: spacing.spacing16, flex: 1}}>
             <View
                 style={{
                     flexDirection: "row",
-                    gap: 16,
+                    justifyContent: "flex-end"
                 }}
             >
-                <Button
-                    onPress={showLibraryModal}
-                    mode="outlined"
-                    icon={() => (
-                        <Icon name="magnify-plus-outline" size={buttonIconSize}/>
-                    )}
-                    style={{flex: 1}}
-                >
-                    <Text variant="titleLarge">Pick</Text>
-                </Button>
-                <Button
-                    // onPress={showAddItemModal}
-                    mode="outlined"
-                    icon={() => <Icon name="plus" size={buttonIconSize}/>}
-                    style={{flex: 1}}
-                >
-                    <Text variant="titleLarge">Add</Text>
-                </Button>
+                <IconButton onPress={showLibraryModal}
+                            icon={() => <Icon name="magnify-plus-outline" size={buttonIconSize} color={primary}/>}/>
+                <IconButton // onPress={showAddItemModal} todo: uncomment when its ready
+                    icon={() => <Icon name="plus" size={buttonIconSize} color={primary} style={{marginTop: -4}}/>}/>
             </View>
             <ItemsLibraryModal
                 visible={libraryVisible}

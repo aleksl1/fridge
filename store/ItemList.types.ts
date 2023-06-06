@@ -11,6 +11,8 @@ export type ItemMacro = {
     fats: number;
 };
 
+export type ItemCategory = "fruit" | "vegetable" | "drink" | "meat"
+
 export type ListItemType = {
     name: string;
     quantity: number;
@@ -18,6 +20,7 @@ export type ListItemType = {
     costPerItem?: number;
     macrosPerPiece: ItemMacro;
     diaryDate?: Date
+    category?: ItemCategory
 };
 
 export type ItemAction = (item: ListItemType) => void;
