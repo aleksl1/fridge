@@ -1,5 +1,5 @@
 import {FunctionComponent} from "react";
-import {HelperText, List, Text, useTheme} from "react-native-paper";
+import {HelperText, List, Text} from "react-native-paper";
 import {ListItemType} from "../store/ItemList.types";
 import {ListItemActionsMenu} from "./ListItemActionsMenu";
 import {View} from "react-native";
@@ -20,9 +20,6 @@ const CustomListItem: FunctionComponent<CustomListItemProps> = (props) => {
         item,
         onItemPress,
     } = props;
-    const {
-        colors: {primary, primaryContainer},
-    } = useTheme();
 
     return (
         <List.Item
