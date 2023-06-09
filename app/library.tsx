@@ -95,8 +95,6 @@ const styles = StyleSheet.create({
   listItem: {
     paddingStart: 8,
     paddingVertical: 0,
-    // borderBottomWidth: 1,
-    // borderColor: theme.colors.primary,
   },
   title: {
     margin: spacing.spacing16,
