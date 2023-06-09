@@ -5,7 +5,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { ItemStatus } from "../store/ItemList.types";
 import AddItemFormModal from "./AddItemFormModal";
 import { spacing } from "../utils/spacing";
-import { Link, useNavigation, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 
 type ActionsPanelProps = {
   type: ItemStatus;

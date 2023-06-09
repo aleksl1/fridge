@@ -1,19 +1,6 @@
-import {
-  FC,
-  FunctionComponent,
-  useCallback,
-  useContext,
-  useState,
-} from "react";
+import { FC, useCallback, useContext, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
-import {
-  Chip,
-  HelperText,
-  List,
-  Modal,
-  Portal,
-  Text,
-} from "react-native-paper";
+import { Chip, HelperText, List, Text } from "react-native-paper";
 import { ItemListCtx } from "../store/ItemListCtx";
 import {
   ItemCategories,
@@ -25,10 +12,9 @@ import { spacing } from "../utils/spacing";
 import globalStyles from "../utils/globalStyles";
 import { categoryColors } from "../utils/helpers";
 import { theme } from "../src/AppWrapper";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 
 const Library: FC = () => {
-  // const type = "foodDiary";
   const { type } = useLocalSearchParams();
   const { addItem, items } = useContext(ItemListCtx);
   const [filters, setFilters] = useState<ItemCategory[]>([]);
