@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
-import { spacing } from './spacing';
-import { theme } from '../src/AppWrapper';
+import { StyleSheet } from "react-native";
+import { spacing } from "./spacing";
+import { theme } from "../src/AppWrapper";
 
 export default StyleSheet.create({
   listContainer: {
@@ -12,9 +12,10 @@ export default StyleSheet.create({
     marginHorizontal: 16,
     marginVertical: 40,
     backgroundColor: theme.colors.onPrimary,
+    borderRadius: 16,
   },
   modalViewContainer: {
     gap: spacing.spacing16,
-    margin: spacing.spacing16,
+    padding: spacing.spacing16,
   },
 });

@@ -1,13 +1,15 @@
 # fridge
 
-Project stack: 
-- expo  
-- expo-router  
-- react-native-paper  
-- react context  
-- typescript  
+Project stack:
 
-Start locally:  
+- expo
+- expo-router
+- react-native-paper
+- react context
+- typescript
+
+Start locally:
+
 - git clone https://github.com/aleksl1/fridge
 - cd fridge
 - npm install

@@ -1,12 +1,21 @@
-import { FunctionComponent, useContext } from "react";
+import { FunctionComponent, useCallback, useContext } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
-import { List, Modal, Portal, Text } from "react-native-paper";
+import {
+  Badge,
+  Chip,
+  IconButton,
+  List,
+  Modal,
+  Portal,
+  Text,
+} from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { ItemListCtx } from "../store/ItemListCtx";
 import { theme } from "./AppWrapper";
-import { ItemStatus } from "../store/ItemList.types";
+import { ItemStatus, ListItemType } from "../store/ItemList.types";
 import { spacing } from "../utils/spacing";
 import globalStyles from "../utils/globalStyles";
+import { categoryColors } from "../utils/helpers";
 
 type ItemsLibraryModalProps = {
   visible: boolean;
@@ -20,6 +29,19 @@ const ItemsLibraryModal: FunctionComponent<ItemsLibraryModalProps> = ({
   type,
 }) => {
   const { addItem, items } = useContext(ItemListCtx);
+  const onItemPress = useCallback(
+    (item: ListItemType) =>
+      addItem({
+        ...item,
+        status: type,
+        quantity: 1,
+        diaryDate: type === "foodDiary" ? new Date() : undefined,
+      }),
+    [addItem]
+  );
+
+  const categories = [...new Set(items.map((item) => item.category))];
+  const categoryChips = categories?.map((c) => <Chip>{c}</Chip>);
   return (
     <Portal>
       <Modal
@@ -30,6 +52,9 @@ const ItemsLibraryModal: FunctionComponent<ItemsLibraryModalProps> = ({
         <ScrollView>
           <View style={globalStyles.modalViewContainer}>
             <>
+              <View style={{ flexDirection: "row", gap: 4 }}>
+                {categoryChips}
+              </View>
               <Text variant="titleLarge" style={styles.title}>
                 Items library:
               </Text>
@@ -38,27 +63,10 @@ const ItemsLibraryModal: FunctionComponent<ItemsLibraryModalProps> = ({
                 .map((item, index) => {
                   return (
                     <List.Item
+                      onPress={() => onItemPress(item)}
                       key={`${item.name}-${index}`}
                       title={<Text variant="bodyLarge">{item.name}</Text>}
-                      onPress={() =>
-                        addItem({
-                          ...item,
-                          status: type,
-                          quantity: 1,
-                          diaryDate:
-                            type === "foodDiary" ? new Date() : undefined,
-                        })
-                      }
-                      left={() => (
-                        <Text variant="bodyLarge">{`${index + 1}. `}</Text>
-                      )}
-                      right={() => (
-                        <Icon
-                          name={"plus"}
-                          size={21}
-                          color={theme.colors.primary}
-                        />
-                      )}
+                      right={() => <List.Icon icon="plus" />}
                       style={styles.listItem}
                     />
                   );
@@ -76,8 +84,8 @@ export default ItemsLibraryModal;
 const styles = StyleSheet.create({
   listItem: {
     paddingStart: 8,
-    borderWidth: 1,
-    borderRadius: 15,
+    paddingVertical: 0,
+    borderBottomWidth: 1,
     borderColor: theme.colors.primary,
   },
   title: {
