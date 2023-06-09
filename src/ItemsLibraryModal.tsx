@@ -1,21 +1,11 @@
 import { FunctionComponent, useCallback, useContext } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
-import {
-  Badge,
-  Chip,
-  IconButton,
-  List,
-  Modal,
-  Portal,
-  Text,
-} from "react-native-paper";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { Chip, List, Modal, Portal, Text } from "react-native-paper";
 import { ItemListCtx } from "../store/ItemListCtx";
 import { theme } from "./AppWrapper";
 import { ItemStatus, ListItemType } from "../store/ItemList.types";
 import { spacing } from "../utils/spacing";
 import globalStyles from "../utils/globalStyles";
-import { categoryColors } from "../utils/helpers";
 
 type ItemsLibraryModalProps = {
   visible: boolean;
