@@ -3,8 +3,6 @@ import { useRouter } from "expo-router";
 import { ItemStatus } from "../store/ItemList.types";
 import { FC } from "react";
 import { HEADER_ICON_SIZE } from "../utils/variables";
-import { View, Image } from "react-native";
-import { spacing } from "../utils/spacing";
 import Logo from "./components/Logo";
 
 type TabTopBarProps = {

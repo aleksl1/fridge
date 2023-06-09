@@ -1,9 +1,9 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { Image, View } from "react-native";
 import { spacing } from "../../utils/spacing";
 
 const Logo: FC = () => {
-  const [logoSize, setLogoSize] = useState(40);
+  const logoSize = 40;
   return (
     <View style={{ marginHorizontal: spacing.spacing16 }}>
       <Image
