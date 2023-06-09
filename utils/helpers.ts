@@ -12,6 +12,8 @@ export const setTitleText = (value: ItemStatus) => {
       return "item library";
     case "shoppingList":
       return "shopping list";
+    case "expenses":
+      return "expenses list";
   }
 };
 
