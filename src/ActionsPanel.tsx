@@ -2,10 +2,10 @@ import { FunctionComponent, useState } from "react";
 import { View } from "react-native";
 import { IconButton, useTheme } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import ItemsLibraryModal from "./ItemsLibraryModal";
 import { ItemStatus } from "../store/ItemList.types";
 import AddItemFormModal from "./AddItemFormModal";
 import { spacing } from "../utils/spacing";
+import { useRouter } from "expo-router";
 
 type ActionsPanelProps = {
   type: ItemStatus;
@@ -14,14 +14,11 @@ type ActionsPanelProps = {
 const buttonIconSize = 45;
 
 const ActionsPanel: FunctionComponent<ActionsPanelProps> = ({ type }) => {
-  const [libraryVisible, setLibraryVisible] = useState(false);
   const [addItemVisible, setAddItemVisible] = useState(false);
   const {
     colors: { primary },
   } = useTheme();
-
-  const showLibraryModal = () => setLibraryVisible(true);
-  const hideLibraryModal = () => setLibraryVisible(false);
+  const router = useRouter();
   const showAddItemModal = () => setAddItemVisible(true);
   const hideAddItemModal = () => setAddItemVisible(false);
   return (
@@ -33,7 +30,7 @@ const ActionsPanel: FunctionComponent<ActionsPanelProps> = ({ type }) => {
         }}
       >
         <IconButton
-          onPress={showLibraryModal}
+          onPress={() => router.push({ pathname: "library", params: { type } })}
           icon={() => (
             <Icon
               name="magnify-plus-outline"
@@ -53,11 +50,6 @@ const ActionsPanel: FunctionComponent<ActionsPanelProps> = ({ type }) => {
           )}
         />
       </View>
-      <ItemsLibraryModal
-        visible={libraryVisible}
-        hideModal={hideLibraryModal}
-        type={type}
-      />
       <AddItemFormModal
         visible={addItemVisible}
         hideModal={hideAddItemModal}

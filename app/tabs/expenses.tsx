@@ -1,7 +1,7 @@
 import { FunctionComponent } from "react";
 import { ScrollView } from "react-native";
-import ItemList from "../src/ItemsList";
-import globalStyles from "../utils/globalStyles";
+import ItemList from "../../src/ItemsList";
+import globalStyles from "../../utils/globalStyles";
 
 const Expenses: FunctionComponent = () => {
   return (

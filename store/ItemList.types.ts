@@ -13,6 +13,13 @@ export type ItemMacro = {
 
 export type ItemCategory = "fruit" | "vegetable" | "drink" | "meat";
 
+export const ItemCategories: ItemCategory[] = [
+  "fruit",
+  "vegetable",
+  "drink",
+  "meat",
+];
+
 export type ListItemType = {
   name: string;
   quantity: number;
