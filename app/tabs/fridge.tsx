@@ -1,7 +1,7 @@
 import { FunctionComponent } from "react";
-import ItemList from "../src/ItemsList";
+import ItemList from "../../src/ItemsList";
 import { ScrollView } from "react-native";
-import globalStyles from "../utils/globalStyles";
+import globalStyles from "../../utils/globalStyles";
 
 const Fridge: FunctionComponent = () => {
   return (

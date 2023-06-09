@@ -7,7 +7,7 @@ const Home: FunctionComponent = () => {
   return (
     <AppWrapper>
       <View>
-        <Redirect href="/shopping-list" />
+        <Redirect href="tabs/shopping-list" />
       </View>
     </AppWrapper>
   );
