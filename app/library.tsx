@@ -1,6 +1,6 @@
-import { FC, useCallback, useContext, useState } from "react";
+import React, { FC, useCallback, useContext, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
-import { Chip, HelperText, List, Text } from "react-native-paper";
+import { Chip, Divider, HelperText, List, Text } from "react-native-paper";
 import { ItemListCtx } from "../store/ItemListCtx";
 import {
   ItemCategories,
@@ -12,7 +12,7 @@ import { spacing } from "../utils/spacing";
 import globalStyles from "../utils/globalStyles";
 import { categoryColors } from "../utils/helpers";
 import { theme } from "../src/AppWrapper";
-import { useLocalSearchParams } from "expo-router";
+import { Stack, useLocalSearchParams } from "expo-router";
 
 const Library: FC = () => {
   const { type } = useLocalSearchParams();
@@ -41,7 +41,7 @@ const Library: FC = () => {
   };
 
   const availableFilters = [...ItemCategories];
-  const categoryChips = availableFilters?.map((c, i) => {
+  const categoryChips = availableFilters?.map((c) => {
     const isSelected = filters.includes(c);
     return (
       <Chip
@@ -59,7 +59,7 @@ const Library: FC = () => {
     <ScrollView>
       <View style={globalStyles.modalViewContainer}>
         <View>
-          <HelperText type={"info"}>categories:</HelperText>
+          <HelperText type={"info"}>Categories:</HelperText>
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -68,9 +68,7 @@ const Library: FC = () => {
             {categoryChips}
           </ScrollView>
         </View>
-        <Text variant="titleLarge" style={styles.title}>
-          Items library:
-        </Text>
+        <Divider horizontalInset />
         {items
           .filter((item) => item.status === "itemLibrary")
           .filter((i) =>
@@ -98,8 +96,8 @@ const styles = StyleSheet.create({
   listItem: {
     paddingStart: 8,
     paddingVertical: 0,
-    borderBottomWidth: 1,
-    borderColor: theme.colors.primary,
+    // borderBottomWidth: 1,
+    // borderColor: theme.colors.primary,
   },
   title: {
     margin: spacing.spacing16,

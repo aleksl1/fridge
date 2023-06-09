@@ -17,6 +17,7 @@ import { spacing } from "../utils/spacing";
 import { calculateCaloriesFromMacros } from "../utils/helpers";
 import ExpensesListItem from "./ExpensesListItem";
 import { CURRENCY } from "../utils/variables";
+import EmptyListInfo from "./EmptyListInfo";
 
 export type PressedItemType = ListItemType & { max: number };
 
@@ -200,6 +201,9 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
       </Text>
     );
   }, [totalExpenses]);
+
+  if (items.filter((i) => i.status === type).length === 0)
+    return <EmptyListInfo type={type} />;
 
   return (
     <View style={{ gap: spacing.spacing8, marginBottom: spacing.spacing16 }}>

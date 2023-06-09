@@ -4,6 +4,7 @@ import { theme } from "../src/AppWrapper";
 
 export default StyleSheet.create({
   listContainer: {
+    flex: 1,
     margin: spacing.spacing16,
     gap: spacing.spacing16,
     paddingBottom: spacing.spacing16,
