@@ -11,8 +11,7 @@ import {
 import { spacing } from "../utils/spacing";
 import globalStyles from "../utils/globalStyles";
 import { categoryColors } from "../utils/helpers";
-import { theme } from "../src/AppWrapper";
-import { Stack, useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 
 const Library: FC = () => {
   const { type } = useLocalSearchParams();
