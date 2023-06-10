@@ -10,12 +10,12 @@ import { fetchLibraryFoodItems } from "../queries/libraryItem";
 
 const defaultValue: ItemListCtxType = {
   items: [],
-  addItem: (item) => {},
-  removeItem: (item) => {},
-  increment: (item) => {},
-  decrement: (item) => {},
+  addItem: () => {},
+  removeItem: () => {},
+  increment: () => {},
+  decrement: () => {},
   total: 0,
-  itemExists: (item) => false,
+  itemExists: () => false,
 };
 
 export const ItemListCtx = createContext<ItemListCtxType>(defaultValue);
@@ -27,7 +27,7 @@ const ItemListProvider: FunctionComponent<ItemListProviderProps> = ({
   const [total, setTotal] = useState<number>(0);
 
   useEffect(() => {
-    console.log("eff");
+    if (items.length > 0) return;
     const getItems = async () => {
       const items = await fetchLibraryFoodItems();
       setItems(items);

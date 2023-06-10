@@ -1,3 +1,4 @@
+import "react-native-get-random-values";
 import Parse from "parse/react-native";
 import { ListItemType } from "../store/ItemList.types";
 import { Alert } from "react-native";

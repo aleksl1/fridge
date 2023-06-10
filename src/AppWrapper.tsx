@@ -1,4 +1,4 @@
-import { FunctionComponent, ReactElement, useEffect, useState } from "react";
+import { FunctionComponent, ReactElement } from "react";
 import { PaperProvider } from "react-native-paper";
 import ItemListProvider from "../store/ItemListCtx";
 import AsyncStorage from "@react-native-async-storage/async-storage";
