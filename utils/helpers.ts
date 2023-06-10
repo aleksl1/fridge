@@ -1,6 +1,7 @@
 import { Href } from "expo-router/build/link/href";
 import { ItemCategory, ItemMacro, ItemStatus } from "../store/ItemList.types";
-import { theme } from "../src/AppWrapper";
+
+import { theme } from "./theme";
 
 export const setTitleText = (value: ItemStatus) => {
   switch (value) {

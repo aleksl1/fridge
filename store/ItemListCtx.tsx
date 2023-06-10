@@ -1,4 +1,4 @@
-import { FunctionComponent, createContext, useState } from "react";
+import { FunctionComponent, createContext, useState, useEffect } from "react";
 import {
   ItemAction,
   ItemAmountAction,
@@ -6,16 +6,16 @@ import {
   ItemListProviderProps,
   ListItemType,
 } from "./ItemList.types";
-import { libraryItems } from "../utils/dummyData";
+import { fetchLibraryFoodItems } from "../queries/libraryItem";
 
 const defaultValue: ItemListCtxType = {
-  items: [...libraryItems],
-  addItem: (item) => {},
-  removeItem: (item) => {},
-  increment: (item) => {},
-  decrement: (item) => {},
+  items: [],
+  addItem: () => {},
+  removeItem: () => {},
+  increment: () => {},
+  decrement: () => {},
   total: 0,
-  itemExists: (item) => false,
+  itemExists: () => false,
 };
 
 export const ItemListCtx = createContext<ItemListCtxType>(defaultValue);
@@ -25,6 +25,15 @@ const ItemListProvider: FunctionComponent<ItemListProviderProps> = ({
 }) => {
   const [items, setItems] = useState<ListItemType[]>(defaultValue.items);
   const [total, setTotal] = useState<number>(0);
+
+  useEffect(() => {
+    if (items.length > 0) return;
+    const getItems = async () => {
+      const items = await fetchLibraryFoodItems();
+      setItems(items);
+    };
+    getItems();
+  }, []);
   const addItem: ItemAction = (item) => {
     if (!item.costPerItem && item.status === "expenses") {
       return alert("You can't add this to expense list without a price!");
