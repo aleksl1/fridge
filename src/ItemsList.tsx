@@ -19,6 +19,7 @@ import ExpensesListItem from "./ExpensesListItem";
 import { CURRENCY } from "../utils/variables";
 import EmptyListInfo from "./EmptyListInfo";
 import CaloriesSummary from "./components/CaloriesSummary";
+import ExpenseSummary from "./components/ExpenseSummary";
 
 export type PressedItemType = ListItemType & { max: number };
 
@@ -183,20 +184,12 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
     }
   }, [items, total]);
 
-  const expenseSummary = useMemo(() => {
-    return (
-      <Text variant="titleLarge" style={{ fontWeight: "bold" }}>
-        Your total expenses: {totalExpenses} {CURRENCY}
-      </Text>
-    );
-  }, [totalExpenses]);
-
   if (items.filter((i) => i.status === type).length === 0)
     return <EmptyListInfo type={type} />;
 
   return (
     <View style={{ gap: spacing.spacing8, marginBottom: spacing.spacing16 }}>
-      {type === "expenses" && expenseSummary}
+      {type === "expenses" && <ExpenseSummary totalExpenses={totalExpenses} />}
       {itemList}
       {type === "foodDiary" && (
         <CaloriesSummary totalCalories={totalCalories} />
