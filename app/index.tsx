@@ -2,7 +2,7 @@ import { Redirect } from "expo-router";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { View } from "react-native";
 import AppWrapper from "../src/AppWrapper";
-import HomeAnimation from "../src/animations/HomeAnimation";
+import AnimationComponent from "../src/animations/AnimationComponent";
 
 const Home: FunctionComponent = () => {
   const [redirect, setRedirect] = useState(false);
@@ -13,7 +13,7 @@ const Home: FunctionComponent = () => {
   return (
     <AppWrapper>
       <View style={{ flex: 1 }}>
-        <HomeAnimation />
+        <AnimationComponent animation="home" />
         {redirect && <Redirect href="tabs/shopping-list" />}
       </View>
     </AppWrapper>

@@ -184,7 +184,7 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
   }, [items, total]);
 
   if (items.filter((i) => i.status === type).length === 0)
-    return <EmptyListInfo type={type} />;
+    return <EmptyListInfo />;
 
   return (
     <View style={{ gap: spacing.spacing8, marginBottom: spacing.spacing16 }}>
