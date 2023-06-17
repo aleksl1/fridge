@@ -41,8 +41,7 @@ const initialTotalCalories: TotalCalories = {
 };
 
 const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
-  const { items, increment, decrement, removeItem, total } =
-    useContext(ItemListCtx);
+  const { items, total } = useContext(ItemListCtx);
   const [addToNextListVisible, setAddToNextListVisible] = useState(false);
   const [pressedPreview, setPressedPreview] = useState<ListItemType>();
   const [previewVisible, setPreviewVisible] = useState(false);
@@ -80,7 +79,7 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
       quantity: prevState?.quantity - 1,
     }));
   };
-
+  console.log("items", items);
   const itemList = useMemo(
     () =>
       items.map((item, index) => {
@@ -108,9 +107,6 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
               <FoodDiaryListItem
                 item={item}
                 onItemPress={() => showPreview(item)}
-                onMinusPress={() => decrement(item)}
-                onPlusPress={() => increment(item)}
-                onDeletePress={() => removeItem(item)}
                 onAddToNextListPress={() =>
                   showAddToNextListDialog({ ...item, max: item.quantity })
                 }
@@ -132,16 +128,13 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
             key={`${name}-${status}`}
             item={item}
             onItemPress={() => showPreview(item)}
-            onMinusPress={() => decrement(item)}
-            onPlusPress={() => increment(item)}
-            onDeletePress={() => removeItem(item)}
             onAddToNextListPress={() =>
               showAddToNextListDialog({ ...item, max: quantity })
             }
           />
         );
       }),
-    [items, increment, decrement, removeItem, total]
+    [items, total]
   );
 
   useEffect(() => {
