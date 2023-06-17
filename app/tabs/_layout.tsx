@@ -4,6 +4,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { TabTopBar } from "../../src/AppBars";
 import { TAB_ICON_SIZE } from "../../utils/variables";
 import { theme } from "../../utils/theme";
+import { SafeAreaView } from "react-native";
 
 const TabsLayout: FC = () => {
   return (
@@ -11,11 +12,11 @@ const TabsLayout: FC = () => {
       screenOptions={{
         tabBarShowLabel: false,
         tabBarStyle: {
-          height: 80,
           backgroundColor: theme.colors.background,
+          height: 80,
         },
-        tabBarActiveTintColor: theme.colors.primary,
-        tabBarInactiveTintColor: theme.colors.onSurface,
+        tabBarActiveTintColor: theme.colors.primaryContainer,
+        tabBarInactiveTintColor: theme.colors.primary,
       }}
     >
       <Tabs.Screen
