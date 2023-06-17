@@ -5,8 +5,8 @@ import {
   useMemo,
   useState,
 } from "react";
-import { StyleProp, TextStyle, View } from "react-native";
-import { DataTable, Portal, Text } from "react-native-paper";
+import { View } from "react-native";
+import { Portal, Text } from "react-native-paper";
 import { ItemStatus, ListItemType } from "../store/ItemList.types";
 import { ItemListCtx } from "../store/ItemListCtx";
 import AddToNextListDialog from "./AddToNextListDialog";
@@ -16,8 +16,9 @@ import FoodDiaryListItem from "./FoodDiaryListItem";
 import { spacing } from "../utils/spacing";
 import { calculateCaloriesFromMacros } from "../utils/helpers";
 import ExpensesListItem from "./ExpensesListItem";
-import { CURRENCY } from "../utils/variables";
 import EmptyListInfo from "./EmptyListInfo";
+import CaloriesSummary from "./components/CaloriesSummary";
+import ExpenseSummary from "./components/ExpenseSummary";
 
 export type PressedItemType = ListItemType & { max: number };
 
@@ -25,7 +26,19 @@ type ItemListProps = {
   type: ItemStatus;
 };
 
-const initialTotalCalories = { calories: "", fats: 0, proteins: 0, carbs: 0 };
+export type TotalCalories = {
+  calories: string;
+  fats: number;
+  proteins: number;
+  carbs: number;
+};
+
+const initialTotalCalories: TotalCalories = {
+  calories: "",
+  fats: 0,
+  proteins: 0,
+  carbs: 0,
+};
 
 const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
   const { items, increment, decrement, removeItem, total } =
@@ -38,7 +51,6 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
   );
   const [totalCalories, setTotalCalories] = useState(initialTotalCalories);
   const [totalExpenses, setTotalExpenses] = useState(0);
-  const { calories, fats, proteins, carbs } = totalCalories;
   const showAddToNextListDialog = (item: PressedItemType) => {
     setPressedItem(item);
     setAddToNextListVisible(true);
@@ -171,45 +183,16 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
     }
   }, [items, total]);
 
-  const caloriesSummary = useMemo(() => {
-    const cellTextStyle: StyleProp<TextStyle> = { fontWeight: "bold" };
-    return (
-      <DataTable.Row>
-        <DataTable.Cell textStyle={cellTextStyle} style={{ flex: 2 }}>
-          Total calories:
-        </DataTable.Cell>
-        <DataTable.Cell textStyle={cellTextStyle} numeric>
-          {calories}
-        </DataTable.Cell>
-        <DataTable.Cell textStyle={cellTextStyle} numeric>
-          {fats}
-        </DataTable.Cell>
-        <DataTable.Cell textStyle={cellTextStyle} numeric>
-          {proteins}
-        </DataTable.Cell>
-        <DataTable.Cell textStyle={cellTextStyle} numeric>
-          {carbs}
-        </DataTable.Cell>
-      </DataTable.Row>
-    );
-  }, [totalCalories]);
-
-  const expenseSummary = useMemo(() => {
-    return (
-      <Text variant="titleLarge" style={{ fontWeight: "bold" }}>
-        Your total expenses: {totalExpenses} {CURRENCY}
-      </Text>
-    );
-  }, [totalExpenses]);
-
   if (items.filter((i) => i.status === type).length === 0)
     return <EmptyListInfo type={type} />;
 
   return (
     <View style={{ gap: spacing.spacing8, marginBottom: spacing.spacing16 }}>
-      {type === "expenses" && expenseSummary}
+      {type === "expenses" && <ExpenseSummary totalExpenses={totalExpenses} />}
       {itemList}
-      {type === "foodDiary" && caloriesSummary}
+      {type === "foodDiary" && (
+        <CaloriesSummary totalCalories={totalCalories} />
+      )}
       <Portal>
         {pressedItem && (
           <AddToNextListDialog
