@@ -6,13 +6,15 @@ import AddButton from "../../src/components/AddButton";
 
 const ShoppingList: FunctionComponent = () => {
   return (
-    <ScrollView
-      // style={{ flex: 1 }}
-      contentContainerStyle={globalStyles.listContainer}
-    >
-      <ItemList type="shoppingList" />
-      {/*<AddButton type="shoppingList" />*/}
-    </ScrollView>
+    <>
+      <ScrollView
+        // style={{ flex: 1 }}
+        contentContainerStyle={globalStyles.listContainer}
+      >
+        <ItemList type="shoppingList" />
+      </ScrollView>
+      <AddButton type="shoppingList" />
+    </>
   );
 };
 

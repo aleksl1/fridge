@@ -6,10 +6,12 @@ import AddButton from "../../src/components/AddButton";
 
 const Expenses: FunctionComponent = () => {
   return (
-    <ScrollView contentContainerStyle={globalStyles.listContainer}>
-      <ItemList type="expenses" />
+    <>
+      <ScrollView contentContainerStyle={globalStyles.listContainer}>
+        <ItemList type="expenses" />
+      </ScrollView>
       <AddButton type="expenses" />
-    </ScrollView>
+    </>
   );
 };
 

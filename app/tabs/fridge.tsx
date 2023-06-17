@@ -6,10 +6,12 @@ import AddButton from "../../src/components/AddButton";
 
 const Fridge: FunctionComponent = () => {
   return (
-    <ScrollView contentContainerStyle={globalStyles.listContainer}>
-      <ItemList type="fridge" />
+    <>
+      <ScrollView contentContainerStyle={globalStyles.listContainer}>
+        <ItemList type="fridge" />
+      </ScrollView>
       <AddButton type="fridge" />
-    </ScrollView>
+    </>
   );
 };
 
