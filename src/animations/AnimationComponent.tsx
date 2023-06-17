@@ -54,9 +54,6 @@ const AnimationComponent: FC = () => {
           source={require("../../assets/fridge.png")}
           style={[{ marginTop: 150 }, logoStyle]}
         />
-        <Text variant="titleLarge" style={{ marginTop: spacing.spacing16 }}>
-          Put it in the fridge so it stays fresh!
-        </Text>
       </View>
     );
 
@@ -68,9 +65,6 @@ const AnimationComponent: FC = () => {
           source={require("../../assets/shopping_list.png")}
           style={[{ marginTop: 120 }, logoStyle]}
         />
-        <Text variant="titleLarge" style={{ marginTop: spacing.spacing16 }}>
-          Add first item to the list..
-        </Text>
       </View>
     );
 
@@ -82,9 +76,6 @@ const AnimationComponent: FC = () => {
           source={require("../../assets/expenses.png")}
           style={[{ marginTop: 120 }, logoStyle]}
         />
-        <Text variant="titleLarge" style={{ marginTop: spacing.spacing16 }}>
-          Keep track of Your budget!
-        </Text>
       </View>
     );
 
@@ -96,9 +87,6 @@ const AnimationComponent: FC = () => {
           source={require("../../assets/food_diary.png")}
           style={[{ marginTop: 100 }, logoStyle]}
         />
-        <Text variant="titleLarge" style={{ marginTop: spacing.spacing16 }}>
-          Log what You ate and stay fit!
-        </Text>
       </View>
     );
   if (pathname === "/")

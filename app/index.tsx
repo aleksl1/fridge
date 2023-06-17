@@ -13,7 +13,7 @@ const Home: FunctionComponent = () => {
   return (
     <AppWrapper>
       <View style={{ flex: 1 }}>
-        <AnimationComponent animation="home" />
+        <AnimationComponent />
         {redirect && <Redirect href="tabs/shopping-list" />}
       </View>
     </AppWrapper>
