@@ -16,7 +16,6 @@ import FoodDiaryListItem from "./FoodDiaryListItem";
 import { spacing } from "../utils/spacing";
 import { calculateCaloriesFromMacros } from "../utils/helpers";
 import ExpensesListItem from "./ExpensesListItem";
-import { CURRENCY } from "../utils/variables";
 import EmptyListInfo from "./EmptyListInfo";
 import CaloriesSummary from "./components/CaloriesSummary";
 import ExpenseSummary from "./components/ExpenseSummary";
