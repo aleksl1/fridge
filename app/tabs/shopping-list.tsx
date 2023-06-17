@@ -7,10 +7,7 @@ import AddButton from "../../src/components/AddButton";
 const ShoppingList: FunctionComponent = () => {
   return (
     <>
-      <ScrollView
-        // style={{ flex: 1 }}
-        contentContainerStyle={globalStyles.listContainer}
-      >
+      <ScrollView contentContainerStyle={globalStyles.listContainer}>
         <ItemList type="shoppingList" />
       </ScrollView>
       <AddButton type="shoppingList" />
