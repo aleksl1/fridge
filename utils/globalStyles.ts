@@ -5,7 +5,7 @@ import { theme } from "./theme";
 
 export default StyleSheet.create({
   listContainer: {
-    flex: 1,
+    // flex: 1,
     padding: spacing.spacing16,
     gap: spacing.spacing16,
   },
