@@ -4,6 +4,7 @@ import ItemList from "../../src/ItemsList";
 import globalStyles from "../../utils/globalStyles";
 import { DataTable } from "react-native-paper";
 import { spacing } from "../../utils/spacing";
+import AddButton from "../../src/components/AddButton";
 
 const FoodDiary: FunctionComponent = () => {
   return (
@@ -18,6 +19,7 @@ const FoodDiary: FunctionComponent = () => {
         </DataTable.Header>
         <ItemList type="foodDiary" />
       </DataTable>
+      <AddButton type="foodDiary" />
     </ScrollView>
   );
 };

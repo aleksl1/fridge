@@ -21,7 +21,7 @@ const TabsLayout: FC = () => {
       <Tabs.Screen
         name="shopping-list"
         options={{
-          header: () => <TabTopBar title="Shopping List" type="shoppingList" />,
+          header: () => <TabTopBar title="Shopping List" />,
           tabBarIcon: ({ color }) => (
             <Icon name="clipboard-list" size={TAB_ICON_SIZE} color={color} />
           ),
@@ -30,7 +30,7 @@ const TabsLayout: FC = () => {
       <Tabs.Screen
         name="fridge"
         options={{
-          header: () => <TabTopBar title="Fridge" type="fridge" />,
+          header: () => <TabTopBar title="Fridge" />,
           tabBarIcon: ({ color }) => (
             <Icon name="fridge" size={TAB_ICON_SIZE} color={color} />
           ),
@@ -39,7 +39,7 @@ const TabsLayout: FC = () => {
       <Tabs.Screen
         name="food-diary"
         options={{
-          header: () => <TabTopBar title="Food Diary" type="foodDiary" />,
+          header: () => <TabTopBar title="Food Diary" />,
           tabBarIcon: ({ color }) => (
             <Icon name="food" size={TAB_ICON_SIZE} color={color} />
           ),
@@ -48,7 +48,7 @@ const TabsLayout: FC = () => {
       <Tabs.Screen
         name="expenses"
         options={{
-          header: () => <TabTopBar title="Expenses" type="expenses" />,
+          header: () => <TabTopBar title="Expenses" />,
           tabBarIcon: ({ color }) => (
             <Icon name="cash-multiple" size={TAB_ICON_SIZE} color={color} />
           ),

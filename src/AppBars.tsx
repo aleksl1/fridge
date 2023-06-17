@@ -7,20 +7,14 @@ import Logo from "./components/Logo";
 
 type TabTopBarProps = {
   title: string;
-  type: ItemStatus;
 };
-const TabTopBar: FC<TabTopBarProps> = ({ title, type }) => {
+const TabTopBar: FC<TabTopBarProps> = ({ title }) => {
   const router = useRouter();
 
   return (
     <Appbar.Header mode="center-aligned">
       <Logo />
       <Appbar.Content title={title} />
-      <Appbar.Action
-        icon="magnify-plus-outline"
-        size={HEADER_ICON_SIZE}
-        onPress={() => router.push({ pathname: "library", params: { type } })}
-      />
     </Appbar.Header>
   );
 };
