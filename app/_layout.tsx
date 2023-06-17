@@ -20,6 +20,7 @@ const Layout: FunctionComponent<LayoutProps> = () => {
           name="library"
           options={{
             header: () => <ScreenTopBar title="Library" />,
+            presentation: "fullScreenModal",
           }}
         />
       </Stack>
