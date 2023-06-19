@@ -8,9 +8,6 @@ import { getBorderColor } from "../utils/helpers";
 export type CustomListItemProps = {
   item: ListItemType;
   onItemPress: () => void;
-  onPlusPress?: () => void;
-  onMinusPress?: () => void;
-  onDeletePress?: () => void;
   onAddToNextListPress: () => void;
   onEditPress?: () => void;
 };

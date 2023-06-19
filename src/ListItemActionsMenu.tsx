@@ -1,19 +1,14 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useContext, useState } from "react";
 import { Divider, IconButton, Menu, Text, useTheme } from "react-native-paper";
 import { spacing } from "../utils/spacing";
 import { View } from "react-native";
 import { CustomListItemProps } from "./CustomListItem";
+import { ItemListCtx } from "../store/ItemListCtx";
 
 export const ListItemActionsMenu: FunctionComponent<
   Partial<CustomListItemProps>
-> = ({
-  onAddToNextListPress,
-  item,
-  onPlusPress,
-  onMinusPress,
-  onEditPress,
-  onDeletePress,
-}) => {
+> = ({ onAddToNextListPress, item, onEditPress }) => {
+  const { increment, decrement, removeItem } = useContext(ItemListCtx);
   const {
     colors: { error, primary },
   } = useTheme();
@@ -21,6 +16,9 @@ export const ListItemActionsMenu: FunctionComponent<
   const openMenu = () => setMenuVisible(true);
   const closeMenu = () => setMenuVisible(false);
   const titleStyle = { paddingStart: spacing.spacing16 };
+
+  if (!item) return null;
+
   return (
     <View style={{ flexDirection: "row" }}>
       {item?.status === "shoppingList" && (
@@ -42,22 +40,18 @@ export const ListItemActionsMenu: FunctionComponent<
         onDismiss={closeMenu}
         anchor={<IconButton icon="dots-vertical" onPress={openMenu} />}
       >
-        {onPlusPress && (
-          <Menu.Item
-            titleStyle={titleStyle}
-            onPress={onPlusPress}
-            title={<Text variant="labelLarge">ADD</Text>}
-            leadingIcon={() => <IconButton icon="plus" />}
-          />
-        )}
-        {onMinusPress && (
-          <Menu.Item
-            titleStyle={titleStyle}
-            onPress={onMinusPress}
-            title={<Text variant="labelLarge">REMOVE</Text>}
-            leadingIcon={() => <IconButton icon="minus" />}
-          />
-        )}
+        <Menu.Item
+          titleStyle={titleStyle}
+          onPress={() => increment(item)}
+          title={<Text variant="labelLarge">ADD</Text>}
+          leadingIcon={() => <IconButton icon="plus" />}
+        />
+        <Menu.Item
+          titleStyle={titleStyle}
+          onPress={() => decrement(item)}
+          title={<Text variant="labelLarge">REMOVE</Text>}
+          leadingIcon={() => <IconButton icon="minus" />}
+        />
         {!onEditPress && ( //todo change condition when edit function is added
           <Menu.Item
             titleStyle={titleStyle}
@@ -67,14 +61,12 @@ export const ListItemActionsMenu: FunctionComponent<
           />
         )}
         <Divider bold />
-        {onDeletePress && (
-          <Menu.Item
-            titleStyle={titleStyle}
-            onPress={onDeletePress}
-            title={<Text variant="labelLarge">DELETE</Text>}
-            leadingIcon={() => <IconButton icon="delete" iconColor={error} />}
-          />
-        )}
+        <Menu.Item
+          titleStyle={titleStyle}
+          onPress={() => removeItem(item)}
+          title={<Text variant="labelLarge">DELETE</Text>}
+          leadingIcon={() => <IconButton icon="delete" iconColor={error} />}
+        />
       </Menu>
     </View>
   );
