@@ -21,7 +21,7 @@ type BaseItem = {
   piecesPer100g: number;
 };
 
-type UnitType = "pcs" | "gram";
+type UnitType = "pcs" | "grams";
 
 type ShoppingListItem = BaseItem & {
   quantity: number;

@@ -6,7 +6,7 @@ import {
   ItemListProviderProps,
   ListItemType,
 } from "./ItemList.types";
-import { getBaseItems } from "../queries/libraryItem";
+import { getBaseItems } from "../api/baseItem";
 
 const defaultValue: ItemListCtxType = {
   items: [],
