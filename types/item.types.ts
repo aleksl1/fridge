@@ -1,7 +1,18 @@
+type Category =
+  | "fruits"
+  | "vegetables"
+  | "meats"
+  | "beverages"
+  | "dairy"
+  | "bread"
+  | "pasta"
+  | "grains"
+  | "others";
+
 type BaseItem = {
   id: number;
   name: string;
-  category: string;
+  category: Category;
   createdAt: string;
   updatedAt: string;
   carbs: number;
