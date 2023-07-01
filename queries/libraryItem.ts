@@ -1,47 +1,29 @@
-import "react-native-get-random-values";
-import Parse from "parse/react-native";
-import { ListItemType } from "../store/ItemList.types";
-import { Alert } from "react-native";
-
-type FetchLibraryItemType = ListItemType & { id: string }; //todo handle id across app?
-const transformItems = (items: Parse.Object[]) => {
-  return items.map((i) => {
-    return {
-      id: i.id,
-      ...i.attributes,
-    } as FetchLibraryItemType;
-  });
+const API_URL = "https://fridge-api-o54o.onrender.com/api";
+const ENDPOINTS = {
+  baseItems: `${API_URL}/baseItems`,
+  baseItem: (id: number) => `${API_URL}/baseItems/${id}`,
 };
-export const fetchLibraryFoodItems = async (): Promise<
-  FetchLibraryItemType[]
-> => {
-  const parseQuery = new Parse.Query("LibraryFoodItem");
-  try {
-    let items: Parse.Object[] = await parseQuery.find();
-    return transformItems(items);
-  } catch (error) {
-    // @ts-ignore
-    Alert.alert("Error!", error.message);
-    return [];
-  }
+export const getBaseItems = async () => {
+  const response = await fetch(ENDPOINTS.baseItems);
+  return await response.json();
 };
-export const createLibraryFoodItem = async (
-  item: ListItemType
-): Promise<boolean> => {
-  let LibraryFoodItem: Parse.Object = new Parse.Object("LibraryFoodItem");
-  LibraryFoodItem.set("name", item.name);
-  LibraryFoodItem.set("quantity", item.quantity);
-  LibraryFoodItem.set("status", item.status);
-  LibraryFoodItem.set("costPerItem", item.costPerItem);
-  LibraryFoodItem.set("macrosPerPiece", item.macrosPerPiece);
-  LibraryFoodItem.set("category", item.category);
 
-  try {
-    await LibraryFoodItem.save();
-    return true;
-  } catch (error) {
-    // @ts-ignore
-    Alert.alert("Error!", error.message);
-    return false;
-  }
+export const getBaseItem = async (id: number) => {
+  const response = await fetch(ENDPOINTS.baseItem(id));
+  return await response.json();
+};
+
+// export const createBaseItem = async () => {
+//   const response = await fetch(ENDPOINTS.baseItems, {method: "POST"});
+//   return await response.json();
+// };
+//
+// export const updateBaseItem = async () => {
+//   const response = await fetch(ENDPOINTS.baseItems, {method: "PUT"});
+//   return await response.json();
+// };
+
+export const deleteBaseItem = async (id: number) => {
+  const response = await fetch(ENDPOINTS.baseItems, { method: "DELETE" });
+  return await response.json();
 };
