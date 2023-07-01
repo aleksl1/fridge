@@ -1,22 +1,14 @@
 import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
-import { deleteBaseItem, getBaseItem, getBaseItems } from "./baseItem";
+import { deleteBaseItem, getBaseItems } from "./baseItem";
 
 const keys = {
   baseItems: ["baseItems"],
-  baseItem: (id: number) => [...keys.baseItems, id],
 };
 
 const useBaseItems = () => {
   return useQuery({
     queryKey: keys.baseItems,
     queryFn: getBaseItems,
-  });
-};
-
-const useBaseItem = (id: number) => {
-  return useQuery({
-    queryKey: keys.baseItem(id),
-    queryFn: () => getBaseItem(id),
   });
 };
 
@@ -30,4 +22,4 @@ const useDeleteBaseItem = (id: number) => {
   });
 };
 
-export { useDeleteBaseItem, useBaseItems, useBaseItem };
+export { useDeleteBaseItem, useBaseItems };
