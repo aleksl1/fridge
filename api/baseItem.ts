@@ -11,6 +11,7 @@ export const getBaseItem = async (id: number) => {
 };
 
 export const deleteBaseItem = async (id: number) => {
+  //todo user shouldn't be able to delete base items
   const response = await fetch(ENDPOINTS.baseItem(id), { method: "DELETE" });
   return await response.json();
 };
