@@ -1,6 +1,13 @@
-import React, { FC, useCallback, useContext, useState } from "react";
+import React, { FC, useContext, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
-import { Chip, Divider, HelperText, List, Text } from "react-native-paper";
+import {
+  Button,
+  Chip,
+  Divider,
+  HelperText,
+  List,
+  Text,
+} from "react-native-paper";
 import { ItemListCtx } from "../store/ItemListCtx";
 import {
   ItemCategories,
@@ -12,21 +19,43 @@ import { spacing } from "../utils/spacing";
 import globalStyles from "../utils/globalStyles";
 import { categoryColors } from "../utils/helpers";
 import { useLocalSearchParams } from "expo-router";
+import AmountPicker from "../src/components/AmountPicker";
+
+type RightProps = {
+  item: ListItemType;
+};
+const ListItemRight: FC<RightProps> = ({ item }) => {
+  const { type } = useLocalSearchParams();
+  const { addItem } = useContext(ItemListCtx);
+  const [amount, setAmount] = useState(0);
+  const decrement = () => amount > 1 && setAmount((prev) => prev - 1);
+  const increment = () => setAmount((prev) => prev + 1);
+  const onAddPress = () => {
+    addItem({
+      ...item,
+      status: type as ItemStatus,
+      quantity: amount,
+      diaryDate: type === "foodDiary" ? new Date() : undefined,
+    });
+    setAmount(0);
+  };
+  return (
+    <View style={styles.rightContainer}>
+      <AmountPicker
+        onMinusPress={decrement}
+        onPlusPress={increment}
+        badgeAmount={amount}
+      />
+      <Button onPress={onAddPress} mode="contained">
+        Add
+      </Button>
+    </View>
+  );
+};
 
 const Library: FC = () => {
-  const { type } = useLocalSearchParams();
-  const { addItem, items } = useContext(ItemListCtx);
+  const { items } = useContext(ItemListCtx);
   const [filters, setFilters] = useState<ItemCategory[]>([]);
-  const onItemPress = useCallback(
-    (item: ListItemType) =>
-      addItem({
-        ...item,
-        status: type as ItemStatus,
-        quantity: 1,
-        diaryDate: type === "foodDiary" ? new Date() : undefined,
-      }),
-    [addItem]
-  );
 
   const handleChipPress = (c: ItemCategory) => {
     if (filters.includes(c)) {
@@ -76,10 +105,9 @@ const Library: FC = () => {
           .map((item, index) => {
             return (
               <List.Item
-                onPress={() => onItemPress(item)}
                 key={`${item.name}-${index}`}
                 title={<Text variant="bodyLarge">{item.name}</Text>}
-                right={() => <List.Icon icon="plus" />}
+                right={() => <ListItemRight item={item} />}
                 style={styles.listItem}
               />
             );
@@ -95,9 +123,15 @@ const styles = StyleSheet.create({
   listItem: {
     paddingStart: 8,
     paddingVertical: 0,
+    borderBottomWidth: 0.5,
   },
   title: {
     margin: spacing.spacing16,
     marginBottom: 0,
+  },
+  rightContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
 });

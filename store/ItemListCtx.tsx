@@ -1,4 +1,4 @@
-import { FunctionComponent, createContext, useState, useEffect } from "react";
+import { createContext, FunctionComponent, useEffect, useState } from "react";
 import {
   ItemAction,
   ItemAmountAction,
@@ -42,7 +42,8 @@ const ItemListProvider: FunctionComponent<ItemListProviderProps> = ({
     if (itemExists(item)) {
       const itemIndex = findIndexByName(item);
       const newItems = [...items];
-      newItems[itemIndex].quantity = newItems[itemIndex].quantity + 1;
+      newItems[itemIndex].quantity =
+        newItems[itemIndex].quantity + item.quantity;
     } else {
       setItems((prevState) => [...prevState, item]);
     }

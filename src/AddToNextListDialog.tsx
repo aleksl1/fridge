@@ -1,15 +1,9 @@
 import { FunctionComponent, useContext } from "react";
-import { View } from "react-native";
-import {
-  Badge,
-  Button,
-  Dialog,
-  IconButton,
-  useTheme,
-} from "react-native-paper";
+import { Button, Dialog } from "react-native-paper";
 import { ItemStatus } from "../store/ItemList.types";
 import { ItemListCtx } from "../store/ItemListCtx";
 import { PressedItemType } from "./ItemsList";
+import AmountPicker from "./components/AmountPicker";
 
 type AddToNextListDialogProps = {
   visible: boolean;
@@ -28,9 +22,6 @@ const AddToNextListDialog: FunctionComponent<AddToNextListDialogProps> = ({
   incrementPressed,
   hideDialog,
 }) => {
-  const {
-    colors: { secondary },
-  } = useTheme();
   const { decrement, addItem } = useContext(ItemListCtx);
   const addItemToNextList = () => {
     decrement(pressedItem, pressedItem.quantity);
@@ -72,26 +63,11 @@ const AddToNextListDialog: FunctionComponent<AddToNextListDialogProps> = ({
       }}
     >
       <Dialog.Content>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "center",
-          }}
-        >
-          <IconButton
-            icon="minus"
-            onPress={decrementPressed}
-            style={{ paddingTop: 8 }}
-          />
-          <Badge size={40} style={{ backgroundColor: secondary }}>
-            {pressedItem.quantity}
-          </Badge>
-          <IconButton
-            icon="plus"
-            onPress={() => incrementPressed(pressedItem)}
-            style={{ paddingTop: 8 }}
-          />
-        </View>
+        <AmountPicker
+          onMinusPress={decrementPressed}
+          onPlusPress={() => incrementPressed(pressedItem)}
+          badgeAmount={pressedItem.quantity}
+        />
       </Dialog.Content>
       <Dialog.Actions
         style={{
