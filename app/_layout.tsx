@@ -19,7 +19,9 @@ const Layout: FunctionComponent<LayoutProps> = () => {
         <Stack.Screen
           name="library"
           options={{
-            header: () => <ScreenTopBar title="Library" />,
+            header: (props) => (
+              <ScreenTopBar title="Library" goBack={props.navigation.goBack} />
+            ),
             presentation: "fullScreenModal",
           }}
         />
