@@ -10,11 +10,11 @@ export const theme = {
     secondary: "#6BFF6B", // Mint Green
     onSecondary: "#333333", // Dark Gray
     secondaryContainer: "#A5FFD6", // Light Mint
-    onSecondaryContainer: "#333333", // Dark Gray
+    // onSecondaryContainer: "#333333", // Dark Gray
     tertiary: "#FFA06B", // Peach Orange
-    onTertiary: "#333333", // Dark Gray
+    // onTertiary: "#333333", // Dark Gray
     tertiaryContainer: "#FFD6A5", // Light Peach
-    onTertiaryContainer: "#333333", // Dark Gray
+    // onTertiaryContainer: "#333333", // Dark Gray
     error: "#FF6B6B", // Tomato Red (Same as primary for emphasis)
     onError: "#FFFFFF", // White (Same as onPrimary for emphasis)
     errorContainer: "#FFD6A5", // Light Peach (Same as primaryContainer for emphasis)

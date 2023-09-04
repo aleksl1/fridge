@@ -10,7 +10,7 @@ export const ListItemActionsMenu: FunctionComponent<
 > = ({ onAddToNextListPress, item, onEditPress }) => {
   const { increment, decrement, removeItem } = useContext(ItemListCtx);
   const {
-    colors: { error, primary },
+    colors: { error, tertiary },
   } = useTheme();
   const [menuVisible, setMenuVisible] = useState(false);
   const openMenu = () => setMenuVisible(true);
@@ -24,14 +24,14 @@ export const ListItemActionsMenu: FunctionComponent<
       {item?.status === "shoppingList" && (
         <IconButton
           icon="fridge"
-          iconColor={primary}
+          iconColor={tertiary}
           onPress={onAddToNextListPress}
         />
       )}
       {item?.status === "fridge" && (
         <IconButton
           icon="food"
-          iconColor={primary}
+          iconColor={tertiary}
           onPress={onAddToNextListPress}
         />
       )}

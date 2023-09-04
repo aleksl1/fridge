@@ -3,7 +3,7 @@ import { CustomListItemProps } from "./CustomListItem";
 import { Divider, List, Text, useTheme } from "react-native-paper";
 import { View } from "react-native";
 import { spacing } from "../utils/spacing";
-import { CURRENCY } from "../utils/variables";
+import { CURRENCY } from "../utils/constants";
 
 type FoodDiaryListItemProps = CustomListItemProps;
 

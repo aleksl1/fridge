@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Text } from "react-native-paper";
-import { CURRENCY } from "../../utils/variables";
+import { CURRENCY } from "../../utils/constants";
 
 type ExpenseSummaryProps = {
   totalExpenses: number;

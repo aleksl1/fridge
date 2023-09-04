@@ -2,7 +2,7 @@ import { Tabs } from "expo-router";
 import React, { FC } from "react";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { TabTopBar } from "../../src/AppBars";
-import { TAB_ICON_SIZE } from "../../utils/variables";
+import { TAB_ICON_SIZE } from "../../utils/constants";
 import { theme } from "../../utils/theme";
 
 const TabsLayout: FC = () => {
