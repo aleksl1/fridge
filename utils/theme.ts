@@ -3,42 +3,42 @@ import { MD3LightTheme as DefaultTheme } from "react-native-paper";
 export const theme = {
   ...DefaultTheme,
   colors: {
-    primary: "rgb(67, 105, 0)",
-    onPrimary: "rgb(255, 255, 255)",
-    primaryContainer: "rgb(183, 245, 94)",
-    onPrimaryContainer: "rgb(17, 31, 0)",
-    secondary: "rgb(121, 89, 0)",
-    onSecondary: "rgb(255, 255, 255)",
-    secondaryContainer: "rgb(255, 223, 160)",
-    onSecondaryContainer: "rgb(38, 26, 0)",
-    tertiary: "rgb(0, 103, 131)",
-    onTertiary: "rgb(255, 255, 255)",
-    tertiaryContainer: "rgb(188, 233, 255)",
-    onTertiaryContainer: "rgb(0, 31, 42)",
-    error: "rgb(186, 26, 26)",
-    onError: "rgb(255, 255, 255)",
-    errorContainer: "rgb(255, 218, 214)",
-    onErrorContainer: "rgb(65, 0, 2)",
-    background: "rgb(254, 252, 245)",
-    onBackground: "rgb(27, 28, 24)",
-    surface: "rgb(254, 252, 245)",
-    onSurface: "rgb(75,87,46)", //fontcolor
-    surfaceVariant: "rgb(225, 228, 213)",
-    onSurfaceVariant: "rgb(68, 72, 61)",
-    outline: "rgb(117, 121, 108)",
-    outlineVariant: "rgb(197, 200, 185)",
-    shadow: "rgb(0, 0, 0)",
-    scrim: "rgb(0, 0, 0)",
-    inverseSurface: "rgb(48, 49, 44)",
-    inverseOnSurface: "rgb(242, 241, 233)",
-    inversePrimary: "rgb(156, 216, 69)",
+    primary: "#FF6B6B", // Tomato Red
+    onPrimary: "#FFFFFF", // White
+    primaryContainer: "#FFD6A5", // Light Peach
+    onPrimaryContainer: "#333333", // Dark Gray
+    secondary: "#6BFF6B", // Mint Green
+    onSecondary: "#333333", // Dark Gray
+    secondaryContainer: "#A5FFD6", // Light Mint
+    onSecondaryContainer: "#333333", // Dark Gray
+    tertiary: "#FFA06B", // Peach Orange
+    onTertiary: "#333333", // Dark Gray
+    tertiaryContainer: "#FFD6A5", // Light Peach
+    onTertiaryContainer: "#333333", // Dark Gray
+    error: "#FF6B6B", // Tomato Red (Same as primary for emphasis)
+    onError: "#FFFFFF", // White (Same as onPrimary for emphasis)
+    errorContainer: "#FFD6A5", // Light Peach (Same as primaryContainer for emphasis)
+    onErrorContainer: "#333333", // Dark Gray (Same as onPrimaryContainer for emphasis)
+    background: "#FAF3E0", // Creamy Yellow
+    onBackground: "#333333", // Dark Gray
+    surface: "#FFFFFF", // White
+    onSurface: "#333333", // Dark Gray (Font color)
+    surfaceVariant: "#F2EFE5", // Light Cream
+    onSurfaceVariant: "#444038", // Dark Cream
+    outline: "#D8D0C0", // Light Gray
+    outlineVariant: "#BCB4A0", // Lighter Gray
+    shadow: "rgba(0, 0, 0, 0.2)", // Slight Box Shadow
+    scrim: "rgba(0, 0, 0, 0.4)", // Overlay for Modals
+    inverseSurface: "#444038", // Dark Cream (Same as onSurfaceVariant for contrast)
+    inverseOnSurface: "#F2EFE5", // Light Cream (Same as surfaceVariant for contrast)
+    inversePrimary: "#FF6B6B", // Tomato Red (Same as primary for contrast)
     elevation: {
       level0: "transparent",
-      level1: "rgb(245, 245, 233)",
-      level2: "rgb(239, 240, 225)",
-      level3: "rgb(233, 236, 218)",
-      level4: "rgb(232, 234, 216)",
-      level5: "rgb(228, 231, 211)",
+      level1: "rgba(0, 0, 0, 0.1)", // Light Box Shadow
+      level2: "rgba(0, 0, 0, 0.2)", // Moderate Box Shadow
+      level3: "rgba(0, 0, 0, 0.3)", // Slight Darkness
+      level4: "rgba(0, 0, 0, 0.4)", // Moderate Darkness
+      level5: "rgba(0, 0, 0, 0.5)", // Significant Darkness
     },
     surfaceDisabled: "rgba(27, 28, 24, 0.12)",
     onSurfaceDisabled: "rgba(27, 28, 24, 0.38)",

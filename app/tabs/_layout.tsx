@@ -14,8 +14,8 @@ const TabsLayout: FC = () => {
           backgroundColor: theme.colors.background,
           height: 80,
         },
-        tabBarActiveTintColor: theme.colors.primaryContainer,
-        tabBarInactiveTintColor: theme.colors.primary,
+        tabBarActiveTintColor: theme.colors.secondary,
+        tabBarInactiveTintColor: theme.colors.tertiary,
       }}
     >
       <Tabs.Screen

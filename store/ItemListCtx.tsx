@@ -35,6 +35,7 @@ const ItemListProvider: FunctionComponent<ItemListProviderProps> = ({
     getItems();
   }, []);
   const addItem: ItemAction = (item) => {
+    if (item.quantity === 0) return;
     if (!item.costPerItem && item.status === "expenses") {
       return alert("You can't add this to expense list without a price!");
     }
