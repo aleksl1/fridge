@@ -2,7 +2,7 @@ import { FunctionComponent } from "react";
 import ItemList from "../../src/ItemsList";
 import { ScrollView } from "react-native";
 import globalStyles from "../../utils/globalStyles";
-import AddButton from "../../src/components/AddButton";
+import FABAdd from "../../src/components/FABAdd";
 
 const Fridge: FunctionComponent = () => {
   return (
@@ -10,7 +10,7 @@ const Fridge: FunctionComponent = () => {
       <ScrollView contentContainerStyle={globalStyles.listContainer}>
         <ItemList type="fridge" />
       </ScrollView>
-      <AddButton type="fridge" />
+      <FABAdd type="fridge" />
     </>
   );
 };

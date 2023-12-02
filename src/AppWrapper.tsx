@@ -4,7 +4,8 @@ import ItemListProvider from "../store/ItemListCtx";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Parse from "parse/react-native";
 import { theme } from "../utils/theme";
-import { Platform, useWindowDimensions, View } from "react-native";
+import { useWindowDimensions, View } from "react-native";
+import { isWeb } from "../utils/constants";
 
 type AppWrapperProps = {
   children: ReactElement;
@@ -27,7 +28,7 @@ const AppWrapper: FunctionComponent<AppWrapperProps> = ({ children }) => {
         {
           flex: 1,
         },
-        Platform.OS === "web" &&
+        isWeb &&
           width > 600 && {
             width: 600,
             marginLeft: "auto",

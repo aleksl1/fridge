@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { View } from "react-native";
-import { IconButton, Text, useTheme } from "react-native-paper";
+import { Button, IconButton, Text, useTheme } from "react-native-paper";
+import { emojis, isWeb } from "../../utils/constants";
 
 type AmountPickerProps = {
   onMinusPress: () => void;
@@ -23,7 +24,11 @@ const AmountPicker: FC<AmountPickerProps> = ({
         justifyContent: "center",
       }}
     >
-      <IconButton icon="minus" onPress={onMinusPress} />
+      {isWeb ? (
+        <Button onPress={onMinusPress}>{emojis.minus}</Button>
+      ) : (
+        <IconButton icon="minus" onPress={onMinusPress} />
+      )}
       <View
         style={{
           justifyContent: "center",
@@ -41,7 +46,11 @@ const AmountPicker: FC<AmountPickerProps> = ({
           {badgeAmount}
         </Text>
       </View>
-      <IconButton icon="plus" onPress={onPlusPress} />
+      {isWeb ? (
+        <Button onPress={onPlusPress}>{emojis.plus}</Button>
+      ) : (
+        <IconButton icon="plus" onPress={onPlusPress} />
+      )}
     </View>
   );
 };
