@@ -33,6 +33,7 @@ const AppWrapper: FunctionComponent<AppWrapperProps> = ({ children }) => {
             width: 600,
             marginLeft: "auto",
             marginRight: "auto",
+            position: "relative",
           },
       ]}
     >

@@ -21,7 +21,7 @@ export const ListItemActionsMenu: FunctionComponent<
 
   if (!item) return null;
   return (
-    <View style={{ flexDirection: "row" }}>
+    <View style={{ flexDirection: "row", position: "relative" }}>
       {item?.status === "shoppingList" && (
         <IconButton
           icon="fridge"
@@ -40,7 +40,7 @@ export const ListItemActionsMenu: FunctionComponent<
         visible={menuVisible}
         onDismiss={closeMenu}
         anchor={<DotsVertical onPress={openMenu} />}
-        anchorPosition={"bottom"}
+        contentStyle={{ backgroundColor: "white" }}
       >
         <Menu.Item
           titleStyle={titleStyle}
@@ -52,7 +52,7 @@ export const ListItemActionsMenu: FunctionComponent<
           onPress={() => decrement(item)}
           title={<Text variant="labelLarge">REMOVE</Text>}
         />
-        {!onEditPress && ( //todo change condition when edit function is added
+        {onEditPress && (
           <Menu.Item
             titleStyle={titleStyle}
             onPress={() => {}}
