@@ -79,7 +79,6 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
       quantity: prevState?.quantity - 1,
     }));
   };
-  console.log("items", items);
   const itemList = useMemo(
     () =>
       items.map((item, index) => {
