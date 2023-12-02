@@ -1,9 +1,8 @@
 import { Tabs } from "expo-router";
 import React, { FC } from "react";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { TabTopBar } from "../../src/AppBars";
-import { TAB_ICON_SIZE } from "../../utils/constants";
 import { theme } from "../../utils/theme";
+import BottomTabIcon from "../../src/icons/BottomTabIcon";
 
 const TabsLayout: FC = () => {
   return (
@@ -22,36 +21,28 @@ const TabsLayout: FC = () => {
         name="shopping-list"
         options={{
           header: () => <TabTopBar title="Shopping List" />,
-          tabBarIcon: ({ color }) => (
-            <Icon name="clipboard-list" size={TAB_ICON_SIZE} color={color} />
-          ),
+          tabBarIcon: ({ color }) => <BottomTabIcon iconType="list" />,
         }}
       />
       <Tabs.Screen
         name="fridge"
         options={{
           header: () => <TabTopBar title="Fridge" />,
-          tabBarIcon: ({ color }) => (
-            <Icon name="fridge" size={TAB_ICON_SIZE} color={color} />
-          ),
+          tabBarIcon: ({ color }) => <BottomTabIcon iconType="fridge" />,
         }}
       />
       <Tabs.Screen
         name="food-diary"
         options={{
           header: () => <TabTopBar title="Food Diary" />,
-          tabBarIcon: ({ color }) => (
-            <Icon name="food" size={TAB_ICON_SIZE} color={color} />
-          ),
+          tabBarIcon: ({ color }) => <BottomTabIcon iconType="diary" />,
         }}
       />
       <Tabs.Screen
         name="expenses"
         options={{
           header: () => <TabTopBar title="Expenses" />,
-          tabBarIcon: ({ color }) => (
-            <Icon name="cash-multiple" size={TAB_ICON_SIZE} color={color} />
-          ),
+          tabBarIcon: ({ color }) => <BottomTabIcon iconType="expenses" />,
         }}
       />
     </Tabs>

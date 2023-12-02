@@ -20,7 +20,10 @@ const Layout: FunctionComponent<LayoutProps> = () => {
           name="library"
           options={{
             header: (props) => (
-              <ScreenTopBar title="Library" goBack={props.navigation.goBack} />
+              <ScreenTopBar
+                title="Library"
+                goBack={props.navigation.popToTop}
+              />
             ),
             presentation: "fullScreenModal",
           }}

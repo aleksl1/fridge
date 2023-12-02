@@ -1,24 +1,24 @@
 import { FunctionComponent, useContext, useState } from "react";
 import { Divider, IconButton, Menu, Text, useTheme } from "react-native-paper";
 import { spacing } from "../utils/spacing";
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { CustomListItemProps } from "./CustomListItem";
 import { ItemListCtx } from "../store/ItemListCtx";
 
 export const ListItemActionsMenu: FunctionComponent<
   Partial<CustomListItemProps>
-> = ({ onAddToNextListPress, item, onEditPress }) => {
+> = (props) => {
+  const { onAddToNextListPress, item, onEditPress } = props;
   const { increment, decrement, removeItem } = useContext(ItemListCtx);
   const {
     colors: { error, tertiary },
   } = useTheme();
-  const [menuVisible, setMenuVisible] = useState(false);
+  const [menuVisible, setMenuVisible] = useState<boolean>(false);
   const openMenu = () => setMenuVisible(true);
   const closeMenu = () => setMenuVisible(false);
-  const titleStyle = { paddingStart: spacing.spacing16 };
+  const { titleStyle } = styles;
 
   if (!item) return null;
-
   return (
     <View style={{ flexDirection: "row" }}>
       {item?.status === "shoppingList" && (
@@ -71,3 +71,9 @@ export const ListItemActionsMenu: FunctionComponent<
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  titleStyle: {
+    paddingStart: spacing.spacing16,
+  },
+});

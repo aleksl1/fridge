@@ -4,6 +4,7 @@ import ItemListProvider from "../store/ItemListCtx";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Parse from "parse/react-native";
 import { theme } from "../utils/theme";
+import { Platform, useWindowDimensions, View } from "react-native";
 
 type AppWrapperProps = {
   children: ReactElement;
@@ -19,10 +20,25 @@ Parse.initialize(
 Parse.serverURL = "https://parseapi.back4app.com/";
 
 const AppWrapper: FunctionComponent<AppWrapperProps> = ({ children }) => {
+  const { width } = useWindowDimensions();
   return (
-    <ItemListProvider>
-      <PaperProvider theme={theme}>{children}</PaperProvider>
-    </ItemListProvider>
+    <View
+      style={[
+        {
+          flex: 1,
+        },
+        Platform.OS === "web" &&
+          width > 600 && {
+            width: 600,
+            marginLeft: "auto",
+            marginRight: "auto",
+          },
+      ]}
+    >
+      <ItemListProvider>
+        <PaperProvider theme={theme}>{children}</PaperProvider>
+      </ItemListProvider>
+    </View>
   );
 };
 
