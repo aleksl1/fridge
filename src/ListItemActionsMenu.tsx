@@ -4,6 +4,7 @@ import { spacing } from "../utils/spacing";
 import { StyleSheet, View } from "react-native";
 import { CustomListItemProps } from "./CustomListItem";
 import { ItemListCtx } from "../store/ItemListCtx";
+import DotsVertical from "./icons/DotsVertical";
 
 export const ListItemActionsMenu: FunctionComponent<
   Partial<CustomListItemProps>
@@ -38,34 +39,35 @@ export const ListItemActionsMenu: FunctionComponent<
       <Menu
         visible={menuVisible}
         onDismiss={closeMenu}
-        anchor={<IconButton icon="dots-vertical" onPress={openMenu} />}
+        anchor={<DotsVertical onPress={openMenu} />}
+        anchorPosition={"bottom"}
       >
         <Menu.Item
           titleStyle={titleStyle}
           onPress={() => increment(item)}
           title={<Text variant="labelLarge">ADD</Text>}
-          leadingIcon={() => <IconButton icon="plus" />}
         />
         <Menu.Item
           titleStyle={titleStyle}
           onPress={() => decrement(item)}
           title={<Text variant="labelLarge">REMOVE</Text>}
-          leadingIcon={() => <IconButton icon="minus" />}
         />
         {!onEditPress && ( //todo change condition when edit function is added
           <Menu.Item
             titleStyle={titleStyle}
             onPress={() => {}}
             title={<Text variant="labelLarge">EDIT</Text>}
-            leadingIcon={() => <IconButton icon="pencil" />}
           />
         )}
         <Divider bold />
         <Menu.Item
           titleStyle={titleStyle}
           onPress={() => removeItem(item)}
-          title={<Text variant="labelLarge">DELETE</Text>}
-          leadingIcon={() => <IconButton icon="delete" iconColor={error} />}
+          title={
+            <Text variant="labelLarge" style={{ color: error }}>
+              DELETE
+            </Text>
+          }
         />
       </Menu>
     </View>

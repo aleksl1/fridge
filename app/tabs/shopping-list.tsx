@@ -2,7 +2,7 @@ import { FunctionComponent } from "react";
 import ItemList from "../../src/ItemsList";
 import globalStyles from "../../utils/globalStyles";
 import { ScrollView } from "react-native";
-import AddButton from "../../src/components/AddButton";
+import FABAdd from "../../src/components/FABAdd";
 
 const ShoppingList: FunctionComponent = () => {
   return (
@@ -10,7 +10,7 @@ const ShoppingList: FunctionComponent = () => {
       <ScrollView contentContainerStyle={globalStyles.listContainer}>
         <ItemList type="shoppingList" />
       </ScrollView>
-      <AddButton type="shoppingList" />
+      <FABAdd type="shoppingList" />
     </>
   );
 };
