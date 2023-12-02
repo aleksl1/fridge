@@ -15,7 +15,7 @@ Start locally:
 - npm install
 - npm start
 - follow console instructions
-- you can run app on ios, android or web - thanks to Expo :)
+- you can run app on ios, android or web - thanks to Expo :) (although its mostly being developed and tested on web, since it is the only one i deployed - link below)
 
 Web build:
 
