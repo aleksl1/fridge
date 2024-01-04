@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import AnimationComponent from "./animations/AnimationComponent";
+import AnimationComponent from "../../animations/AnimationComponent";
 import { useFocusEffect } from "expo-router";
 
 const EmptyListInfo: FC = () => {

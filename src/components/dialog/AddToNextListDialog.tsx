@@ -1,9 +1,9 @@
 import { FunctionComponent, useContext } from "react";
 import { Button, Dialog } from "react-native-paper";
-import { ItemStatus } from "../store/ItemList.types";
-import { ItemListCtx } from "../store/ItemListCtx";
-import { PressedItemType } from "./ItemsList";
-import AmountPicker from "./components/AmountPicker";
+import { ItemStatus } from "../../../store/ItemList.types";
+import { ItemListCtx } from "../../../store/ItemListCtx";
+import { PressedItemType } from "../list/ItemsList";
+import AmountPicker from "../AmountPicker";
 
 type AddToNextListDialogProps = {
   visible: boolean;

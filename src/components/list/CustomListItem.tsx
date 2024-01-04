@@ -1,9 +1,9 @@
 import { FunctionComponent } from "react";
 import { HelperText, List, Text } from "react-native-paper";
-import { ListItemType } from "../store/ItemList.types";
+import { ListItemType } from "../../../store/ItemList.types";
 import { ListItemActionsMenu } from "./ListItemActionsMenu";
 import { View } from "react-native";
-import { getBorderColor } from "../utils/helpers";
+import { getBorderColor } from "../../../utils/helpers";
 
 export type CustomListItemProps = {
   item: ListItemType;

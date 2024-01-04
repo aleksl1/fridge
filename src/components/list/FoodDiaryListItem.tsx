@@ -3,7 +3,7 @@ import { CustomListItemProps } from "./CustomListItem";
 import { DataTable } from "react-native-paper";
 import { View } from "react-native";
 import { ListItemActionsMenu } from "./ListItemActionsMenu";
-import { calculateCaloriesFromMacros } from "../utils/helpers";
+import { calculateCaloriesFromMacros } from "../../../utils/helpers";
 
 type FoodDiaryListItemProps = CustomListItemProps;
 
