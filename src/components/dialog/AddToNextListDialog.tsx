@@ -1,5 +1,5 @@
 import { FunctionComponent, useContext } from "react";
-import { Button, Dialog } from "react-native-paper";
+import { Button, Dialog, useTheme } from "react-native-paper";
 import { ItemStatus } from "../../../store/ItemList.types";
 import { ItemListCtx } from "../../../store/ItemListCtx";
 import { PressedItemType } from "../list/ItemsList";
@@ -22,6 +22,9 @@ const AddToNextListDialog: FunctionComponent<AddToNextListDialogProps> = ({
   incrementPressed,
   hideDialog,
 }) => {
+  const {
+    colors: { background },
+  } = useTheme();
   const { decrement, addItem } = useContext(ItemListCtx);
   const addItemToNextList = () => {
     decrement(pressedItem, pressedItem.quantity);
@@ -60,6 +63,7 @@ const AddToNextListDialog: FunctionComponent<AddToNextListDialogProps> = ({
       onDismiss={hideDialog}
       style={{
         marginHorizontal: 16,
+        backgroundColor: background,
       }}
     >
       <Dialog.Content>
