@@ -1,10 +1,13 @@
 import { FunctionComponent } from "react";
 import { View } from "react-native";
 import { Dialog, List, Text, useTheme } from "react-native-paper";
-import { ListItemType } from "../store/ItemList.types";
+import { ListItemType } from "../../../store/ItemList.types";
 import { Style } from "react-native-paper/lib/typescript/src/components/List/utils";
-import { spacing } from "../utils/spacing";
-import { calculateCaloriesFromMacros, setTitleText } from "../utils/helpers";
+import { spacing } from "../../../utils/spacing";
+import {
+  calculateCaloriesFromMacros,
+  setTitleText,
+} from "../../../utils/helpers";
 
 type ItemPreviewDialogProps = {
   visible: boolean;

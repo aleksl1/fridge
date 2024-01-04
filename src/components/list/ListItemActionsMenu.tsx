@@ -1,10 +1,10 @@
 import { FunctionComponent, useContext, useState } from "react";
 import { Divider, IconButton, Menu, Text, useTheme } from "react-native-paper";
-import { spacing } from "../utils/spacing";
+import { spacing } from "../../../utils/spacing";
 import { StyleSheet, View } from "react-native";
 import { CustomListItemProps } from "./CustomListItem";
-import { ItemListCtx } from "../store/ItemListCtx";
-import DotsVertical from "./icons/DotsVertical";
+import { ItemListCtx } from "../../../store/ItemListCtx";
+import DotsVertical from "../../icons/DotsVertical";
 
 export const ListItemActionsMenu: FunctionComponent<
   Partial<CustomListItemProps>

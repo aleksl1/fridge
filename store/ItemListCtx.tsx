@@ -1,4 +1,4 @@
-import { createContext, FunctionComponent, useEffect, useState } from "react";
+import { createContext, FunctionComponent, useState } from "react";
 import {
   ItemAction,
   ItemAmountAction,
@@ -6,7 +6,6 @@ import {
   ItemListProviderProps,
   ListItemType,
 } from "./ItemList.types";
-import { fetchLibraryFoodItems } from "../queries/libraryItem";
 
 const defaultValue: ItemListCtxType = {
   items: [],
@@ -26,14 +25,6 @@ const ItemListProvider: FunctionComponent<ItemListProviderProps> = ({
   const [items, setItems] = useState<ListItemType[]>(defaultValue.items);
   const [total, setTotal] = useState<number>(0);
 
-  useEffect(() => {
-    if (items.length > 0) return;
-    const getItems = async () => {
-      const items = await fetchLibraryFoodItems();
-      setItems(items);
-    };
-    getItems();
-  }, []);
   const addItem: ItemAction = (item) => {
     if (item.quantity === 0) return;
     if (!item.costPerItem && item.status === "expenses") {

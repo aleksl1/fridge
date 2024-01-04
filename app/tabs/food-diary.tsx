@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import { ScrollView } from "react-native";
-import ItemList from "../../src/ItemsList";
+import ItemList from "../../src/components/list/ItemsList";
 import globalStyles from "../../utils/globalStyles";
 import { DataTable } from "react-native-paper";
 import { spacing } from "../../utils/spacing";
