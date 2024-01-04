@@ -1,62 +1,22 @@
 import React, { FC, useContext, useState } from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
-import {
-  Button,
-  Chip,
-  Divider,
-  HelperText,
-  List,
-  Text,
-} from "react-native-paper";
+import { ScrollView, View } from "react-native";
+import { Divider, Snackbar, Text } from "react-native-paper";
 import { ItemListCtx } from "../store/ItemListCtx";
-import {
-  ItemCategories,
-  ItemCategory,
-  ItemStatus,
-  ListItemType,
-} from "../store/ItemList.types";
-import { spacing } from "../utils/spacing";
+import { ItemCategory, ItemStatus } from "../store/ItemList.types";
 import globalStyles from "../utils/globalStyles";
-import { categoryColors } from "../utils/helpers";
+import CategoryChips from "../src/components/CategoryChips";
+import LibraryListItem from "../src/components/list/LibraryListItem";
 import { useLocalSearchParams } from "expo-router";
-import AmountPicker from "../src/components/AmountPicker";
-
-type RightProps = {
-  item: ListItemType;
-};
-const ListItemRight: FC<RightProps> = ({ item }) => {
-  const { type } = useLocalSearchParams();
-  const { addItem } = useContext(ItemListCtx);
-  const [amount, setAmount] = useState(0);
-  const decrement = () => amount > 1 && setAmount((prev) => prev - 1);
-  const increment = () => setAmount((prev) => prev + 1);
-  const onAddPress = () => {
-    addItem({
-      ...item,
-      status: type as ItemStatus,
-      quantity: amount,
-      diaryDate: type === "foodDiary" ? new Date() : undefined,
-    });
-    setAmount(0);
-  };
-  return (
-    <View style={styles.rightContainer}>
-      <AmountPicker
-        onMinusPress={decrement}
-        onPlusPress={increment}
-        badgeAmount={amount}
-      />
-      <Button onPress={onAddPress} mode="contained">
-        Add
-      </Button>
-    </View>
-  );
-};
+import { setTitleText } from "../utils/helpers";
+import { theme } from "../utils/theme";
 
 const Library: FC = () => {
+  const { type } = useLocalSearchParams();
   const { items } = useContext(ItemListCtx);
   const [filters, setFilters] = useState<ItemCategory[]>([]);
-
+  const [visible, setVisible] = React.useState(false);
+  const showSnackbar = () => setVisible(true);
+  const onDismissSnackBar = () => setVisible(false);
   const handleChipPress = (c: ItemCategory) => {
     if (filters.includes(c)) {
       const removeIndex = filters.findIndex((f) => f === c);
@@ -68,70 +28,40 @@ const Library: FC = () => {
     }
   };
 
-  const availableFilters = [...ItemCategories];
-  const categoryChips = availableFilters?.map((c) => {
-    const isSelected = filters.includes(c);
-    return (
-      <Chip
-        mode="outlined"
-        selected={isSelected}
-        key={c}
-        onPress={() => handleChipPress(c)}
-        selectedColor={categoryColors[c]}
-      >
-        {c}
-      </Chip>
-    );
-  });
   return (
-    <ScrollView>
-      <View style={globalStyles.modalViewContainer}>
-        <View>
-          <HelperText type={"info"}>Categories:</HelperText>
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{ gap: 8 }}
-          >
-            {categoryChips}
-          </ScrollView>
+    <>
+      <ScrollView>
+        <View style={globalStyles.modalViewContainer}>
+          <CategoryChips filters={filters} onChipPress={handleChipPress} />
+          <Divider horizontalInset />
+          {items
+            .filter((item) => item.status === "itemLibrary")
+            .filter((i) =>
+              filters.length && i.category ? filters.includes(i.category) : i
+            )
+            .map((item, index) => {
+              return (
+                <LibraryListItem
+                  key={`${item.name}-${index}`}
+                  item={item}
+                  onAdd={showSnackbar}
+                />
+              );
+            })}
         </View>
-        <Divider horizontalInset />
-        {items
-          .filter((item) => item.status === "itemLibrary")
-          .filter((i) =>
-            filters.length && i.category ? filters.includes(i.category) : i
-          )
-          .map((item, index) => {
-            return (
-              <List.Item
-                key={`${item.name}-${index}`}
-                title={<Text variant="bodyLarge">{item.name}</Text>}
-                right={() => <ListItemRight item={item} />}
-                style={styles.listItem}
-              />
-            );
-          })}
-      </View>
-    </ScrollView>
+      </ScrollView>
+      <Snackbar
+        visible={visible}
+        onDismiss={onDismissSnackBar}
+        style={{ margin: 16, backgroundColor: theme.colors.primary }}
+      >
+        <Text
+          variant="labelLarge"
+          style={{ color: theme.colors.onPrimary }}
+        >{`Item was added to your ${setTitleText(type as ItemStatus)}.`}</Text>
+      </Snackbar>
+    </>
   );
 };
 
 export default Library;
-
-const styles = StyleSheet.create({
-  listItem: {
-    paddingStart: 8,
-    paddingVertical: 0,
-    borderBottomWidth: 0.5,
-  },
-  title: {
-    margin: spacing.spacing16,
-    marginBottom: 0,
-  },
-  rightContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-});
