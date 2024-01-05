@@ -100,7 +100,7 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
             >
               {showDate && (
                 <Text variant="titleSmall" style={{ fontWeight: "bold" }}>
-                  Your diary on {date}
+                  {date}
                 </Text>
               )}
               <FoodDiaryListItem
@@ -154,7 +154,7 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
           proteins: p,
           fats: f,
           carbs: c,
-        }),
+        }).toString(),
         proteins: p,
         fats: f,
         carbs: c,

@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { ScrollView } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 import ItemList from "../../src/components/list/ItemsList";
 import globalStyles from "../../utils/globalStyles";
 import { DataTable } from "react-native-paper";
@@ -10,8 +10,8 @@ const FoodDiary: FunctionComponent = () => {
   return (
     <>
       <ScrollView contentContainerStyle={globalStyles.listContainer}>
-        <DataTable style={{ paddingEnd: spacing.spacing16, flex: 1 }}>
-          <DataTable.Header>
+        <DataTable style={styles.dataTable}>
+          <DataTable.Header style={styles.header}>
             <DataTable.Title style={{ flex: 2 }}>Product name</DataTable.Title>
             <DataTable.Title numeric>Cal</DataTable.Title>
             <DataTable.Title numeric>Fats</DataTable.Title>
@@ -27,3 +27,11 @@ const FoodDiary: FunctionComponent = () => {
 };
 
 export default FoodDiary;
+
+const styles = StyleSheet.create({
+  dataTable: {
+    paddingEnd: spacing.spacing16,
+    flex: 1,
+  },
+  header: { marginStart: 56 },
+});
