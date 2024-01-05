@@ -4,6 +4,7 @@ import { ItemStatus } from "../../../store/ItemList.types";
 import { ItemListCtx } from "../../../store/ItemListCtx";
 import { PressedItemType } from "../list/ItemsList";
 import AmountPicker from "../AmountPicker";
+import { setNextListType } from "../../../utils/helpers";
 
 type AddToNextListDialogProps = {
   visible: boolean;
@@ -28,18 +29,7 @@ const AddToNextListDialog: FunctionComponent<AddToNextListDialogProps> = ({
   const { decrement, addItem } = useContext(ItemListCtx);
   const addItemToNextList = () => {
     decrement(pressedItem, pressedItem.quantity);
-    const setNewStatus = () => {
-      switch (type) {
-        case "shoppingList":
-          return "fridge";
-        case "fridge":
-          return "foodDiary";
-        case "itemLibrary":
-          return "shoppingList";
-      }
-      return type;
-    };
-    const newStatus = setNewStatus();
+    const newStatus = setNextListType(type);
     addItem({ ...pressedItem, status: newStatus });
     hideDialog();
   };

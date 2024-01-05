@@ -16,6 +16,18 @@ export const setTitleText = (value: ItemStatus) => {
   }
 };
 
+export const setNextListType = (value: ItemStatus) => {
+  switch (value) {
+    case "shoppingList":
+      return "fridge";
+    case "fridge":
+      return "foodDiary";
+    case "itemLibrary":
+      return "shoppingList";
+  }
+  return value;
+};
+
 export const calculateCaloriesFromMacros = ({
   proteins,
   fats,

@@ -2,18 +2,17 @@ import { FunctionComponent } from "react";
 import { HelperText, List, Text } from "react-native-paper";
 import { ListItemType } from "../../../store/ItemList.types";
 import { ListItemActionsMenu } from "./ListItemActionsMenu";
-import { View } from "react-native";
 import { getBorderColor } from "../../../utils/helpers";
 
 export type CustomListItemProps = {
   item: ListItemType;
-  onItemPress: () => void;
+  onDetailsPress?: () => void;
   onAddToNextListPress: () => void;
   onEditPress?: () => void;
 };
 
 const CustomListItem: FunctionComponent<CustomListItemProps> = (props) => {
-  const { item, onItemPress } = props;
+  const { item, onDetailsPress } = props;
 
   return (
     <List.Item
@@ -22,7 +21,6 @@ const CustomListItem: FunctionComponent<CustomListItemProps> = (props) => {
           {item.name}
         </Text>
       }
-      onPress={onItemPress}
       description={
         <HelperText type="info">{`amount: ${item.quantity}`}</HelperText>
       }
@@ -35,11 +33,7 @@ const CustomListItem: FunctionComponent<CustomListItemProps> = (props) => {
         borderLeftWidth: 15,
         borderRadius: 15,
       }}
-      right={() => (
-        <View style={{ flexDirection: "row" }}>
-          <ListItemActionsMenu {...props} />
-        </View>
-      )}
+      left={() => <ListItemActionsMenu {...props} />}
     />
   );
 };

@@ -105,7 +105,7 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
               )}
               <FoodDiaryListItem
                 item={item}
-                onItemPress={() => showPreview(item)}
+                onDetailsPress={() => showPreview(item)}
                 onAddToNextListPress={() =>
                   showAddToNextListDialog({ ...item, max: item.quantity })
                 }
@@ -118,7 +118,7 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
             <ExpensesListItem
               key={`${name}-${status}`}
               item={item}
-              onItemPress={() => {}}
+              onDetailsPress={() => {}}
               onAddToNextListPress={() => {}}
             />
           );
@@ -126,7 +126,7 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
           <CustomListItem
             key={`${name}-${status}`}
             item={item}
-            onItemPress={() => showPreview(item)}
+            onDetailsPress={() => showPreview(item)}
             onAddToNextListPress={() =>
               showAddToNextListDialog({ ...item, max: quantity })
             }
