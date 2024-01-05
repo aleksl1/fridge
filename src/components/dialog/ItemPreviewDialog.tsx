@@ -21,7 +21,7 @@ const ItemPreviewDialog: FunctionComponent<ItemPreviewDialogProps> = ({
   pressedItem,
 }) => {
   const {
-    colors: { primary, onSecondary },
+    colors: { background },
   } = useTheme();
   const {
     name,
@@ -34,7 +34,6 @@ const ItemPreviewDialog: FunctionComponent<ItemPreviewDialogProps> = ({
   const listLeftIcon = (props: { color: string; style: Style }) => (
     <List.Icon {...props} icon="chevron-right" />
   );
-
   const caloriesInfo = () => (
     <>
       <List.Item
@@ -57,14 +56,14 @@ const ItemPreviewDialog: FunctionComponent<ItemPreviewDialogProps> = ({
     <Dialog
       visible={visible}
       onDismiss={hideDialog}
-      style={{ backgroundColor: onSecondary }}
+      style={{ backgroundColor: background }}
     >
       <Dialog.Content style={{ padding: 0, marginBottom: spacing.spacing16 }}>
         <List.Section>
           <List.Accordion
             title={
               <View style={{ flexDirection: "row", gap: spacing.spacing16 }}>
-                <List.Icon color={primary} icon="food" />
+                {/*<List.Icon color={primary} icon="food" />*/}
                 <Text variant="titleMedium">{`${name} in your ${setTitleText(
                   status
                 )}`}</Text>
@@ -74,7 +73,7 @@ const ItemPreviewDialog: FunctionComponent<ItemPreviewDialogProps> = ({
             right={() => null}
             expanded={true}
             style={{
-              backgroundColor: onSecondary,
+              backgroundColor: background,
             }}
             titleStyle={{ textAlign: "center" }}
           >

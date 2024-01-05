@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { View } from "react-native";
-import { Button, IconButton, Text, useTheme } from "react-native-paper";
+import { Pressable, StyleSheet, View } from "react-native";
+import { IconButton, Text } from "react-native-paper";
 import { emojis, isWeb } from "../../utils/constants";
 
 type AmountPickerProps = {
@@ -14,40 +14,22 @@ const AmountPicker: FC<AmountPickerProps> = ({
   onPlusPress,
   badgeAmount,
 }) => {
-  const {
-    colors: { secondary },
-  } = useTheme();
   return (
-    <View
-      style={{
-        flexDirection: "row",
-        justifyContent: "center",
-      }}
-    >
+    <View style={styles.container}>
       {isWeb ? (
-        <Button onPress={onMinusPress}>{emojis.minus}</Button>
+        <Pressable onPress={onMinusPress} style={styles.webButton}>
+          <Text>{emojis.minus}</Text>
+        </Pressable>
       ) : (
         <IconButton icon="minus" onPress={onMinusPress} />
       )}
-      <View
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          width: 40,
-          backgroundColor: secondary,
-        }}
-      >
-        <Text
-          variant="titleMedium"
-          style={{
-            color: "white",
-          }}
-        >
-          {badgeAmount}
-        </Text>
-      </View>
+      <Text variant="titleLarge" style={styles.badgeContainer}>
+        {badgeAmount}
+      </Text>
       {isWeb ? (
-        <Button onPress={onPlusPress}>{emojis.plus}</Button>
+        <Pressable onPress={onPlusPress} style={styles.webButton}>
+          <Text>{emojis.plus}</Text>
+        </Pressable>
       ) : (
         <IconButton icon="plus" onPress={onPlusPress} />
       )}
@@ -56,3 +38,18 @@ const AmountPicker: FC<AmountPickerProps> = ({
 };
 
 export default AmountPicker;
+
+const styles = StyleSheet.create({
+  webButton: {
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 14,
+  },
+  container: {
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+  badgeContainer: {
+    marginTop: 2,
+  },
+});

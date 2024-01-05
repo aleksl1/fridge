@@ -16,13 +16,24 @@ export const setTitleText = (value: ItemStatus) => {
   }
 };
 
+export const setNextListType = (value: ItemStatus) => {
+  switch (value) {
+    case "shoppingList":
+      return "fridge";
+    case "fridge":
+      return "foodDiary";
+    case "itemLibrary":
+      return "shoppingList";
+  }
+  return value;
+};
+
 export const calculateCaloriesFromMacros = ({
   proteins,
   fats,
   carbs,
-}: ItemMacro) => {
-  const calories = proteins * 4 + fats * 9 + carbs * 4;
-  return calories.toFixed(0);
+}: ItemMacro): number => {
+  return Math.round(proteins * 4 + fats * 9 + carbs * 4);
 };
 
 export const categoryColors = {

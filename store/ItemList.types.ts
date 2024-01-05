@@ -36,7 +36,7 @@ export type ItemAmountAction = (item: ListItemType, value?: number) => void;
 
 export type ItemListCtxType = {
   items: ListItemType[];
-  addItem: ItemAction;
+  addItem: (item: ListItemType) => boolean;
   removeItem: ItemAction;
   increment: ItemAmountAction;
   decrement: ItemAmountAction;

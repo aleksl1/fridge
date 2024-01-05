@@ -6,10 +6,11 @@ import {
   ItemListProviderProps,
   ListItemType,
 } from "./ItemList.types";
+import { listItemArray } from "../utils/data";
 
 const defaultValue: ItemListCtxType = {
-  items: [],
-  addItem: () => {},
+  items: [...listItemArray],
+  addItem: () => false,
   removeItem: () => {},
   increment: () => {},
   decrement: () => {},
@@ -26,9 +27,10 @@ const ItemListProvider: FunctionComponent<ItemListProviderProps> = ({
   const [total, setTotal] = useState<number>(0);
 
   const addItem: ItemAction = (item) => {
-    if (item.quantity === 0) return;
+    if (item.quantity === 0) return false;
     if (!item.costPerItem && item.status === "expenses") {
-      return alert("You can't add this to expense list without a price!");
+      alert("You can't add this to expense list without a price!");
+      return false;
     }
 
     if (itemExists(item)) {
@@ -40,6 +42,7 @@ const ItemListProvider: FunctionComponent<ItemListProviderProps> = ({
       setItems((prevState) => [...prevState, item]);
     }
     calculateTotal();
+    return true;
   };
   const itemExists = (item: ListItemType): boolean => {
     const itemExists = items.find((existingItem) => {

@@ -100,12 +100,12 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
             >
               {showDate && (
                 <Text variant="titleSmall" style={{ fontWeight: "bold" }}>
-                  Your diary on {date}
+                  {date}
                 </Text>
               )}
               <FoodDiaryListItem
                 item={item}
-                onItemPress={() => showPreview(item)}
+                onDetailsPress={() => showPreview(item)}
                 onAddToNextListPress={() =>
                   showAddToNextListDialog({ ...item, max: item.quantity })
                 }
@@ -118,7 +118,7 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
             <ExpensesListItem
               key={`${name}-${status}`}
               item={item}
-              onItemPress={() => {}}
+              onDetailsPress={() => {}}
               onAddToNextListPress={() => {}}
             />
           );
@@ -126,7 +126,7 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
           <CustomListItem
             key={`${name}-${status}`}
             item={item}
-            onItemPress={() => showPreview(item)}
+            onDetailsPress={() => showPreview(item)}
             onAddToNextListPress={() =>
               showAddToNextListDialog({ ...item, max: quantity })
             }
@@ -154,7 +154,7 @@ const ItemList: FunctionComponent<ItemListProps> = ({ type }) => {
           proteins: p,
           fats: f,
           carbs: c,
-        }),
+        }).toString(),
         proteins: p,
         fats: f,
         carbs: c,

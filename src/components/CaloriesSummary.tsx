@@ -11,7 +11,7 @@ const CaloriesSummary: FC<CaloriesSummaryProps> = ({ totalCalories }) => {
   const { calories, fats, proteins, carbs } = totalCalories;
   const cellTextStyle: StyleProp<TextStyle> = { fontWeight: "bold" };
   return (
-    <DataTable.Row>
+    <DataTable.Row style={{ marginStart: 56 }}>
       <DataTable.Cell textStyle={cellTextStyle} style={{ flex: 2 }}>
         Total calories:
       </DataTable.Cell>
