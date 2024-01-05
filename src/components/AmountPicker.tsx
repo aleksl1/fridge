@@ -18,7 +18,7 @@ const AmountPicker: FC<AmountPickerProps> = ({
     <View style={styles.container}>
       {isWeb ? (
         <Pressable onPress={onMinusPress} style={styles.webButton}>
-          {emojis.minus}
+          <Text>{emojis.minus}</Text>
         </Pressable>
       ) : (
         <IconButton icon="minus" onPress={onMinusPress} />
@@ -28,7 +28,7 @@ const AmountPicker: FC<AmountPickerProps> = ({
       </Text>
       {isWeb ? (
         <Pressable onPress={onPlusPress} style={styles.webButton}>
-          {emojis.plus}
+          <Text>{emojis.plus}</Text>
         </Pressable>
       ) : (
         <IconButton icon="plus" onPress={onPlusPress} />
